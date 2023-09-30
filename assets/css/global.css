@@ -1,12 +1,24 @@
-button, input {
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    min-height: 90vh;
+}
+
+button, input[type="submit"] {
     padding: 10px;
     background-color: #69E13F;
     border: none;
     border-radius: 5px;
     box-shadow: white;
-    font-weight: 700;
+    font-weight: 800;
 }
 
-button:hover {
+button:hover, input[type="submit"]:hover {
     cursor: pointer;
+    zoom: 102%;
 }
+
