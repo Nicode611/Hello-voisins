@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/connection.css">
-    <title>Document</title>
+    <title>Connectez-vous</title>
 </head>
 <body>
     
-    <div class="connect-container">
+    <div class="log-in-container">
         <h2>Connectez-vous</h2>
-        <form class="connect-form" action="" method="POST">
-            <label for="connectEmail">Email :</label>
-            <input type="email" name="connectEmail" id="connectEmail" required>
-            <label for="connectPassword">Mot de passe :</label>
-            <input type="password" name="connectPassword" id="connectPassword" required>
+        <form class="log-in-form" action="" method="POST">
+            <label for="logInEmail">Email :</label>
+            <input type="email" name="logInEmail" id="logInEmail" required>
+            <label for="logInPassword">Mot de passe :</label>
+            <input type="password" name="logInPassword" id="logInPassword" required>
             <input type="submit" value="Se connecter">
         </form>
     </div>

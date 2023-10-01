@@ -5,12 +5,12 @@ body {
     align-items: center;
 }
 
-.connect-container {
+.log-in-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: 400px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgb(0, 0, 0);
@@ -18,7 +18,7 @@ body {
     color: white;
 }
 
-.connect-form {
+.log-in-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,13 +26,19 @@ body {
     width: 100%;
 }
 
-.connect-form > input{
+.log-in-form > input{
     margin: 0px 10px 20px 10px;
 }
 
 input[type="password"], input[type="email"] {
     border: none;
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(255, 255, 255);
     height: 25px;
     width: 80%;
+}
+
+@media screen and (max-width: 1000px) {
+    .log-in-container {
+        width: 85%;
+    }
 }

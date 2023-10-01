@@ -1,1 +1,30 @@
-<!-- pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/create-account.css">
+    <title>Créez votre compte</title>
+</head>
+<body>
+<div class="sign-in-container">
+        <h2>Créez votre compte</h2>
+        <form class="sign-in-form" action="" method="POST">
+            <label for="signInFirstName">Prénom</label>
+            <input type="text" name="signInFirstName" id="signInFirstName">
+            <label for="signInLastName">Nom</label>
+            <input type="text" name="signInLastName" id="signInLastName">
+            <label for="signInPhone">Téléphone</label>
+            <input type="text" name="signInPhone" id="signInPhone">
+            <label for="signInEmail">Email :</label>
+            <input type="email" name="signInEmail" id="signInEmail" required>
+            <label for="signInPassword">Mot de passe :</label>
+            <input type="password" name="signInPassword" id="signInPassword" required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)">
+            <label for="signInConfirmPassword">Mot de passe :</label>
+            <input type="password" name="signInConfirmPassword" id="signInConfirmPassword" required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)">
+            <input type="submit" value="Valider">
+        </form>
+    </div>
+</body>
+</html>
