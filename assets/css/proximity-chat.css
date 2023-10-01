@@ -71,9 +71,11 @@
     font-size: 1.25rem;
 }
 
-.nav-menu img {
-    margin-right: 10px;
+.icons-desktop {
+    width: 35px;
+    height: 35px;
     transform: translateY(10px);
+    margin-right: 15px;
 }
 
 .nav-menu .active {
@@ -158,12 +160,6 @@
     .icons-mobile {
         width: 35px;
         height: 35px;
-    }
-
-    .groups-icon-mobile {
-        width: 45px;
-        height: 45px;
-        transform: translateY(-5px);
     }
 
     .mobile-chat-icon {
