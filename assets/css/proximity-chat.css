@@ -2,13 +2,20 @@
     display: flex;
 }
 
-.sidebar {
+.mobile-display {
+    display: none;
+}
+
+.desktop-sidebar {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    overflow: hidden;
     width: 20vw;
     height: 100vh;
     max-width: 350px;
+    min-width: 250px;
     background-color: black;
 }
 
@@ -16,10 +23,159 @@
     height: 85px;
     width: 85px;
     border-radius: 50%;
+    margin-top: 20px;
     background-image: url('../images/user1.jpg');
     background-size: cover;
     background-position: -20px center;
 }
+
+.user-img-container:hover {
+    cursor: pointer;
+}
+
+.notifications-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+}
+
+.notifications-icon:hover {
+    zoom: 103%;
+    cursor: pointer;
+}
+
+.nav-menu {
+    align-self: baseline;
+    margin-top: 50px;
+    white-space: nowrap;
+}
+
+.nav-menu ul {
+    padding-left: 20px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+}
+
+.nav-menu a:hover {
+    zoom: 103%;
+}
+
+.nav-menu li{
+    color: white;
+    list-style-type: none;
+    margin: 10px 0px 10px 0px;
+    font-size: 1.25rem;
+}
+
+.nav-menu img {
+    margin-right: 10px;
+    transform: translateY(10px);
+}
+
+.nav-menu .active {
+    color: #69E13F;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .desktop-sidebar {
+        display: none;
+    }
+
+    .mobile-display {
+        display: flex;
+        position: relative;
+        width: 100%;
+    }
+
+    .user-img-container-mobile {
+        height: 85px;
+        width: 85px;
+        border-radius: 50%;
+        margin: 20px 0px 0px 20px;
+        background-image: url('../images/user1.jpg');
+        background-size: cover;
+        background-position: -20px center;
+    }
+    
+    .user-img-container-mobile:hover {
+        cursor: pointer;
+    }
+
+    .notifications-icon-mobile {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 30px;
+        height: 30px;
+    }
+    
+    .notifications-icon-mobile:hover {
+        zoom: 103%;
+        cursor: pointer;
+    }
+
+    .mobile-navbar {
+        display: flex;
+        position: fixed;
+        bottom: 0px;
+        background-color: black;
+        height: 70px;
+        width: 100%;
+        z-index: 10;
+    }
+
+    .navbar {
+        width: 100%;
+    }
+
+    .navbar ul {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        padding-left: 0px;
+    }
+
+    .navbar li {
+        list-style: none;
+    }
+
+    .mobile-chat-icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #69E13F;
+        border-radius: 50px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50px);
+    }
+
+    .icons-mobile {
+        width: 35px;
+        height: 35px;
+    }
+
+    .groups-icon-mobile {
+        width: 45px;
+        height: 45px;
+        transform: translateY(-5px);
+    }
+
+    .mobile-chat-icon {
+        height: 50px;
+        width: 50px;
+        transform: translateX(1px);
+    }
+
+
+}
+
+
 
 
 
