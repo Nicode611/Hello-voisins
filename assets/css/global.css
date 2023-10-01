@@ -2,10 +2,14 @@
 
 html {
     font-family: 'Roboto', sans-serif;
+    width: 100%;
 }
 
 body {
     min-height: 90vh;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px;
 }
 
 button, input[type="submit"] {
