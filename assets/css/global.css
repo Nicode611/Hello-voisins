@@ -40,7 +40,4 @@ button:hover, input[type="submit"]:hover {
         overflow-x: hidden;
     }
 
-    .main-content {
-        margin: 50px 0px 100px 0px;
-    }
 }
