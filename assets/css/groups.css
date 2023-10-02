@@ -77,12 +77,21 @@ input[type="search"] {
     max-width: 150px;
     font-weight: 600;
     padding-right: 10px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
 .members-names-container::-webkit-scrollbar-track {
+    opacity: 0;
+}
+
+.members-names-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.members-names-container::-webkit-scrollbar-thumb {
     background-color: #69E13F;
+    border-radius: 10px;
 }
 
 .group-actions {
