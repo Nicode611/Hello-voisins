@@ -4,8 +4,14 @@
     align-items: center;
 }
 
-.search-bar {
-    margin: 100px 0px 50px 0px;
+input[type="search"] {
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    height: 30px;
+    padding: 0px 20px 0px 20px;
+    margin-bottom: 50px;
+    border: none;
+    margin: 50px 0px 50px 0px;
 }
 
 .group {
@@ -114,7 +120,7 @@
 
 
 @media screen and (max-width: 1000px) {
-    .search-bar {
+    input[type="search"] {
         margin: 0px 0px 50px 0px;
     }
 
