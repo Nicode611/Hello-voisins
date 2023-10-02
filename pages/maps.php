@@ -14,7 +14,7 @@
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     ?>
 
-    <div class="map-container">
+    <div class="main-content">
         <div class="map">
 
         </div>

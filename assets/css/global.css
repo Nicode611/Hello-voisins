@@ -27,3 +27,7 @@ button:hover, input[type="submit"]:hover {
     zoom: 102%;
 }
 
+.main-content {
+    width: 80%;
+}
+
