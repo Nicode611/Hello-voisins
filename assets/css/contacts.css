@@ -1,0 +1,59 @@
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#findContacts {
+    margin-bottom: 50px;
+}
+
+.contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    box-shadow: 4px 4px 15px rgb(0, 0, 0);
+    padding: 5px 15px 5px 15px;
+    width: 60%;
+}
+
+.contact-infos {
+    display: flex;
+    align-items: center;
+}
+
+.contact-img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.contact-actions {
+    display: flex;
+    align-items: center;
+}
+
+.chat-icon {
+    height: 30px;
+    width: 30px;
+    transform: translateY(-5px);
+}
+
+.cross-icon {
+    height: 40px;
+    width: 40px;
+}
+
+@media screen and (max-width: 1000px) {
+    h1 {
+        display: none;
+    }
+
+    .contact {
+        width: 100%;
+    }
+}
