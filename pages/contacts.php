@@ -16,7 +16,7 @@
 
     <div class="main-content">
         <h1>Vos contacts</h1>
-        <input type="text" name="findContacts" id="findContacts" placeholder="Rechercher">
+        <input type="search" name="findContacts" id="findContacts" placeholder="Rechercher">
         <div class="contact">
             <div class="contact-infos">
                 <img class="contact-img" src="../assets/images/user2.jpg" alt="">

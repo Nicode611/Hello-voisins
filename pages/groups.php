@@ -15,7 +15,7 @@
     ?>
 
     <div class="main-content">
-        <input class="search-bar" type="text" name="findContacts" id="findContacts" placeholder="Rechercher">
+        <input class="search-bar" type="search" name="findContacts" id="findContacts" placeholder="Rechercher">
         <div class="group">
             <div class="group-infos-container">
                 <div class="group-infos">

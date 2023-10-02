@@ -90,6 +90,12 @@
 .plus {
     height: 25px;
     width: 25px;
+    z-index: 2;
+}
+
+.plus:hover {
+    cursor: pointer;
+    zoom: 105%;
 }
 
 .start {
@@ -101,6 +107,11 @@
     box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.295);
 }
 
+.start:hover {
+    cursor: pointer;
+    zoom: 102%;
+}
+
 
 @media screen and (max-width: 1000px) {
     .search-bar {
@@ -110,6 +121,11 @@
     .group {
         width: auto;
         padding: 20px 15px 20px 40px;
+    }
+
+    .group:hover {
+        cursor: pointer;
+        zoom: 101%;
     }
 
     .group-infos {
