@@ -66,9 +66,15 @@ input[type="search"] {
 }
 
 @media screen and (max-width: 1000px) {
+    .main-content {
+        margin-top: 50px;
+    }
+    
     h1 {
         display: none;
     }
+
+
 
     .contact {
         width: 100%;

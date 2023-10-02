@@ -15,30 +15,32 @@
     ?>
 
     <div class="main-content">
-        <div class="setting night-mode">
-            <p>Mode sombre</p>
-            <label class="switch">
-                <input type="checkbox" checked>
-                <span></span> 
-            </label>
-        </div>
-        <div class="setting">
-            <p>Apparaitre sur la carte</p>
-            <label class="switch">
-                <input type="checkbox" checked>
-                <span></span> 
-            </label>
-        </div>
-        <div class="setting">
-            <p>Masquer l'adresse</p>
-            <label class="switch">
-                <input type="checkbox" checked>
-                <span></span> 
-            </label>
-        </div>
-        <div class="setting">
-            <p>Distance de detection</p>
-            
+        <div class="settings">
+            <div class="setting night-mode">
+                <p>Mode sombre</p>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span></span> 
+                </label>
+            </div>
+            <div class="setting">
+                <p>Apparaitre sur la carte</p>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span></span> 
+                </label>
+            </div>
+            <div class="setting">
+                <p>Masquer l'adresse</p>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span></span> 
+                </label>
+            </div>
+            <div class="setting">
+                <p>Distance de detection</p>
+                
+            </div>
         </div>
     </div>
     

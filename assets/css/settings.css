@@ -2,7 +2,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
     height: 70vh;
+    width: 100%;
+}
+
+.settings {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .setting {
