@@ -8,7 +8,7 @@
     margin-bottom: 50px;
 }
 
-.contact {
+.group {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,9 +24,9 @@
     align-items: center;
 }
 
-.contact-img {
-    height: 50px;
-    width: 50px;
+.group-img {
+    height: 80px;
+    width: 80px;
     border-radius: 50px;
     object-fit: cover;
     margin-right: 10px;
