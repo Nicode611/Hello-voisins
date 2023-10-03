@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/proximity-chat.css">
+    
     <title>Chat de proximité</title>
 </head>
 <body>
@@ -27,53 +28,55 @@
             <img src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
-        <div class="received-message-container">
+        <div class="sent-message-container">
             <img src="../assets/images/user2.jpg" alt="">
-            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+            <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="received-message-container">
             <img src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
-        <div class="received-message-container">
+        <div class="sent-message-container">
             <img src="../assets/images/user2.jpg" alt="">
-            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+            <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="received-message-container">
             <img src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
-        <div class="received-message-container">
+        <div class="sent-message-container">
             <img src="../assets/images/user2.jpg" alt="">
-            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+            <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="received-message-container">
             <img src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
-        <div class="received-message-container">
+        <div class="sent-message-container">
             <img src="../assets/images/user2.jpg" alt="">
-            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+            <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="received-message-container">
             <img src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
-        <div class="received-message-container">
+        <div class="sent-message-container">
             <img src="../assets/images/user2.jpg" alt="">
-            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+            <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
-        <div class="received-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
-            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-        </div>
+
+        <div class="white-space"></div>
+        
 
         <div class="send-container">
             <div class="send-message-container"><input type="text" name="sendMessage" id="sendMessage" placeholder="Ecrivez votre message ici"></div>
             <button class="send-button">Envoyer</button>
         </div>
+
     </div>
 
+    
 
+    <script src="../assets/js/chat-scroll-auto.js"></script>
 </body>
 </html>
