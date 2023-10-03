@@ -41,6 +41,8 @@ input[type="search"] {
 
 .group-infos h4 {
     margin: 0px;
+    font-weight: 900;
+    font-size: 1.2rem;
 }
 
 .group-img {
@@ -68,6 +70,7 @@ input[type="search"] {
 
 .number {
     margin: 0px;
+    font-weight: 700;
 }
 
 .members-names-container {
