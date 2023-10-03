@@ -15,7 +15,63 @@
     ?>
 
     <div class="main-content">
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="sent-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
+        <div class="received-message-container">
+            <img src="../assets/images/user2.jpg" alt="">
+            <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+        </div>
 
+        <div class="send-container">
+            <div class="send-message-container"><input type="text" name="sendMessage" id="sendMessage" placeholder="Ecrivez votre message ici"></div>
+            <button class="send-button">Envoyer</button>
+        </div>
     </div>
 
 

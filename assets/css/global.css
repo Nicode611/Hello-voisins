@@ -2,13 +2,12 @@
 
 html {
     font-family: 'Roboto', sans-serif;
-    width: 100%;
 }
 
 body {
     display: flex;
     min-height: 90vh;
-    width: 100vw;
+    height: 100%;
     margin: 0px;
     padding: 0px;
 }
