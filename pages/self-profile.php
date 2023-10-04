@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/self-profile.css">
-    
+    <script src="../assets/js/modify-infos"></script>
     <title>Chat de proximité</title>
 </head>
 <body>
@@ -20,7 +20,7 @@
         <form class="self-infos" action="">
             <div class="self-infos-section">
                 <img class="self-img" src="../assets/images/user1.jpg" alt="">
-                <input type="image" src="../assets/images/red-cross.png" name="selfImage" id="selfImage">
+                <input class="hide" type="file" name="selfImage" id="selfImage" accept="image/*">
             </div>
             <div class="self-infos-section">
                 <label for="selfFirstname">Prénom</label>
@@ -56,6 +56,7 @@
             </div>
             <input class="hide" type="submit" name="" id="" value="Valider les infos">
         </form>
+        <button class="modify">Modifier les infos</button>
     </div>
 
 </body>

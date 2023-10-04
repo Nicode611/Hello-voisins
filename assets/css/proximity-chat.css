@@ -108,6 +108,8 @@
     box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.438);
 }
 
+
+
 @media screen and (max-width: 1000px) {
     .send-container {
         align-items: baseline;
