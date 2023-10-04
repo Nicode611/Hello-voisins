@@ -31,6 +31,10 @@ button:hover, input[type="submit"]:hover {
     width: 80%;
 }
 
+.hide {
+    display: none;
+}
+
 
 @media screen and (max-width: 1000px) {
     body {

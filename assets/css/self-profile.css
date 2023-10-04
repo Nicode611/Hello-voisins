@@ -1,0 +1,25 @@
+.main-content, .self-infos, .self-passwords-section, .self-infos-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.self-infos-section label {
+    font-weight: 600;
+}
+
+.self-passwords {
+    display: flex;
+}
+
+.self-infos-section {
+    margin: 10px;
+}
+
+.self-img {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin-top: 20px;
+    object-fit: cover;
+}
