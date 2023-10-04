@@ -21,9 +21,7 @@
     width: 85px;
     border-radius: 50%;
     margin-top: 20px;
-    background-image: url('../images/user1.jpg');
-    background-size: cover;
-    background-position: -20px center;
+    object-fit: cover;
 }
 
 .user-img-container:hover {
@@ -98,9 +96,7 @@
         width: 60px;
         border-radius: 50%;
         margin-left: 20px;
-        background-image: url('../images/user1.jpg');
-        background-size: cover;
-        background-position: -20px center;
+        object-fit: cover;
     }
     
     .user-img-container-mobile:hover {
