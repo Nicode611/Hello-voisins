@@ -3,34 +3,19 @@
 
 <!-- Fenetre modale users -->
 <div class="popup-user">
-    <div class="notification-container">
-        <label class="notif-label" for="notif">Demande d'ajout en amis</label>
-        <div class="notification" name="notif">
-            <div>
-                <img src="../assets/images/user2.jpg" alt="">
-                <span>Bruce Wils</span>
-            </div>
-            <div>
-                <svg class="valid-notification-icon" fill="#3dcc00" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 21 21" xml:space="preserve"><style type="text/css"> .st0{fill:none;} </style> <path d="M19.3,5.3L9,15.6l-4.3-4.3l-1.4,1.4l5,5L9,18.4l0.7-0.7l11-11L19.3,5.3z"></path> <rect class="st0" width="24" height="24"></rect></svg>
-                <svg class="cross-notification-icon" fill="#e00000" viewBox="-5 -8 28 28" xmlns="http://www.w3.org/2000/svg" stroke="#e00000"><<path d="M0 14.545L1.455 16 8 9.455 14.545 16 16 14.545 9.455 8 16 1.455 14.545 0 8 6.545 1.455 0 0 1.455 6.545 8z" fill-rule="evenodd"></path></svg>
-            </div>
+    <div class="popup-user-container1">
+        <img src="../assets/images/user2.jpg" alt="">
+        <div>
+            <span>Bruce</span>
+            <span>Wils</span>
         </div>
     </div>
-
-    <div class="notification-container">
-        <label class="notif-label" for="notif">Demande d'ajout en amis</label>
-        <div class="notification" name="notif">
-            <div>
-                <img src="../assets/images/user2.jpg" alt="">
-                <span>Bruce Wils</span>
-            </div>
-            <div>
-                <svg class="valid-notification-icon" fill="#3dcc00" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 21 21" xml:space="preserve"><style type="text/css"> .st0{fill:none;} </style> <path d="M19.3,5.3L9,15.6l-4.3-4.3l-1.4,1.4l5,5L9,18.4l0.7-0.7l11-11L19.3,5.3z"></path> <rect class="st0" width="24" height="24"></rect></svg>
-                <svg class="cross-notification-icon" fill="#e00000" viewBox="-5 -8 28 28" xmlns="http://www.w3.org/2000/svg" stroke="#e00000"><<path d="M0 14.545L1.455 16 8 9.455 14.545 16 16 14.545 9.455 8 16 1.455 14.545 0 8 6.545 1.455 0 0 1.455 6.545 8z" fill-rule="evenodd"></path></svg>
-            </div>
-        </div>
+    <div class="popup-user-container2">
+        <span>adresse adresse ad ress 64512 ADRESSE</span>
     </div>
-    
+    <div class="popup-user-container3">
+        <svg fill="#000000" viewBox="0 0 24 24" id="add-user-left-6" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M7,5H3M5,7V3" style="fill: none; stroke: #69E13F; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M11,3.41A5.11,5.11,0,0,1,13,3a5,5,0,1,1-4.59,7" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-2" data-name="primary" d="M12,13h2a7,7,0,0,1,7,7v0a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1v0A7,7,0,0,1,12,13Z" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
+    </div>
 </div>
 <div class="overlay"></div>
 
