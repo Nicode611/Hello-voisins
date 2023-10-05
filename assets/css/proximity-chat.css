@@ -111,6 +111,10 @@
 
 
 @media screen and (max-width: 1000px) {
+    .main-content {
+        width: 100%;
+    }
+    
     .send-container {
         align-items: baseline;
         width: 100%;
