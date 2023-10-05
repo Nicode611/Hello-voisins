@@ -23,20 +23,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: 70px;
-    right: -500px;
+    top: -500px;
+    right: 50%;
+    transform: translateX(85%);
     height: 400px;
     width: 300px;
     padding: 20px;
     background-color: #ff6868;
-    transition: right 0.4s;
+    transition: top 0.4s;
     overflow-y: auto;
     font-weight: 500;
     z-index: 999;
 }
 
 .popup-user.open {
-    right: 50%;
+    top: 70px;
+    transform: translateX(85%);
     font-size: 0.8rem;
 }
 
@@ -202,6 +204,20 @@
         background-color: black;
         padding: 20px 0px 20px 0px;
         width: 100%;
+    }
+
+    .popup-user {
+        transform: translateX(50%);
+    }
+    
+    .popup-user.open {
+        top: 70px;
+        transform: translateX(85%);
+        font-size: 0.8rem;
+    }
+
+    .popup-user.open {
+        transform: translateX(50%);
     }
 
     .user-img-container-mobile {
