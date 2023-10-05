@@ -16,6 +16,35 @@
     z-index: 5;
 }
 
+
+/* Fenetre modale Users */
+.popup-user {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 70px;
+    right: -500px;
+    height: 400px;
+    width: 300px;
+    padding: 20px;
+    background-color: #ff6868;
+    transition: right 0.4s;
+    overflow-y: auto;
+    font-weight: 500;
+    z-index: 999;
+}
+
+.popup-user.open {
+    right: 50%;
+    font-size: 0.8rem;
+}
+
+
+
+
+
+
 .user-img-container {
     height: 85px;
     width: 85px;
@@ -87,27 +116,7 @@
     color: #69E13F;
 }
 
-.popup-user {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    top: 70px;
-    right: -500px;
-    height: 400px;
-    width: 300px;
-    padding: 20px;
-    background-color: #ff6868;
-    transition: right 0.4s;
-    overflow-y: auto;
-    font-weight: 500;
-    z-index: 999;
-}
 
-.popup-user.open {
-    right: 50%;
-    font-size: 0.8rem;
-}
 
 .notifications-container {
     position: fixed;
@@ -163,23 +172,6 @@
 
 .valid-notification-icon, .cross-notification-icon {
     width: 40px;
-}
-
-.overlay2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 5;
-    opacity: 0;
-    pointer-events: none;
-}
-
-.overlay2.active {
-    opacity: 1;
-    pointer-events: auto;
 }
 
 .overlay {

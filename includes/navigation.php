@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="../assets/css/navigation.css">
-
+<link rel="stylesheet" href="../assets/css/global.css">
 
 <!-- Fenetre modale users -->
-<div class="popup-user hide">
+<div class="popup-user">
     <div class="notification-container">
         <label class="notif-label" for="notif">Demande d'ajout en amis</label>
         <div class="notification" name="notif">
@@ -32,7 +32,7 @@
     </div>
     
 </div>
-<div class="overlay2"></div>
+<div class="overlay"></div>
 
 
 <!-- Conteneur des notifications -->
