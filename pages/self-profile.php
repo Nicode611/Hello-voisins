@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/self-profile.css">
-    <script src="../assets/js/modify-infos"></script>
     <title>Chat de proximité</title>
 </head>
 <body>
@@ -58,6 +57,7 @@
         </form>
         <button class="modify">Modifier les infos</button>
     </div>
-
+    
+    <script src="../assets/js/modify-infos.js"></script>
 </body>
 </html>
