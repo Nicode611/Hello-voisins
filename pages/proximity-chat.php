@@ -17,51 +17,51 @@
 
     <div class="main-content">
         <div class="received-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="sent-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="received-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="sent-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="received-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="sent-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="received-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="sent-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="received-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="sent-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="received-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
         <div class="sent-message-container">
-            <img src="../assets/images/user2.jpg" alt="">
+            <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
             <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
         </div>
 
@@ -78,5 +78,7 @@
     
 
     <script src="../assets/js/chat-scroll-auto.js"></script>
+    <script src="../assets/js/show-user.js"></script>
+    
 </body>
 </html>
