@@ -39,7 +39,13 @@
             </div>
             <div class="setting">
                 <p>Distance de detection</p>
-                
+                <select name="chooseDistance" id="chooseDistance">
+                    <option value="50m">50m</option>
+                    <option value="100m">100m</option>
+                    <option value="200m">200m</option>
+                    <option value="400m">400m</option>
+                    <option value="600m">600m</option>
+                </select>
             </div>
         </div>
     </div>
