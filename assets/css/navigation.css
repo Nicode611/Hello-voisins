@@ -176,7 +176,7 @@
 }
 
 
-
+/* Notifications */
 .notifications-container {
     position: fixed;
     display: flex;
@@ -231,7 +231,7 @@
 }
 
 .valid-notification-icon, .cross-notification-icon {
-    width: 40px;
+    width: 35px;
 }
 
 .overlay {
