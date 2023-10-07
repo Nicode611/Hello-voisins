@@ -16,6 +16,7 @@
 
     <div class="main-content">
         <div class="settings">
+            <span class="position"></span>
             <div class="setting night-mode">
                 <p>Mode sombre</p>
                 <label class="switch">
@@ -50,5 +51,7 @@
         </div>
     </div>
     
+
+    <script src="../assets/js/loc-test.js"></script>
 </body>
 </html>
