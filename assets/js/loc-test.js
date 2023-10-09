@@ -6,6 +6,7 @@ function initMap() {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
             var coords = latitude + ' ' + longitude;
+            // Recupere la loc
 
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: {
@@ -14,6 +15,7 @@ function initMap() {
                 },
                 zoom: 15 // Réglez le niveau de zoom selon vos préférences
             });
+            // Genere la map
         
             var marker = new google.maps.Marker({
                 position: {
@@ -23,6 +25,7 @@ function initMap() {
                 map: map,
                 title: 'Votre position'
             });
+            // Place le marqueur
         });
       } else {
         console.log('La géolocalisation n\'est pas prise en charge');
