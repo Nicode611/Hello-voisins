@@ -18,11 +18,11 @@ function initMap() {
             // Genere la map
         
             var customIcon = {
-                url: '../assets/images/user-marker.png', // Remplacez par le chemin de votre image
-                scaledSize: new google.maps.Size(40, 40) // Définissez la taille de l'icône
+                url: '../assets/images/user-marker.png',
+                scaledSize: new google.maps.Size(40, 40)
             };
+            // Crée une icone personalisé
 
-            // var marker = new google.maps.Marker({
             var marker = new google.maps.Marker({
                 position: {
                     lat: parseFloat(latitude), // Convertir en nombre

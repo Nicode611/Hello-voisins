@@ -21,11 +21,6 @@
         </div>
     </div>
 
-    <?php
-        $includeFile = "../includes/user-marker.html";
-        if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
-    ?>
-
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGd9Tr4P6a71MMWhjcWjpApcEFhN7dURk&callback=initMap" async defer></script>
     <script src="../assets/js/loc-test.js"></script>
 </body>
