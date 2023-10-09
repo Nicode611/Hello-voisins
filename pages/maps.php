@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/maps.css">
     <title>Carte</title>
@@ -15,10 +16,12 @@
     ?>
 
     <div class="main-content">
-        <div class="map">
+        <div id="map">
 
         </div>
     </div>
-    
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGd9Tr4P6a71MMWhjcWjpApcEFhN7dURk&callback=initMap" async defer></script>
+    <script src="../assets/js/loc-test.js"></script>
 </body>
 </html>
