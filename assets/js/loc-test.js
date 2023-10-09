@@ -17,13 +17,20 @@ function initMap() {
             });
             // Genere la map
         
+            var customIcon = {
+                url: '../assets/images/user-marker.png', // Remplacez par le chemin de votre image
+                scaledSize: new google.maps.Size(40, 40) // Définissez la taille de l'icône
+            };
+
+            // var marker = new google.maps.Marker({
             var marker = new google.maps.Marker({
                 position: {
                     lat: parseFloat(latitude), // Convertir en nombre
                     lng: parseFloat(longitude) // Convertir en nombre
                 },
                 map: map,
-                title: 'Votre position'
+                title: 'Votre position',
+                icon: customIcon
             });
             // Place le marqueur
         });

@@ -11,6 +11,13 @@
     border-radius: 10px;
 }
 
+.user-marker-img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: solid 1px #69E13F;
+}
+
 
 @media screen and (max-width: 1000px) {
 
