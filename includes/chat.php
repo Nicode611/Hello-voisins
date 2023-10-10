@@ -3,11 +3,6 @@
 <link rel="stylesheet" href="../assets/css/chat.css">
 
 <body>
-    
-    <?php
-        $includeFile = "../includes/navigation.php";
-        if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
-    ?>
 
     <div class="main-content">
         
