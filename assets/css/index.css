@@ -3,8 +3,26 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 a {
     margin: 10px;
+}
+
+a button {
+    width: 200px;
+}
+
+@media screen and (max-width: 1000px) {
+    
+    a {
+        width: 80%;
+    }
+
+    .connect-btns {
+        width: 90%;
+        max-width: 280px;
+    }
+
 }
