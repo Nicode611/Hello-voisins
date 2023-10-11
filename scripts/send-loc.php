@@ -11,9 +11,9 @@
     }
 
     // Récupérer les données de localisation envoyées via la requête Ajax
-    if (isset($_POST["boo"])) {
-        $latitude = $_POST["boo"];
-        $longitude = $_POST["too"];
+    if (isset($_POST['latitude'])) {
+        $latitude = $_POST['latitude'];
+        $longitude = $_POST['longitude'];
     } else {
         echo 'non';
     }

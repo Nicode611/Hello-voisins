@@ -1,4 +1,4 @@
-loc = document.querySelector('.position');
+console.log('connected');
 
 
 function initMap() {
@@ -9,16 +9,12 @@ function initMap() {
             var coords = latitude + ' ' + longitude;
 
             // Vérifiez si les valeurs de latitude et longitude sont définies et valides
-if (typeof latitude !== 'undefined' && typeof longitude !== 'undefined') {
-    // Les valeurs sont définies et valides, vous pouvez envoyer la requête AJAX
-    $.post("../scripts/send-loc.php", { boo: latitude, too: longitude }, function() {
-            // Gérer la réponse du serveur si nécessaire
-            console.log('Succès');
-        });
-} else {
-    // Les valeurs de latitude et longitude ne sont pas définies ou invalides
-    console.log('Latitude ou longitude manquante ou invalide, la requête n\'a pas été envoyée.');
-}
+                // Les valeurs sont définies et valides, vous pouvez envoyer la requête AJAX
+                
+                $.post("../scripts/send-loc.php", { latitude: 'latitude', longitude: 'longitude' }, function() {
+                        // Gérer la réponse du serveur si nécessaire
+                        console.log('Succès');
+                    });
 
             
             // Récupère la localisation
