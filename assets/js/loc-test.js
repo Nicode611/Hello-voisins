@@ -1,5 +1,6 @@
 loc = document.querySelector('.position');
 
+
 function initMap() {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -7,7 +8,19 @@ function initMap() {
             var longitude = position.coords.longitude;
             var coords = latitude + ' ' + longitude;
 
-            console.log(coords);
+            // Vérifiez si les valeurs de latitude et longitude sont définies et valides
+if (typeof latitude !== 'undefined' && typeof longitude !== 'undefined') {
+    // Les valeurs sont définies et valides, vous pouvez envoyer la requête AJAX
+    $.post("../scripts/send-loc.php", { boo: latitude, too: longitude }, function() {
+            // Gérer la réponse du serveur si nécessaire
+            console.log('Succès');
+        });
+} else {
+    // Les valeurs de latitude et longitude ne sont pas définies ou invalides
+    console.log('Latitude ou longitude manquante ou invalide, la requête n\'a pas été envoyée.');
+}
+
+            
             // Récupère la localisation
 
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -37,15 +50,7 @@ function initMap() {
             // Place le marqueur
 
             // Envoi des données de localisation via une requête Ajax
-            $.ajax({
-                type: "POST", // Méthode de la requête
-                url: "../scripts/send-loc.php", // URL du script PHP de réception
-                data: { latitude: latitude, longitude: longitude }, // Données à envoyer
-                success: function(response) {
-                    // Gérer la réponse du serveur si nécessaire
-                    console.log(response);
-                }
-            });
+            
         });
     } else {
         console.log('La géolocalisation n\'est pas prise en charge');

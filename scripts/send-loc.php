@@ -1,4 +1,5 @@
 <?php
+
     $db_host = "mysql-garage-v-parrot.alwaysdata.net";
     $db_user = "331032";
     $db_pass = "Beta2k15";
@@ -10,11 +11,15 @@
     }
 
     // Récupérer les données de localisation envoyées via la requête Ajax
-    $latitude = $_POST['latitude'];
-    $longitude = $_POST['longitude'];
+    if (isset($_POST["boo"])) {
+        $latitude = $_POST["boo"];
+        $longitude = $_POST["too"];
+    } else {
+        echo 'non';
+    }
 
     // Requête SQL pour insérer les données de localisation dans la table "users"
-    $sql = "UPDATE users SET latitude = ?, longitude = ? WHERE id = '5'"; // Remplacez user_id par l'identifiant de l'utilisateur concerné
+    $sql = "UPDATE users SET latitude = ?, longitude = ? WHERE id = ?"; // Utilisez des paramètres de substitution
 
     // Préparer la requête
     $stmt = $conn->prepare($sql);
@@ -23,8 +28,8 @@
         die("Erreur de préparation de la requête : " . $conn->error);
     }
 
-    // Remplacez 'i' par le type de données correspondant à l'identifiant de l'utilisateur
-    $stmt->bind_param('dd', $latitude, $longitude);
+    // Liaison des paramètres
+    $stmt->bind_param('sss', $latitude, $longitude, $id);
 
     // Exécutez la requête
     if ($stmt->execute()) {
@@ -37,3 +42,4 @@
     $stmt->close();
     $conn->close();
 ?>
+

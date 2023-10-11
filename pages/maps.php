@@ -10,6 +10,10 @@
     <title>Carte</title>
 </head>
 <body>
+    
+<script src="../assets/js/loc-test.js"></script>
+
+
 
     <?php
         $includeFile = "../includes/navigation.php";
@@ -30,9 +34,9 @@
         </div>
     </div>
 
+
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGd9Tr4P6a71MMWhjcWjpApcEFhN7dURk&callback=initMap" async defer></script>
-    <script src="../assets/js/loc-test.js"></script>
-    <script src="../assets/js/mongodb.js"></script>
     
 </body>
 </html>

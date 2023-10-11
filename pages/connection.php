@@ -11,14 +11,21 @@
     
     <div class="log-in-container">
         <h2>Connectez-vous</h2>
-        <form class="log-in-form" action="" method="POST">
+        <form class="log-in-form" method="POST">
             <label for="logInEmail">Email :</label>
             <input type="email" name="logInEmail" id="logInEmail" required>
             <label for="logInPassword">Mot de passe :</label>
             <input type="password" name="logInPassword" id="logInPassword" required>
-            <input type="submit" value="Se connecter">
+            <input type="submit" name="submit_connect" value="Se connecter">
         </form>
     </div>
+
+    <?php
+        $includeFile = "../scripts/script-connection.php";
+        if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+    ?>
+
+    
     
 </body>
 </html>
