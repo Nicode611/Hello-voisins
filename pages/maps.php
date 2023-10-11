@@ -10,18 +10,23 @@
     <title>Carte</title>
 </head>
 <body>
+
+    <?php
+        $includeFile = "../scripts/script-get-users-locations.php";
+        if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+    ?>
+    <script type="text/javascript">
+        // Transfert des données à JavaScript
+        var userData = <?php echo $jsonUserData; ?>;
+    </script>
+
     
-<script src="../assets/js/loc-test.js"></script>
-
-
-
+    <script src="../assets/js/loc-test.js"></script>
 
     <?php
         $includeFile = "../includes/navigation.php";
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     ?>
-
-    
 
     <div class="main-content">
 
