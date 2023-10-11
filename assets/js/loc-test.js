@@ -1,12 +1,12 @@
 function initMap() {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
+            // Récupère la localisation
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
-            var coords = latitude + ' ' + longitude;
 
             // Vérifiez si les valeurs de latitude et longitude sont définies et valides
-                // Les valeurs sont définies et valides, vous pouvez envoyer la requête AJAX
+            // Les valeurs sont définies et valides, vous pouvez envoyer la requête AJAX
                 
             $.ajax({
                 type: "POST",
@@ -16,66 +16,81 @@ function initMap() {
                     longitude: longitude
                 },
                 success: function(response) {
-                    $("#resultat").html(response);
                 }
             });
 
-            
-            // Récupère la localisation
-
+            // Génère la carte
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: {
-                    lat: parseFloat(latitude), // Convertir en nombre
-                    lng: parseFloat(longitude) // Convertir en nombre
+                    lat: parseFloat(latitude), 
+                    lng: parseFloat(longitude) 
                 },
-                zoom: 15 // Réglez le niveau de zoom selon vos préférences
+                zoom: 15
             });
-            // Génère la carte
-        
-            var customIcon = {
+            
+            // Crée une icône personnalisée
+            var myCustomIcon = {
                 url: '../assets/images/user-marker.png',
                 scaledSize: new google.maps.Size(40, 40)
             };
-            // Crée une icône personnalisée
-
+            
+            // Position de l'utilisateur principal
             var marker = new google.maps.Marker({
                 position: {
-                    lat: parseFloat(latitude), // Convertir en nombre
-                    lng: parseFloat(longitude) // Convertir en nombre
+                    lat: parseFloat(latitude), 
+                    lng: parseFloat(longitude) 
                 },
                 map: map,
                 title: 'Votre position',
-                icon: customIcon
+                icon: myCustomIcon
             });
 
+            // Parcours le tableau récupéré dans la BDD
             for (var i = 0; i < userData.length; i++) {
                 var user = userData[i];
                 var userLatitude = parseFloat(user.latitude);
                 var userLongitude = parseFloat(user.longitude);
             
-                var customIcon = {
+                var otherCustomIcons = {
                     url: '../assets/images/user-marker.png',
                     scaledSize: new google.maps.Size(40, 40)
                 };
-            
+                // Position des autres utilisateurs
                 var marker = new google.maps.Marker({
                     position: {
                         lat: userLatitude,
                         lng: userLongitude
                     },
                     map: map,
-                    title: 'Utilisateur ' + i, // Vous pouvez personnaliser le titre du marqueur
-                    icon: customIcon
+                    title: 'Utilisateur ' + i,
+                    icon: otherCustomIcons
                 });
             }
-
-            // Place le marqueur
-
-            // Envoi des données de localisation via une requête Ajax
-            
+        }, function(error) {
+            var map = document.getElementById('map');
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    // L'utilisateur a refusé la demande de géolocalisation
+                    map.innerText = 'L\'utilisateur a refusé la géolocalisation.';
+                    console.log("L'utilisateur a refusé la géolocalisation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    // La position n'a pas pu être déterminée
+                    map.innerText = 'La position n\'a pas pu être déterminée.';
+                    console.log("La position n'a pas pu être déterminée.");
+                    break;
+                case error.TIMEOUT:
+                    // La demande de géolocalisation a expiré
+                    map.innerText = 'La demande de géolocalisation a expiré.';
+                    console.log("La demande de géolocalisation a expiré.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    // Une erreur inconnue s'est produite
+                    map.innerText = 'Une erreur inconnue s\'est produite.';
+                    console.log("Une erreur inconnue s'est produite.");
+                    break;
+            }
         });
-    } else {
-        console.log('La géolocalisation n\'est pas prise en charge');
     }
 }
 
