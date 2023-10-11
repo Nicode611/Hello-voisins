@@ -105,9 +105,10 @@
 
 
 
-.header-sidebar {
+.desktop-sidebar div {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .user-img-container {
@@ -186,6 +187,10 @@
     flex-direction: column;
     align-items: center;
     width: 90%;
+}
+
+.session-actions form *{
+    width: 100%;
 }
 
 .session-actions > * {
@@ -280,6 +285,29 @@
         background-color: black;
         padding: 20px 0px 20px 0px;
         width: 100%;
+    }
+
+    .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-right: 50px;
+    }
+
+    .session-buttons {
+        padding: 5px;
+        background-color: #69E13F;
+        border: none;
+        border-radius: 5px;
+        box-shadow: white;
+        font-size: 0.7rem;
+        font-weight: 800;
+    }
+    
+    .session-buttons:hover, .session-buttons:hover {
+        cursor: pointer;
+        zoom: 102%;
     }
 
     .popup-user {
