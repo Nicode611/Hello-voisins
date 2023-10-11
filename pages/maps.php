@@ -15,6 +15,7 @@
 
 
 
+
     <?php
         $includeFile = "../includes/navigation.php";
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
@@ -24,10 +25,6 @@
 
     <div class="main-content">
 
-    <?php
-        $includeFile = "../scripts/send-loc.php";
-        if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
-    ?>
 
         <div id="map">
 

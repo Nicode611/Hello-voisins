@@ -1,6 +1,3 @@
-console.log('connected');
-
-
 function initMap() {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -11,10 +8,17 @@ function initMap() {
             // Vérifiez si les valeurs de latitude et longitude sont définies et valides
                 // Les valeurs sont définies et valides, vous pouvez envoyer la requête AJAX
                 
-                $.post("../scripts/send-loc.php", { latitude: 'latitude', longitude: 'longitude' }, function() {
-                        // Gérer la réponse du serveur si nécessaire
-                        console.log('Succès');
-                    });
+                $.ajax({
+                    type: "POST",
+                    url: "../scripts/send-loc.php",
+                    data: { 
+                        latitude: latitude,
+                        longitude: longitude
+                    },
+                    success: function(response) {
+                        $("#resultat").html(response);
+                    }
+                });
 
             
             // Récupère la localisation

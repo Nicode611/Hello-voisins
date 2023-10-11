@@ -1,4 +1,6 @@
 <?php
+    session_start();
+if (isset($_POST['latitude'])) {
 
     $db_host = "mysql-garage-v-parrot.alwaysdata.net";
     $db_user = "331032";
@@ -29,7 +31,7 @@
     }
 
     // Liaison des paramètres
-    $stmt->bind_param('sss', $latitude, $longitude, $id);
+    $stmt->bind_param('sss', $latitude, $longitude, $_SESSION['user_id']);
 
     // Exécutez la requête
     if ($stmt->execute()) {
@@ -41,5 +43,6 @@
     // Fermez la connexion
     $stmt->close();
     $conn->close();
+};
 ?>
 
