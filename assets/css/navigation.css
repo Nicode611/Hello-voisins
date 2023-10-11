@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     position: relative;
     overflow: hidden;
     width: 20%;
@@ -104,12 +105,16 @@
 
 
 
+.header-sidebar {
+    display: flex;
+    justify-content: center;
+}
 
 .user-img-container {
     height: 85px;
     width: 85px;
     border-radius: 50%;
-    margin-top: 20px;
+    margin: 20px 0px 0px 0px;
     object-fit: cover;
 }
 
@@ -174,6 +179,18 @@
 
 .nav-menu .active {
     color: #69E13F;
+}
+
+.session-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+
+.session-actions > * {
+    width: 100%;
+    margin: 10px;
 }
 
 
