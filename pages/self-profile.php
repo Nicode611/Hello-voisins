@@ -23,22 +23,22 @@
             </div>
             <div class="self-infos-section">
                 <label for="selfFirstname">Prénom</label>
-                <span class="">Nicolas</span>
+                <span class=""><?php echo $_SESSION["user_firstName"]; ?></span>
                 <input class="hide" type="text" name="selfFirstname" id="selfFirstname">
             </div>
             <div class="self-infos-section">
                 <label for="selfLastname">Nom</label>
-                <span class="">GUIGAY</span>
+                <span class=""><?php echo $_SESSION["user_lastName"]; ?></span>
                 <input class="hide" type="text" name="selfLastname" id="selfLastname">
             </div>
             <div class="self-infos-section">
                 <label for="selfPhone">Téléphone</label>
-                <span class="">0627251444</span>
+                <span class=""><?php echo $_SESSION["user_phone"]; ?></span>
                 <input class="hide" type="text" name="selfPhone" id="selfPhone">
             </div>
             <div class="self-infos-section">
                 <label for="selfEmail">Email</label>
-                <span class="">nicolas.guigay@gmail.com</span>
+                <span class=""><?php echo $_SESSION["user_email"]; ?></span>
                 <input class="hide" type="text" name="selfEmail" id="selfEmail">
             </div>
             <div class="self-passwords">
