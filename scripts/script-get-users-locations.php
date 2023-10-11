@@ -9,7 +9,7 @@
             die("La connexion à la base de données a échoué : " . $conn->connect_error);
         }
 
-        $query = "SELECT latitude, longitude FROM users";
+        $query = "SELECT latitude, longitude FROM users WHERE id <> $id";
         $result = $conn->query($query);
 
         if (!$result) {
