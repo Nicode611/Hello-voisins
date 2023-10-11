@@ -10,7 +10,7 @@
 <body>
 <div class="sign-in-container">
         <h2>Créez votre compte</h2>
-        <form class="sign-in-form" action="" method="POST">
+        <form class="sign-in-form" action="../scripts/script-create-account.php" method="POST">
             <label for="signInFirstName">Prénom</label>
             <input type="text" name="signInFirstName" id="signInFirstName">
             <label for="signInLastName">Nom</label>
