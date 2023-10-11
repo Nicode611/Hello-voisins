@@ -50,6 +50,8 @@ function initMap() {
                 var user = userData[i];
                 var userLatitude = parseFloat(user.latitude);
                 var userLongitude = parseFloat(user.longitude);
+                var firstName = user.first_name;
+                var lastName = user.last_name;
             
                 var otherCustomIcons = {
                     url: '../assets/images/user-marker.png',
@@ -62,7 +64,7 @@ function initMap() {
                         lng: userLongitude
                     },
                     map: map,
-                    title: 'Utilisateur ' + i,
+                    title: firstName + ' ' + lastName,
                     icon: otherCustomIcons
                 });
             }

@@ -10,7 +10,7 @@
         }
 
 
-        $query = "SELECT latitude, longitude FROM users WHERE id <> $id";
+        $query = "SELECT first_name, last_name, latitude, longitude FROM users WHERE id <> $id AND adress = 'yes'";
         $result = $conn->query($query);
 
         if (!$result) {
