@@ -128,7 +128,16 @@
 
     <div class="mobile-display">
         <div class="mobile-header">
-            <a href="self-profile.php"><img class="user-img-container-mobile" src="../assets/images/user1.jpg"></a>
+            <div>
+                <a href="self-profile.php"><img class="user-img-container-mobile" src="../assets/images/user1.jpg"></a>
+                <span>
+                    <?php 
+                        if (isset($_SESSION['user_id'])) {
+                            echo $firstName = $_SESSION['user_firstName'];
+                        };
+                    ?>
+                </span>
+            </div>
             <div class="session-actions-mobile">
         <script>
             function connection() {
