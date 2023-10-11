@@ -11,6 +11,5 @@
     <h1>Hello voisins</h1>
     <a href="pages/connection.php"><button class="connect-btns">Se connecter</button></a>
     <a href="pages/create-account.php"><button class="connect-btns">Create account</button></a>
-    <a href="pages/proximity-chat.php"><button class="connect-btns">GO</button></a>
 </body>
 </html>

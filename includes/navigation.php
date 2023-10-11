@@ -1,16 +1,20 @@
 <?php
+    // Vérifie si user est connecté sinon retour a index.php
     session_set_cookie_params(3600);
     session_start();
     if (isset($_SESSION['user_id'])) {
         $id = $_SESSION['user_id'];
-    };
+    } else {
+        header('Location: ../index.php');
+    exit();
+    }
 
+    // Vérifie si user est déconnecté
     if (isset($_POST["disconnect"])) {
         session_destroy(); 
         header("Location: ../index.php");
         exit();
     }
-
 ?>
 
 <link rel="stylesheet" href="../assets/css/global.css">

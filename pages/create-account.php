@@ -16,14 +16,14 @@
             <label for="signInLastName">Nom</label>
             <input type="text" name="signInLastName" id="signInLastName">
             <label for="signInPhone">Téléphone</label>
-            <input type="text" name="signInPhone" id="signInPhone">
+            <input type="tel" name="signInPhone" id="signInPhone" pattern="[0-9]{10}">
             <label for="signInEmail">Email :</label>
             <input type="email" name="signInEmail" id="signInEmail" required>
             <label for="signInPassword">Mot de passe :</label>
             <input type="password" name="signInPassword" id="signInPassword" required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)">
             <label for="signInConfirmPassword">Confirmez le mot de passe :</label>
             <input type="password" name="signInConfirmPassword" id="signInConfirmPassword" required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)">
-            <input type="submit" value="Valider">
+            <input type="submit" name="submit_create" value="Valider">
         </form>
     </div>
 </body>
