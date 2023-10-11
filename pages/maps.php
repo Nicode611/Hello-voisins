@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/maps.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Carte</title>
 </head>
 <body>
@@ -15,7 +16,15 @@
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     ?>
 
+    
+
     <div class="main-content">
+
+    <?php
+        $includeFile = "../scripts/send-loc.php";
+        if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+    ?>
+
         <div id="map">
 
         </div>
