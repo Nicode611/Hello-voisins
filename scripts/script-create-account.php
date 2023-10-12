@@ -24,8 +24,9 @@ if (isset($_POST["submit_create"])) {
         
         $validPassword = $password;
         $hash_password = password_hash($validPassword, PASSWORD_DEFAULT);
+        $adress = 'yes';
 
-        $sql = "INSERT INTO users (first_name, last_name, email, password, phone) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (first_name, last_name, email, password, phone, adress) VALUES (?, ?, ?, ?, ?, ?)";
 
 
         $stmt = $conn->prepare($sql);
@@ -35,7 +36,7 @@ if (isset($_POST["submit_create"])) {
         }
 
         // Liaison des paramètres
-        $stmt->bind_param('sssss', $firstName, $lastName, $email, $hash_password, $phone);
+        $stmt->bind_param('ssssss', $firstName, $lastName, $email, $hash_password, $phone, $adress);
 
         if ($stmt->execute()) {
             ?> <span class="validation">Compte crée, connectez vous</span> <?php
