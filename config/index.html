@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        .zone-saisie {
+        position: fixed;
+        display: flex;
+        flex-direction: row;
+        bottom: 0;
+        left: 0;
+        height: 50px;
+        width: 100vw;
+    }
+
+    .zone-saisie > #m {
+        width: 80%;
+
+    }
+
+    .zone-saisie > button {
+        width: 19%;
+        background-color: rgb(90, 182, 48);
+    }
+    </style>
+
+    <script src="../socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        var send = function(){
+            var text = document.querySelector('#m').value;
+            socket.emit('chat message', text);
+        }
+
+        var receive = function(msg){
+            var li = document.createElement('li');
+            li.innerText = msg ;
+            document.querySelector('.messages').appendChild(li);
+        }
+        socket.on('chat message', receive);
+    </script>
+
+    <div class="send-message">
+        <ul class="messages"></ul>
+        <div class="zone-saisie">
+            <input id="m"> 
+            <button onclick="send()">Send</button>
+        </div>
+    </div>
+
+    
+</body>
+</html>

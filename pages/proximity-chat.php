@@ -10,6 +10,7 @@
 </head>
 <body>
     
+    
     <?php
         $includeFile = "../includes/navigation.php";
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
@@ -79,6 +80,11 @@
 
     <script src="../assets/js/chat-scroll-auto.js"></script>
     <script src="../assets/js/show-user.js"></script>
+    <!-- <script src="http://localhost:3050/socket.io/socket.io.js"></script>
+<script>
+  var socket = io('http://localhost:3050');
+  // Utilisez le socket pour gérer les interactions de chat côté client
+</script> -->
     
 </body>
 </html>
