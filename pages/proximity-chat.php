@@ -28,7 +28,7 @@
     ?>
 
     <script>
-        var conn = new WebSocket('ws://hello-voisins-25649417130d.herokuapp.com:8080');
+        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:8080');
         conn.onopen = function(e) {
             console.log("Connection established!");
             conn.send('hello world !');
