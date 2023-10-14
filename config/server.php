@@ -15,7 +15,7 @@ $server = IoServer::factory(
             new Chat() // Instanciez la classe Chat avec la référence à l'objet serveur
         )
     ),
-    8080
+    443
 );
 
 $server->run();
