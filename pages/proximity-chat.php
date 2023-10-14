@@ -1,6 +1,6 @@
 <?php
     // // // Code pour lancer le serveur Ratchet en PHP
-    exec('php ../config/server.php > /dev/null 2>&1 &');
+    // exec('php ../config/server.php > /dev/null 2>&1 &');
     
 ?>
 
@@ -28,7 +28,7 @@
     ?>
 
     <script>
-        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:8080');
+        var conn = new WebSocket('ws://localhost:8080');
         conn.onopen = function(e) {
             console.log("Connection established!");
             conn.send('hello world !');

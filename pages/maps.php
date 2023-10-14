@@ -1,4 +1,4 @@
-<?php exec('"php ^C"'); ?>
+<?php require ('../config/server.php');?>
 
 <!DOCTYPE html>
 <html lang="fr">
