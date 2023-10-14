@@ -16,6 +16,17 @@
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     ?>
 
+    <script>
+        var conn = new WebSocket('ws://localhost:8080');
+        conn.onopen = function(e) {
+            console.log("Connection established!");
+        };
+    
+        conn.onmessage = function(e) {
+            console.log(e.data);
+        };
+    </script>
+
     <div class="main-content">
         <div class="received-message-container">
             <img class="other-users-img" src="../assets/images/user2.jpg" alt="">
@@ -80,11 +91,6 @@
 
     <script src="../assets/js/chat-scroll-auto.js"></script>
     <script src="../assets/js/show-user.js"></script>
-    <!-- <script src="http://localhost:3050/socket.io/socket.io.js"></script>
-<script>
-  var socket = io('http://localhost:3050');
-  // Utilisez le socket pour gérer les interactions de chat côté client
-</script> -->
     
 </body>
 </html>
