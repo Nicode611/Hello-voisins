@@ -31,12 +31,16 @@
         var conn = new WebSocket('ws://localhost:8080');
         conn.onopen = function(e) {
             console.log("Connection established!");
-            conn.send('hello world !')
+            conn.send('hello world !');
         };
     
         conn.onmessage = function(e) {
             console.log(e.data);
         };
+
+        window.addEventListener("beforeunload", function() {
+            conn.send('Me suis deco :(');
+        });
 
         
     </script>
