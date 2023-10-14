@@ -1,6 +1,6 @@
 <?php
     // // // Code pour lancer le serveur Ratchet en PHP
-    // exec('php ../config/server.php > /dev/null 2>&1 &');
+    exec('php ../config/server.php > /dev/null 2>&1 &');
     
 ?>
 
