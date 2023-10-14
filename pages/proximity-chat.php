@@ -39,50 +39,8 @@
                 <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
                 <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
             </div>
-            <div class="received-message-container">
-                <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-            </div>
-            <div class="sent-message-container">
-                <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-            </div>
-            <div class="received-message-container">
-                <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-            </div>
-            <div class="sent-message-container">
-                <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-            </div>
-            <div class="received-message-container">
-                <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-            </div>
-            <div class="sent-message-container">
-                <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-            </div>
-            <div class="received-message-container">
-                <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-            </div>
-            <div class="sent-message-container">
-                <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-            </div>
-            <div class="received-message-container">
-                <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-            </div>
-            <div class="sent-message-container">
-                <img  class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="sent-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
-            </div>
+            
         </div>
-
-        <div class="white-space"></div>
-        
 
         <div class="send-container">
             <div class="send-message-container"><input type="text" name="sendMessage" id="sendMessage" placeholder="Ecrivez votre message ici"></div>
@@ -129,7 +87,6 @@
         sendButton.addEventListener('click', function() {
             var message = sendBar.value; // Obtenir la valeur du champ de texte
             appendSentMessage(message); // Ajouter le message localement
-            conn.send(message); // Envoyer le message via WebSocket
         });
 
 
