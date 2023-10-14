@@ -5,10 +5,16 @@ use Ratchet\ConnectionInterface;
 
 class Chat implements MessageComponentInterface {
     protected $clients;
+    
 
     public function __construct() {
         $this->clients = new \SplObjectStorage;
     }
+
+    public function isLastClient() {
+        return count($this->clients) == 1;
+    }
+    
 
     public function onOpen(ConnectionInterface $conn) {
         // Store the new connection to send messages to later
@@ -35,6 +41,7 @@ class Chat implements MessageComponentInterface {
         $this->clients->detach($conn);
 
         echo "Connection {$conn->resourceId} has disconnected\n";
+
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e) {

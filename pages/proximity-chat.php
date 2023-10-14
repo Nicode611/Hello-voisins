@@ -1,3 +1,12 @@
+<?php
+    // // // Code pour lancer le serveur Ratchet en PHP
+    // exec('php ../config/server.php > /dev/null 2>&1 &');
+    
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,6 +18,8 @@
     <title>Chat de proximité</title>
 </head>
 <body>
+
+            
     
     
     <?php
@@ -20,11 +31,14 @@
         var conn = new WebSocket('ws://localhost:8080');
         conn.onopen = function(e) {
             console.log("Connection established!");
+            conn.send('hello world !')
         };
     
         conn.onmessage = function(e) {
             console.log(e.data);
         };
+
+        
     </script>
 
     <div class="main-content">

@@ -1,3 +1,5 @@
+<?php exec('"php ^C"'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -25,6 +27,17 @@
     <script type="text/javascript">
         // Transfert des données à JavaScript
         var userData = <?php echo $jsonUserData; ?>;
+    </script>
+
+    <script>
+        var conn = new WebSocket('ws://localhost:8080');
+        conn.onopen = function(e) {
+            console.log("Connection established!");
+        };
+    
+        conn.onmessage = function(e) {
+            console.log(e.data);
+        };
     </script>
 
     
