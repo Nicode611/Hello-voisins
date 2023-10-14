@@ -2,6 +2,13 @@
     position: relative;
     height: 100vh;
     overflow-y: auto;
+    padding-bottom: 200px;
+}
+
+.messages-container {
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 200px;
 }
 
 .main-content::-webkit-scrollbar-track {
