@@ -41,7 +41,36 @@
     </div>
 
 
-    <script>
+    <script> 
+        var conn = new WebSocket('wss://https://hello-voisins-25649417130d.herokuapp.com/');
+conn.onopen = function(e) {
+    console.log("Connection established!");
+};
+
+conn.onmessage = function(e) {
+    var receivedMessage = e.data;
+    appendReceivedMessage(receivedMessage); // Afficher le message reçu
+};
+
+conn.onerror = function(error) {
+    console.error("WebSocket error: " + error);
+};
+
+conn.onclose = function(event) {
+    if (event.wasClean) {
+        console.log("WebSocket connection closed cleanly, code=" + event.code + ", reason=" + event.reason);
+    } else {
+        console.error("WebSocket connection abruptly closed");
+    }
+};
+
+window.addEventListener("beforeunload", function() {
+    conn.send('Me suis deco :(');
+});
+
+    </script>
+
+    <!-- <script>
         var sendButton = document.querySelector('.send-button');
         var sendBar = document.querySelector('#sendMessage');
         const messagesContainer = document.querySelector('.messages-container');
@@ -101,7 +130,7 @@
 
             scrollToBottom();
         }
-            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:443');
+            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com');
             conn.onopen = function(e) {
                 console.log("Connection established!");
                 
@@ -123,13 +152,13 @@
                     console.error("WebSocket connection abruptly closed");
                 }
             };
-            
+
             console.error("Error getting WebSocket port: " + error);
 
             window.addEventListener("beforeunload", function() {
                 conn.send('Me suis deco :(');
             });
-    </script>
+    </script> -->
 
     
 
