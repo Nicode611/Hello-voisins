@@ -1,6 +1,10 @@
 <?php
 
-// file_put_contents('config/server_status.txt', 'running');
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+$logger = new Logger('ratchet');
+$logger->pushHandler(new StreamHandler('php://stdout', Logger::INFO));
 
 
 $port = $_SERVER['PORT']; 
