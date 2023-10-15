@@ -113,7 +113,7 @@
         fetch('../config/getWebSocketPort.php')
         .then(response => response.text())
         .then(port => { 
-            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:' + port);
+            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:443');
             conn.onopen = function(e) {
                 console.log("Connection established!");
                 

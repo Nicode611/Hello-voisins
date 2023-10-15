@@ -13,13 +13,16 @@ $logger->pushHandler(new StreamHandler('php://stdout', Logger::INFO));
 
 $port = getenv('PORT') ? getenv('PORT') : 8080;
 
-$chat = new Chat($logger); // Passer le logger à la classe Chat
+$chat = new Chat($logger);
+
+// Le port 443 est utilisé pour les connexions HTTPS sur Heroku
+$securePort = 443;
 
 $server = IoServer::factory(
     new HttpServer(
-        new WsServer($chat) // Utiliser l'instance de Chat avec le logger
+        new WsServer($chat)
     ),
-    57016
+    $securePort
 );
 
 $server->run();
