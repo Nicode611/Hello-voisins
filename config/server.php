@@ -11,7 +11,7 @@ use \MyApp\Chat;
 $logger = new Logger('ratchet');
 $logger->pushHandler(new StreamHandler('php://stdout', Logger::INFO));
 
-$port = $_SERVER['PORT']; 
+$port = getenv('PORT') ? getenv('PORT') : 8080;
 
 $chat = new Chat($logger); // Passer le logger à la classe Chat
 
