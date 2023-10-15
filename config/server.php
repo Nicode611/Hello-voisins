@@ -18,7 +18,7 @@ $server = IoServer::factory(
             new Chat() // Instanciez la classe Chat avec la référence à l'objet serveur
         )
     ),
-    2650
+    $port
 );
 
 $server->run();
