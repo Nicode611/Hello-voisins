@@ -116,10 +116,24 @@
             console.log("Connection established!");
             
         };
+
+        
     
         conn.onmessage = function(e) {
             var receivedMessage = e.data;
             appendReceivedMessage(receivedMessage); // Afficher le message reçu
+        };
+
+        conn.onerror = function(error) {
+            console.error("WebSocket error: " + error);
+        };
+
+        conn.onclose = function(event) {
+            if (event.wasClean) {
+                console.log("WebSocket connection closed cleanly, code=" + event.code + ", reason=" + event.reason);
+            } else {
+                console.error("WebSocket connection abruptly closed");
+            }
         };
 
         window.addEventListener("beforeunload", function() {
