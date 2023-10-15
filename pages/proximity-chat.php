@@ -110,32 +110,38 @@
             scrollToBottom();
         }
 
-        <?php $port = getenv('PORT') ? getenv('PORT') : 8080; ?>
-        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $port ?>');
-        conn.onopen = function(e) {
-            console.log("Connection established!");
-            
-        };
+        fetch('../config/getWebSocketPort.php')
+        .then(response => response.text())
+        .then(port => { 
+            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:' + port);
+            conn.onopen = function(e) {
+                console.log("Connection established!");
+                
+            };
 
-        conn.onmessage = function(e) {
-            var receivedMessage = e.data;
-            appendReceivedMessage(receivedMessage); // Afficher le message reçu
-        };
+            conn.onmessage = function(e) {
+                var receivedMessage = e.data;
+                appendReceivedMessage(receivedMessage); // Afficher le message reçu
+            };
 
-        conn.onerror = function(error) {
-            console.error("WebSocket error: " + error);
-        };
+            conn.onerror = function(error) {
+                console.error("WebSocket error: " + error);
+            };
 
-        conn.onclose = function(event) {
-            if (event.wasClean) {
-                console.log("WebSocket connection closed cleanly, code=" + event.code + ", reason=" + event.reason);
-            } else {
-                console.error("WebSocket connection abruptly closed");
-            }
-        };
+            conn.onclose = function(event) {
+                if (event.wasClean) {
+                    console.log("WebSocket connection closed cleanly, code=" + event.code + ", reason=" + event.reason);
+                } else {
+                    console.error("WebSocket connection abruptly closed");
+                }
+            };
 
-        window.addEventListener("beforeunload", function() {
-            conn.send('Me suis deco :(');
+            window.addEventListener("beforeunload", function() {
+                conn.send('Me suis deco :(');
+            });
+        })
+        .catch(error => {
+        console.error("Error getting WebSocket port: " + error);
         });
     </script>
 
