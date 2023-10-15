@@ -111,8 +111,8 @@
             scrollToBottom();
         }
 
-
-        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com');
+        <?php $port = $_SERVER['PORT'] ?>
+        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $port ?>');
         conn.onopen = function(e) {
             console.log("Connection established!");
             
