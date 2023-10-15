@@ -3,7 +3,7 @@
 // file_put_contents('config/server_status.txt', 'running');
 
 
-// $port = $_SERVER['PORT'] ?? 8080; // Utilisez 8080 si la variable d'environnement PORT n'est pas définie
+$port = $_SERVER['PORT']; 
 
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
@@ -18,13 +18,9 @@ $server = IoServer::factory(
             new Chat() // Instanciez la classe Chat avec la référence à l'objet serveur
         )
     ),
-    443
+    $port
 );
 
 $server->run();
-
-    
-
-    // Mettez à jour le fichier d'état
 
 

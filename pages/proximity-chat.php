@@ -116,9 +116,7 @@
             console.log("Connection established!");
             
         };
-
         
-    
         conn.onmessage = function(e) {
             var receivedMessage = e.data;
             appendReceivedMessage(receivedMessage); // Afficher le message reçu
