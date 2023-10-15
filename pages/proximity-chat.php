@@ -42,7 +42,7 @@
 
 
     <script> 
-        var conn = new WebSocket('wss://https://hello-voisins-25649417130d.herokuapp.com/');
+        var conn = new WebSocket('wss://https://hello-voisins-25649417130d.herokuapp.com/:');
 conn.onopen = function(e) {
     console.log("Connection established!");
 };
