@@ -112,7 +112,7 @@
         }
 
         <?php $port = $_SERVER['PORT'] ?>
-        var conn = new WebSocket('ws://hello-voisins-25649417130d.herokuapp.com:<?php echo $port ?>');
+        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:2650');
         conn.onopen = function(e) {
             console.log("Connection established!");
             
