@@ -1,11 +1,3 @@
-<?php
-    // // // Code pour lancer le serveur Ratchet en PHP
-    
-?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -109,10 +101,6 @@
 
             scrollToBottom();
         }
-
-        fetch('../config/getWebSocketPort.php')
-        .then(response => response.text())
-        .then(port => { 
             var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:443');
             conn.onopen = function(e) {
                 console.log("Connection established!");
@@ -135,14 +123,12 @@
                     console.error("WebSocket connection abruptly closed");
                 }
             };
+            
+            console.error("Error getting WebSocket port: " + error);
 
             window.addEventListener("beforeunload", function() {
                 conn.send('Me suis deco :(');
             });
-        })
-        .catch(error => {
-        console.error("Error getting WebSocket port: " + error);
-        });
     </script>
 
     
