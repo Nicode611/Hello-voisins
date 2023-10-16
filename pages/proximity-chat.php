@@ -83,6 +83,7 @@
         sendButton.addEventListener('click', function() {
             var message = sendBar.value; // Obtiens la valeur du champ de texte
             appendSentMessage(message); // Ajoute le message localement
+            sendBar.value = '';
         });
 
 
@@ -109,7 +110,10 @@
 
         // Connection websocket
         <?php $port = getenv('PORT') ? getenv('PORT') : 8080; ?>
-        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $port ?>');
+        // var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $port ?>');
+        username = '<?php echo $_SESSION['user_firstName']; ?>';
+
+        var conn = new WebSocket('ws://localhost:8080?username=' + username);
         conn.onopen = function(e) {
             console.log("Connection established!");
             

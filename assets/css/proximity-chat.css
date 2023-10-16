@@ -32,6 +32,7 @@
 .received-message-container img {
     height: 30px;
     width: 30px;
+    min-width: 30px;
     border-radius: 50px;
     object-fit: cover;
     margin-right: 10px;
@@ -54,6 +55,7 @@
 .sent-message-container img {
     height: 30px;
     width: 30px;
+    min-width: 30px;
     border-radius: 50px;
     object-fit: cover;
     margin-left: 10px;
@@ -124,6 +126,14 @@
 
     .messages-container {
         height: 50%;
+    }
+
+    .sent-message-container {
+        margin-left: 20px;
+    }
+
+    .received-message-container {
+        margin-right: 20px;
     }
     
     .send-container {
