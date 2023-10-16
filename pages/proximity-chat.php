@@ -10,9 +10,6 @@
 </head>
 <body>
 
-            
-    
-    
     <?php
         $includeFile = "../includes/navigation.php";
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
@@ -41,47 +38,10 @@
     </div>
 
 
-    <script> 
-    <?php
-        $port = getenv('PORT') ? getenv('PORT') : 8080;
-    ?>
-        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $port; ?>');
-conn.onopen = function(e) {
-    console.log("Connection established!");
-};
-
-conn.onmessage = function(e) {
-    var receivedMessage = e.data;
-    appendReceivedMessage(receivedMessage); // Afficher le message reçu
-};
-
-conn.onerror = function(error) {
-    console.error("WebSocket error: " + error);
-};
-
-conn.onclose = function(event) {
-    if (event.wasClean) {
-        console.log("WebSocket connection closed cleanly, code=" + event.code + ", reason=" + event.reason);
-    } else {
-        console.error("WebSocket connection abruptly closed");
-    }
-};
-
-window.addEventListener("beforeunload", function() {
-    conn.send('Me suis deco :(');
-});
-
-    </script>
-
-    <!-- <script>
+    <script>
         var sendButton = document.querySelector('.send-button');
         var sendBar = document.querySelector('#sendMessage');
         const messagesContainer = document.querySelector('.messages-container');
-
-        sendBar.addEventListener("keyup", function(event) {
-            if (event.key === "Enter") {
-            sendButton.click(); // Cela simule un clic sur le bouton lorsque la touche "Entrée" est enfoncée.
-        }
 
         function scrollToBottom() {
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -89,6 +49,14 @@ window.addEventListener("beforeunload", function() {
 
         window.addEventListener('load', scrollToBottom);
 
+        // Simule un clic lorsque la touche "Entrée" est enfoncée.
+        sendBar.addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+            sendButton.click();
+            }
+        });
+
+        // Fonction pour ajouter un message qui viens d'etre envoyé
         function appendSentMessage(message) {
             var message = sendBar.value;
 
@@ -113,8 +81,8 @@ window.addEventListener("beforeunload", function() {
         }
 
         sendButton.addEventListener('click', function() {
-            var message = sendBar.value; // Obtenir la valeur du champ de texte
-            appendSentMessage(message); // Ajouter le message localement
+            var message = sendBar.value; // Obtiens la valeur du champ de texte
+            appendSentMessage(message); // Ajoute le message localement
         });
 
 
@@ -138,35 +106,36 @@ window.addEventListener("beforeunload", function() {
 
             scrollToBottom();
         }
-            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com');
-            conn.onopen = function(e) {
-                console.log("Connection established!");
-                
-            };
 
-            conn.onmessage = function(e) {
-                var receivedMessage = e.data;
-                appendReceivedMessage(receivedMessage); // Afficher le message reçu
-            };
+        // Connection websocket
+        <?php $port = getenv('PORT') ? getenv('PORT') : 8080; ?>
+        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $port ?>');
+        conn.onopen = function(e) {
+            console.log("Connection established!");
+            
+        };
 
-            conn.onerror = function(error) {
-                console.error("WebSocket error: " + error);
-            };
+        conn.onmessage = function(e) {
+            var receivedMessage = e.data;
+            appendReceivedMessage(receivedMessage); // Afficher le message reçu
+        };
 
-            conn.onclose = function(event) {
-                if (event.wasClean) {
-                    console.log("WebSocket connection closed cleanly, code=" + event.code + ", reason=" + event.reason);
-                } else {
-                    console.error("WebSocket connection abruptly closed");
-                }
-            };
+        conn.onerror = function(error) {
+            console.error("WebSocket error: " + error);
+        };
 
-            console.error("Error getting WebSocket port: " + error);
+        conn.onclose = function(event) {
+            if (event.wasClean) {
+                console.log("WebSocket connection closed cleanly, code=" + event.code + ", reason=" + event.reason);
+            } else {
+                console.error("WebSocket connection abruptly closed");
+            }
+        };
 
-            window.addEventListener("beforeunload", function() {
-                conn.send('Me suis deco :(');
-            });
-    </script> -->
+        window.addEventListener("beforeunload", function() {
+            conn.send('l\'utilisateur s\'est déconnecté');
+        });
+    </script>
 
     
 
