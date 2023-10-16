@@ -110,10 +110,14 @@
 
         // Connection websocket
         <?php $port = getenv('PORT') ? getenv('PORT') : 8080; ?>
-        // var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $port ?>');
         username = '<?php echo $_SESSION['user_firstName']; ?>';
 
-        var conn = new WebSocket('ws://localhost:8080?username=' + username);
+        // Connection Heroku
+        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $port ?>?username=' + username);
+        
+        // Connection en local
+        // var conn = new WebSocket('ws://localhost:8080?username=' + username);
+
         conn.onopen = function(e) {
             console.log("Connection established!");
             
