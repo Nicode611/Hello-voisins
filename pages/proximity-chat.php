@@ -78,6 +78,11 @@ window.addEventListener("beforeunload", function() {
         var sendBar = document.querySelector('#sendMessage');
         const messagesContainer = document.querySelector('.messages-container');
 
+        sendBar.addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+            sendButton.click(); // Cela simule un clic sur le bouton lorsque la touche "Entrée" est enfoncée.
+        }
+
         function scrollToBottom() {
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }

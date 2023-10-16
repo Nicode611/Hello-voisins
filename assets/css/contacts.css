@@ -79,9 +79,7 @@ input[type="search"] {
         display: none;
     }
 
-
-
     .contact {
-        width: 100%;
+        width: 90%;
     }
 }
