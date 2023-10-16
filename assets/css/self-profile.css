@@ -12,6 +12,12 @@
     display: flex;
 }
 
+.self-infos-section.self-sections-passwords {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .self-infos-section {
     margin: 10px;
     width: 50%;

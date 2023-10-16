@@ -16,44 +16,42 @@
 
     <div class="main-content">
         
-        <form class="self-infos" action="">
+        <form class="self-infos" action="../scripts/script-modify-self-infos.php" method="POST">
             <div class="self-infos-section">
                 <img class="self-img" src="../assets/images/user1.jpg" alt="">
                 <input class="hide" type="file" name="selfImage" id="selfImage" accept="image/*">
             </div>
             <div class="self-infos-section">
                 <label for="selfFirstname">Prénom</label>
-                <span class=""><?php echo $_SESSION["user_firstName"]; ?></span>
+                <span class="user-infos"><?php echo $_SESSION["user_firstName"]; ?></span>
                 <input class="hide" type="text" name="selfFirstname" id="selfFirstname">
             </div>
             <div class="self-infos-section">
                 <label for="selfLastname">Nom</label>
-                <span class=""><?php echo $_SESSION["user_lastName"]; ?></span>
+                <span class="user-infos"><?php echo $_SESSION["user_lastName"]; ?></span>
                 <input class="hide" type="text" name="selfLastname" id="selfLastname">
             </div>
             <div class="self-infos-section">
                 <label for="selfPhone">Téléphone</label>
-                <span class=""><?php echo $_SESSION["user_phone"]; ?></span>
+                <span class="user-infos"><?php echo $_SESSION["user_phone"]; ?></span>
                 <input class="hide" type="text" name="selfPhone" id="selfPhone">
             </div>
             <div class="self-infos-section">
                 <label for="selfEmail">Email</label>
-                <span class=""><?php echo $_SESSION["user_email"]; ?></span>
+                <span class="user-infos"><?php echo $_SESSION["user_email"]; ?></span>
                 <input class="hide" type="text" name="selfEmail" id="selfEmail">
             </div>
-            <div class="self-passwords">
-                <div class="self-infos-section">
+            <div class="hide self-passwords">
+                <div class="self-infos-section self-sections-passwords">
                     <label for="selfPassword">Mot de passe</label>
-                    <span class="">azerty64</span>
-                    <input class="hide" type="text" name="selfPassword" id="selfPassword">
+                    <input type="text" name="selfPassword" id="selfPassword">
                 </div>
-                <div class="self-infos-section">
+                <div class="self-infos-section self-sections-passwords">
                     <label for="selfConfirmPassword">Confirmer le mot de passe</label>
-                    <span class="">azerty64</span>
-                    <input class="hide" type="text" name="selfConfirmPassword" id="selfConfirmPassword">
+                    <input type="text" name="selfConfirmPassword" id="selfConfirmPassword">
                 </div>
             </div>
-            <input class="hide" type="submit" name="" id="" value="Valider les infos">
+            <input class="hide" type="submit" name="submit_modify_self_infos" id="submit_modify_self_infos" value="Valider les infos">
         </form>
         <button class="modify">Modifier les infos</button>
     </div>
