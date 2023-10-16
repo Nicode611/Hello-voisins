@@ -38,6 +38,12 @@ if (isset($_POST["submit_modify_self_infos"])) {
 
         $stmt->bind_param("sssssi", $firstName, $lastName, $email, $hash_password, $phone, $id);
 
+        $_SESSION['user_firstName'] = $firstName;
+        $_SESSION['user_lastName'] = $lastName;
+        $_SESSION['user_phone'] = $phone;
+        $_SESSION['user_email'] = $email;
+        $_SESSION['user_password'] = $hash_password;
+
 
         if ($stmt->execute()) {
             $_SESSION["success"] = "<p class='validation'>Compte crée !</p>";
