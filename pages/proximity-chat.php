@@ -18,6 +18,7 @@
     
 
     <div class="main-content">
+    <p id="user-count">Utilisateurs à portée: 0</p>
         <div class="messages-container">
             <div class="received-message-container">
                 <img class="other-users-img" src="../assets/images/user2.jpg" alt="">
@@ -120,13 +121,24 @@
 
         conn.onopen = function(e) {
             console.log("Connection established!");
-            
         };
 
         conn.onmessage = function(e) {
-            var receivedMessage = e.data;
-            appendReceivedMessage(receivedMessage); // Afficher le message reçu
-        };
+    var receivedMessage = e.data;
+
+    try {
+        var data = JSON.parse(receivedMessage);
+        if (data.user_count !== undefined) {
+            // Update the user count in your client interface
+            document.getElementById("user-count").textContent = "Utilisateurs à portée: " + (data.user_count - 1);
+        }
+    } catch (error) {
+        // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
+        // Vous pouvez alors exécuter appendReceivedMessage pour afficher ce message.
+        appendReceivedMessage(receivedMessage);
+    }
+};
+
 
         conn.onerror = function(error) {
             console.error("WebSocket error: " + error);

@@ -7,6 +7,8 @@ use Ratchet\ConnectionInterface;
 class Chat implements MessageComponentInterface {
     protected $clients;
     protected $usernames;
+    protected $userCounts = [];
+
 
     public function __construct() {
         $this->clients = new \SplObjectStorage;
@@ -18,13 +20,15 @@ class Chat implements MessageComponentInterface {
         // Store the new connection to send messages to later
         $this->clients->attach($conn);
         
-
         $username = $queryParameters['username'] ?? null;
         if ($username) {
             $this->usernames[$conn->resourceId] = $username;
+            $this->userCounts[$username] = ($this->userCounts[$username] ?? 0) + 1;
+            $this->sendUserCountToClient($username, $this->userCounts[$username]);
+
+            echo "New connection! ({$conn->resourceId}) - Username: $username\n";
         }
 
-        echo "New connection! ({$conn->resourceId})\n";
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
@@ -38,8 +42,6 @@ class Chat implements MessageComponentInterface {
                 // Les noms d'utilisateur sont les mêmes,
                 if ($fromUsername && $clientUsername && $fromUsername === $clientUsername) {
                     $client->send($msg);
-                    // $client->send("Vous êtes maintenant connecté à " . $from->resourceId);
-                    // $from->send("Vous êtes maintenant connecté à " . $client->resourceId);
                 }
             }
         }
@@ -47,10 +49,17 @@ class Chat implements MessageComponentInterface {
     
 
     public function onClose(ConnectionInterface $conn) {
-        // The connection is closed, remove it, as we can no longer send it messages
-        $this->clients->detach($conn);
 
-        echo "Connection {$conn->resourceId} has disconnected\n";
+        $username = $this->usernames[$conn->resourceId] ?? null;
+    if ($username) {
+        $this->userCounts[$username] = ($this->userCounts[$username] ?? 0) - 1;
+        if ($this->userCounts[$username] <= 0) {
+            unset($this->userCounts[$username]);
+        }
+        $this->sendUserCountToClient($username, $this->userCounts[$username] ?? 0);
+    }
+        $this->clients->detach($conn);
+        echo "Connection ({$conn->resourceId}) has disconnected - Username: $username\n";
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
@@ -59,12 +68,12 @@ class Chat implements MessageComponentInterface {
         $conn->close();
     }
 
-
-    private function getLoc(ConnectionInterface $conn)
-    {   
-        // Vous pouvez définir une méthode pour obtenir le nom d'utilisateur de la connexion
-        // Cela dépendra de la structure de vos messages, par exemple, si le nom d'utilisateur est inclus dans le message.
-        // Dans cet exemple, nous utilisons le message lui-même comme nom d'utilisateur.
-        return $conn->resourceId;
+    private function sendUserCountToClient($username, $count) {
+        // Loop through clients to find those with the same username
+        foreach ($this->clients as $client) {
+            if ($this->usernames[$client->resourceId] === $username) {
+                $client->send(json_encode(["user_count" => $count]));
+            }
+        }
     }
 }
