@@ -112,7 +112,8 @@
 
         // Connection websocket
         // <?php $port = getenv('PORT') ? getenv('PORT') : 8080; ?>
-        username = '<?php echo $_SESSION['user_firstName']; ?>';
+        // username = '<?php echo $_SESSION['user_firstName']; ?>';
+        username = 'Nicolas';
 
         // Connection Heroku
         var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $_SERVER['PORT'] ?>?username=' + username);
