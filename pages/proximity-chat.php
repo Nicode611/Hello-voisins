@@ -115,7 +115,8 @@
         username = '<?php echo $_SESSION['user_firstName']; ?>';
 
         // Connection Heroku
-        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $PORT ?>?username=' + username);
+        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $_SERVER['PORT'] ?>?username=' + username);
+
         
         // Connection en local
         // var conn = new WebSocket('ws://localhost:8080?username=' + username);
