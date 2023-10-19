@@ -7,7 +7,7 @@ use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 use \MyApp\Chat;
 
-$port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 8080; // Port par défaut si non spécifié
+$port = getenv('PORT') ? getenv('PORT') : 8080; // Port par défaut si non spécifié
 
 
 $server = IoServer::factory(

@@ -6,7 +6,7 @@ namespace MyApp;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-$port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 8080; // Port par défaut si non spécifié
+$port = getenv('PORT') ? getenv('PORT') : 8080; // Port par défaut si non spécifié
 
 $logFilePath = 'logs.html';
 $customLogMessage = "Serveur Ratchet démarré avec succès le " . date('Y-m-d H:i:s');
