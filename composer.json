@@ -6,6 +6,8 @@
     },
     "require": {
         "cboden/ratchet": "^0.4",
-        "symfony/http-foundation": "^4.4.0"
+        "symfony/deprecation-contracts": "^3.4",
+        "symfony/routing": "^4.4",
+        "symfony/http-foundation": "^4.4"
     }
 }
