@@ -39,7 +39,7 @@ class Chat implements MessageComponentInterface {
         }
 
         } catch (\Exception $e) {
-            logErrorToHTML("WebSocket erreur de connection - Username: $username, Error Message: {$e->getMessage()}");
+            echo("WebSocket erreur de connection - Username: $username, Error Message: {$e->getMessage()}"). "\n";
         }
 
     }
