@@ -7,7 +7,6 @@ use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
 $logFilePath = 'logs.html';
-$logs = file_get_contents($logFilePath);
 
 class Chat implements MessageComponentInterface {
     protected $clients;
