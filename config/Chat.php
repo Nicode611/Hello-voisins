@@ -6,13 +6,13 @@ namespace MyApp;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-$port = getenv('PORT'); // Port par défaut si non spécifié
+// $port = getenv('PORT'); // Port par défaut si non spécifié
 
 $logFilePath = 'logs.html';
 $customLogMessage = "Serveur Ratchet démarré avec succès le " . date('Y-m-d H:i:s');
 echo $customLogMessage . $_SERVER['PORT'] . "\n";
 
-echo 'voici le port' . $port ;
+echo 'voici le port' . 8080 ;
 
 class Chat implements MessageComponentInterface {
     protected $clients;
