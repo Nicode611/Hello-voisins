@@ -8,7 +8,7 @@ use Ratchet\ConnectionInterface;
 
 $logFilePath = 'logs.html';
 $customLogMessage = "Serveur Ratchet démarré avec succès le " . date('Y-m-d H:i:s');
-echo $customLogMessage . "\n";
+echo $customLogMessage . $_SERVER['PORT'] . "\n";
 
 class Chat implements MessageComponentInterface {
     protected $clients;
