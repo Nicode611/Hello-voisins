@@ -16,7 +16,7 @@ class Chat implements MessageComponentInterface {
     }
 
     public function onOpen(ConnectionInterface $conn) {
-        parse_str($conn->httpRequest->getUri()->getQuery(), $queryParameters);
+        try { parse_str($conn->httpRequest->getUri()->getQuery(), $queryParameters);
         // Store the new connection to send messages to later
         $this->clients->attach($conn);
         
@@ -27,6 +27,10 @@ class Chat implements MessageComponentInterface {
             $this->sendUserCountToClient($username, $this->userCounts[$username]);
 
             echo "New connection! ({$conn->resourceId}) - Username: $username\n";
+        }
+
+        } catch (\Exception $e) {
+            error_log("Erreur de connexion WebSocket : " . $e->getMessage());
         }
 
     }
