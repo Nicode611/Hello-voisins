@@ -19,6 +19,7 @@
 
     <div class="main-content">
     <p id="user-count">Utilisateurs à portée: 0</p>
+    <a href="../logs.html">LOGS</a>
         <div class="messages-container">
             <div class="received-message-container">
                 <img class="other-users-img" src="../assets/images/user2.jpg" alt="">

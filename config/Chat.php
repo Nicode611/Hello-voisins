@@ -1,8 +1,13 @@
 <?php
 
+
+
 namespace MyApp;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+
+$logFilePath = '../logs.html';
+$logs = file_get_contents($logFilePath);
 
 class Chat implements MessageComponentInterface {
     protected $clients;
@@ -15,7 +20,10 @@ class Chat implements MessageComponentInterface {
         $this->usernames = [];
     }
 
+    
+
     public function onOpen(ConnectionInterface $conn) {
+
         try { parse_str($conn->httpRequest->getUri()->getQuery(), $queryParameters);
         // Store the new connection to send messages to later
         $this->clients->attach($conn);
@@ -30,7 +38,7 @@ class Chat implements MessageComponentInterface {
         }
 
         } catch (\Exception $e) {
-            error_log("Erreur de connexion WebSocket : " . $e->getMessage());
+            logErrorToHTML("WebSocket erreur de connection - Username: $username, Error Message: {$e->getMessage()}");
         }
 
     }
@@ -67,8 +75,14 @@ class Chat implements MessageComponentInterface {
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
+        function logErrorToHTML($message) {
+            global $logFilePath;
+            $errorLog = date('Y-m-d H:i:s') . ' - ' . $message . "<br>";
+            file_put_contents($logFilePath, $errorLog, FILE_APPEND);
+        }
+
         $username = $this->usernames[$conn->resourceId] ?? 'N/A';
-        error_log("WebSocket Error - Username: $username, Error Message: {$e->getMessage()}");
+        logErrorToHTML("WebSocket Error - Username: $username, Error Message: {$e->getMessage()}");
 
 
         $conn->close();
