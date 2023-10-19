@@ -12,7 +12,7 @@
         username = 'Nicolas';
 
         try {
-            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $_SERVER['PORT'] ?>?username=' + username);
+            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com/wss');
         } catch (error) {
             console.error('Erreur lors de la création de la connexion WebSocket :', error);
         }
