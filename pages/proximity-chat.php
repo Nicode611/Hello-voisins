@@ -114,10 +114,10 @@
         // Connection websocket
         // username = '<?php echo $_SESSION['user_firstName']; ?>';
         username = 'Nicolas';
-
+        <?php $port = getenv('RATCHETPORT'); ?>
         // Connection Heroku
         try {
-            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:8080?username=' + username);
+            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $port; ?>?username=' + username);
         } catch (error) {
             console.error('Erreur lors de la création de la connexion WebSocket :', error);
         }
