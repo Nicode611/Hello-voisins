@@ -83,7 +83,7 @@ class Chat implements MessageComponentInterface {
         }
 
         $username = $this->usernames[$conn->resourceId] ?? 'N/A';
-        logErrorToHTML("WebSocket Error - Username: $username, Error Message: {$e->getMessage()}");
+        echo("WebSocket Error - Username: $username, Error Message: {$e->getMessage()}"). "\n";
 
 
         $conn->close();
