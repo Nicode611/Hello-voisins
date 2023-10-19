@@ -6,7 +6,7 @@ namespace MyApp;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-$logFilePath = '../logs.html';
+$logFilePath = 'logs.html';
 $logs = file_get_contents($logFilePath);
 
 class Chat implements MessageComponentInterface {
