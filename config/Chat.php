@@ -63,7 +63,9 @@ class Chat implements MessageComponentInterface {
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
-        echo "An error has occurred: {$e->getMessage()}\n";
+        $username = $this->usernames[$conn->resourceId] ?? 'N/A';
+        error_log("WebSocket Error - Username: $username, Error Message: {$e->getMessage()}");
+
 
         $conn->close();
     }
