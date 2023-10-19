@@ -147,8 +147,6 @@
 
         conn.onerror = function (event) {
             console.error("WebSocket error: ", event);
-
-            // Accédez aux propriétés de l'événement pour obtenir plus d'informations
             console.log("Event type:", event.type);
             console.log("Event message:", event.message);
             console.log("Event target:", event.target);
