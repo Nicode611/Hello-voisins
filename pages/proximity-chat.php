@@ -116,7 +116,7 @@
         username = 'Nicolas';
         // Connection Heroku
         try {
-            var conn = new WebSocket('wss://157.230.143.168:8080?username=' + username);
+            var conn = new WebSocket('ws://157.230.143.168:8080?username=' + username);
         } catch (error) {
             console.error('Erreur lors de la création de la connexion WebSocket :', error);
         }
