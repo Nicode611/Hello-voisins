@@ -20,6 +20,7 @@
     <div class="main-content">
     <p id="user-count">Utilisateurs à portée: 0</p>
     <a href="../config/logs.html">LOGS</a>
+    <a href="test.php">test</a>
         <div class="messages-container">
             <div class="received-message-container">
                 <img class="other-users-img" src="../assets/images/user2.jpg" alt="">
