@@ -19,3 +19,5 @@ $server = IoServer::factory(
 );
 
 $server->run();
+
+echo 'voici le port' . $_SERVER['PORT'];
