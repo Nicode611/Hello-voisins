@@ -116,7 +116,7 @@
         username = 'Nicolas';
         // Connection Heroku
         try {
-            var conn = new WebSocket('wss://goldfish-app-hp6qr.ondigitalocean.app:5430?username=' + username);
+            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:8080?username=' + username);
         } catch (error) {
             console.error('Erreur lors de la création de la connexion WebSocket :', error);
         }
