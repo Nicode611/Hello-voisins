@@ -116,7 +116,11 @@
         username = 'Nicolas';
 
         // Connection Heroku
-        var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $_SERVER['PORT'] ?>?username=' + username);
+        try {
+            var conn = new WebSocket('wss://hello-voisins-25649417130d.herokuapp.com:<?php echo $_SERVER['PORT'] ?>?username=' + username);
+        } catch (error) {
+            console.error('Erreur lors de la création de la connexion WebSocket :', error);
+        }
         // Connection en local
         // var conn = new WebSocket('ws://localhost:8080?username=' + username);
 
@@ -125,20 +129,20 @@
         };
 
         conn.onmessage = function(e) {
-    var receivedMessage = e.data;
+        var receivedMessage = e.data;
 
-    try {
-        var data = JSON.parse(receivedMessage);
-        if (data.user_count !== undefined) {
-            // Update the user count in your client interface
-            document.getElementById("user-count").textContent = "Utilisateurs à portée: " + (data.user_count - 1);
+        try {
+            var data = JSON.parse(receivedMessage);
+            if (data.user_count !== undefined) {
+                // Update the user count in your client interface
+                document.getElementById("user-count").textContent = "Utilisateurs à portée: " + (data.user_count - 1);
+            }
+        } catch (error) {
+            // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
+            // Vous pouvez alors exécuter appendReceivedMessage pour afficher ce message.
+            appendReceivedMessage(receivedMessage);
         }
-    } catch (error) {
-        // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
-        // Vous pouvez alors exécuter appendReceivedMessage pour afficher ce message.
-        appendReceivedMessage(receivedMessage);
-    }
-};
+    };
 
 
         conn.onerror = function(error) {
