@@ -154,7 +154,15 @@
         });
     </script>
 
-    
+<script>
+  const sendMessageInput = document.getElementById('sendMessage');
+
+  sendMessageInput.addEventListener('blur', () => {
+    // Faites défiler la page vers le haut
+    window.scrollTo(0, 0);
+  });
+</script>
+
 
     <!-- <script src="../assets/js/chat-scroll-auto.js"></script> -->
     <script src="../assets/js/show-user.js"></script>
