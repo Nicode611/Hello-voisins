@@ -156,7 +156,7 @@
 
     
 
-    <script src="../assets/js/chat-scroll-auto.js"></script>
+    <!-- <script src="../assets/js/chat-scroll-auto.js"></script> -->
     <script src="../assets/js/show-user.js"></script>
     
 </body>
