@@ -120,16 +120,15 @@
 
 
 @media screen and (max-width: 1000px) {
-body {
-    height: 100vh;
-}
 
     .main-content {
         width: 95%;
+        overflow-y: auto;
     }
 
     .messages-container {
         height: 50%;
+        padding-bottom: 75px;
     }
 
     .sent-message-container {
