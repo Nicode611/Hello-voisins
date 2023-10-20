@@ -120,6 +120,10 @@
 
 
 @media screen and (max-width: 1000px) {
+body {
+    height: 100vh;
+}
+
     .main-content {
         width: 95%;
     }
