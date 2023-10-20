@@ -8,10 +8,16 @@ body {
 
 a {
     margin: 10px;
+    color: white;
 }
 
 a button {
     width: 200px;
+    color: white;
+}
+
+a:visited {
+    color: white;
 }
 
 @media screen and (max-width: 1000px) {

@@ -110,6 +110,7 @@
     width: 10%;
     min-width: 67px;
     background-color: #69E13F;
+    color: black;
     height: 30px;
     border-radius: 10px;
     margin-right: 20px;
@@ -128,7 +129,7 @@
 
     .messages-container {
         height: 50%;
-        padding-bottom: 75px;
+        padding-bottom: 100px;
     }
 
     .sent-message-container {
