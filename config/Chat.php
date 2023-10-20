@@ -10,7 +10,6 @@ use Ratchet\ConnectionInterface;
 
 $logFilePath = 'logs.html';
 $customLogMessage = "Serveur Ratchet démarré avec succès le " . date('Y-m-d H:i:s');
-echo $customLogMessage . $_SERVER['PORT'] . "\n";
 
 echo 'voici le port' . 8080;
 
