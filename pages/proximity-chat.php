@@ -50,6 +50,43 @@
             }
         });
 
+        function appendConnectionMessage(username, message) {
+            var messageContainer = document.createElement('div');
+            messageContainer.className = 'received-message-container';
+
+            var idText = document.createElement('p');
+            idText.className = 'other-users-id';
+            idText.textContent = id;
+
+            var userImg = document.createElement('img');
+            userImg.className = 'other-users-img';
+            userImg.src = '../assets/images/user2.jpg';
+            userImg.alt = '';
+
+            var receivedMessage = document.createElement('div');
+            receivedMessage.className = 'received-message';
+
+            var usernameText = document.createElement('span');
+            usernameText.className = 'received-message-username';
+            usernameText.textContent = username;
+
+            var messageText = document.createElement('p');
+            messageText.className = 'received-message-content';
+            messageText.textContent = message;
+
+            messagesContainer.appendChild(messageContainer);
+            messageContainer.appendChild(idText); // Ajoutez l'ID de l'utilisateur
+            messageContainer.appendChild(userImg);
+            messageContainer.appendChild(receivedMessage);
+            receivedMessage.appendChild(usernameText);
+            receivedMessage.appendChild(messageText);
+
+        scrollToBottom();
+
+            scrollToBottom();
+        }
+
+
         // Fonction pour ajouter un message qui viens d'etre envoyé
         function appendSentMessage(message) {
             var message = sendBar.value;
@@ -128,18 +165,17 @@
         username = '<?php echo $_SESSION['user_firstName']; ?>';
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
         // Connection Heroku
-        try {
-            var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
-        } catch (error) {
-            console.error('Erreur lors de la création de la connexion WebSocket :', error);
-        }
+        // try {
+        //     var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
+        // } catch (error) {
+        //     console.error('Erreur lors de la création de la connexion WebSocket :', error);
+        // }
 
         // Connection en local
-        // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId);
+        var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId);
 
         conn.onopen = function(e) {
             console.log("Connection established!");
-            conn.send('l\'utilisateur s\'est connecté');
         };
 
         conn.onmessage = function(e) {
@@ -149,15 +185,15 @@
                 var data = JSON.parse(receivedMessage);
 
                 if (data.user_count !== undefined) {
-                // C'est un message de compteur d'utilisateurs
-                updateUserCount(data.user_count); // Fonction pour mettre à jour le compteur
+                    // C'est un message de compteur d'utilisateurs
+                    updateUserCount(data.user_count); // Fonction pour mettre à jour le compteur
                 } else if (data.username !== undefined && data.message !== undefined && data.id !== undefined) {
                     // C'est un message texte
                     // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
                     // et data.message pour le message.
                     // Par exemple, vous pouvez appeler une fonction pour ajouter le message au chat.
                     appendReceivedMessage(data.username, data.message, data.id);
-                }
+                } 
             } catch (error) {
                 // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
                 // Vous pouvez alors exécuter appendReceivedMessage pour afficher ce message.
@@ -180,10 +216,6 @@
                 console.error("WebSocket connection abruptly closed");
             }
         };
-
-        window.addEventListener("beforeunload", function() {
-            conn.send('l\'utilisateur s\'est déconnecté');
-        });
     </script>
 
     <!-- Fenetre modale users -->
