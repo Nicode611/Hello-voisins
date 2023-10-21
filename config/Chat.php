@@ -40,6 +40,9 @@ class Chat implements MessageComponentInterface {
                 $this->usernames[$conn->resourceId] = $userData;
                 $countAllUsers = count($this->clients); // Compte tous les utilisateurs connectés
 
+                // Après avoir ajouté l'utilisateur, envoyez les données des utilisateurs connectés
+                $this->sendConnectedUsersDataToUser($conn);
+
                 // Envoyer un message de connexion à tous les clients
                 $connectionMessage = [
                     "username" => $username,
@@ -103,11 +106,23 @@ class Chat implements MessageComponentInterface {
             $this->sendToAllClients($disconnectionMessage);
     
             echo "Connection ({$conn->resourceId}) has disconnected - Username: $username, ID: $id\n";
+    
+            // Supprimez l'utilisateur de la liste $usernames
+            unset($this->usernames[$conn->resourceId]);
+    
+            // Mise à jour de $connectedUsers pour supprimer l'utilisateur déconnecté
+            // Mise à jour de $connectedUsers pour supprimer l'utilisateur déconnecté
+            $connectedUsers = $this->getAllConnectedUsersData();
+
+            // Envoyez la nouvelle liste des utilisateurs connectés à tous les clients
+            $this->sendToAllClients(["connected_users" => $connectedUsers]);
+
         }
     
         $this->clients->detach($conn); // Supprimez la connexion de la liste des clients
         $this->sendUserCountToClient($countAllUsers);
     }
+    
     
     public function onError(ConnectionInterface $conn, \Exception $e) {
 
@@ -131,5 +146,22 @@ class Chat implements MessageComponentInterface {
         }
     }
 
+    // Cette fonction récupere tout les utilisateurs connectés au server 
+    private function getAllConnectedUsersData() {
+        $connectedUsers = [];
     
+        foreach ($this->usernames as $userData) {
+            $connectedUsers[] = $userData;
+        }
+    
+        return $connectedUsers;
+    }
+    
+    // Cette fonction envoie tout les utilisateurs connectés au server
+    private function sendConnectedUsersDataToUser(ConnectionInterface $userConnection) {
+        $connectedUsers = $this->getAllConnectedUsersData();
+        $userConnection->send(json_encode(["connected_users" => $connectedUsers]));
+    }
+    
+
 }

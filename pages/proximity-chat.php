@@ -18,8 +18,17 @@
 
 
     <div class="main-content">
+        <div class="all-users-container">
+            <p id="user-count"></p>
+            <div class="all-users-list">
+                <!-- <div class="all-users">
+                    <span class="other-users-id">1</span>
+                    <img class="all-users-img" src="../assets/images/user2.jpg" alt="">
+                    <span class="all-users-name">Nicolas</span>
+                </div> -->
+            </div>
+        </div>
 
-    <p id="user-count">Utilisateurs à portée: 0</p>
         <div class="messages-container">
             
         </div>
@@ -33,134 +42,7 @@
 
 
     <script>
-        var sendButton = document.querySelector('.send-button');
-        var sendBar = document.querySelector('#sendMessage');
-        const messagesContainer = document.querySelector('.messages-container');
-
-        function scrollToBottom() {
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
-        window.addEventListener('load', scrollToBottom);
-
-        // Simule un clic lorsque la touche "Entrée" est enfoncée.
-        sendBar.addEventListener("keyup", function(event) {
-            if (event.key === "Enter") {
-            sendButton.click();
-            }
-        });
-
-        function appendConnectionMessage(username, message) {
-            var messageContainer = document.createElement('div');
-            messageContainer.className = 'received-message-container';
-
-            var idText = document.createElement('p');
-            idText.className = 'other-users-id';
-            idText.textContent = id;
-
-            var userImg = document.createElement('img');
-            userImg.className = 'other-users-img';
-            userImg.src = '../assets/images/user2.jpg';
-            userImg.alt = '';
-
-            var receivedMessage = document.createElement('div');
-            receivedMessage.className = 'received-message';
-
-            var usernameText = document.createElement('span');
-            usernameText.className = 'received-message-username';
-            usernameText.textContent = username;
-
-            var messageText = document.createElement('p');
-            messageText.className = 'received-message-content';
-            messageText.textContent = message;
-
-            messagesContainer.appendChild(messageContainer);
-            messageContainer.appendChild(idText); // Ajoutez l'ID de l'utilisateur
-            messageContainer.appendChild(userImg);
-            messageContainer.appendChild(receivedMessage);
-            receivedMessage.appendChild(usernameText);
-            receivedMessage.appendChild(messageText);
-
-        scrollToBottom();
-
-            scrollToBottom();
-        }
-
-
-        // Fonction pour ajouter un message qui viens d'etre envoyé
-        function appendSentMessage(message) {
-            var message = sendBar.value;
-
-            var messageContainer = document.createElement('div');
-            messageContainer.className = 'sent-message-container';
-
-            var userImg = document.createElement('img');
-            userImg.className = 'other-users-img';
-            userImg.src = '../assets/images/user2.jpg';
-            userImg.alt = '';
-
-            var messageText = document.createElement('p');
-            messageText.className = 'sent-message';
-            messageText.textContent = message;
-            
-            messagesContainer.appendChild(messageContainer);
-            messageContainer.appendChild(userImg);
-            messageContainer.appendChild(messageText);
-
-            conn.send(message);
-            scrollToBottom();
-        }
-
-        sendButton.addEventListener('click', function() {
-            var message = sendBar.value; // Obtiens la valeur du champ de texte
-            appendSentMessage(message); // Ajoute le message localement
-            sendBar.value = '';
-        });
-
-
-     // Fonction pour ajouter un message reçu au format souhaité
-    function appendReceivedMessage(username, message, id) {
-        var messageContainer = document.createElement('div');
-        messageContainer.className = 'received-message-container';
-
-        var idText = document.createElement('p');
-        idText.className = 'other-users-id';
-        idText.textContent = id;
-
-        var userImg = document.createElement('img');
-        userImg.className = 'other-users-img';
-        userImg.src = '../assets/images/user2.jpg';
-        userImg.alt = '';
-
-        var receivedMessage = document.createElement('div');
-        receivedMessage.className = 'received-message';
-
-        var usernameText = document.createElement('span');
-        usernameText.className = 'received-message-username';
-        usernameText.textContent = username;
-
-        var messageText = document.createElement('p');
-        messageText.className = 'received-message-content';
-        messageText.textContent = message;
-
-        messagesContainer.appendChild(messageContainer);
-        messageContainer.appendChild(idText); // Ajoutez l'ID de l'utilisateur
-        messageContainer.appendChild(userImg);
-        messageContainer.appendChild(receivedMessage);
-        receivedMessage.appendChild(usernameText);
-        receivedMessage.appendChild(messageText);
-
-        scrollToBottom();
-    }
-
-    function updateUserCount(count) {
-        // Mettez à jour l'affichage du compteur d'utilisateurs
-        var userCountElement = document.querySelector('#user-count');
-        userCountElement.textContent = 'Utilisateurs connectés ' + count;
-    }
-
-
-
+        
         // Connection websocket
         username = '<?php echo $_SESSION['user_firstName']; ?>';
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
@@ -187,19 +69,32 @@
                 if (data.user_count !== undefined) {
                     // C'est un message de compteur d'utilisateurs
                     updateUserCount(data.user_count); // Fonction pour mettre à jour le compteur
+                } else if (data.connected_users !== undefined) {
+                    // C'est un message contenant les données des utilisateurs connectés
+                    processConnectedUsersData(data.connected_users);
                 } else if (data.username !== undefined && data.message !== undefined && data.id !== undefined) {
                     // C'est un message texte
                     // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
                     // et data.message pour le message.
                     // Par exemple, vous pouvez appeler une fonction pour ajouter le message au chat.
                     appendReceivedMessage(data.username, data.message, data.id);
-                } 
+                }
             } catch (error) {
                 // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
                 // Vous pouvez alors exécuter appendReceivedMessage pour afficher ce message.
                 appendReceivedMessage(receivedMessage);
             }
+
+            // Vérifiez si c'est un message de déconnexion et supprimez l'utilisateur de la liste
+            if (data.message === "S'est déconnecté.") {
+                removeUserFromList(data.id);
+            }
+
+            if (data.message === "S'est connecté.") {
+                addUserToList(data.id, data.username);
+            }
         };
+
 
         conn.onerror = function (event) {
             console.error("WebSocket error: ", event);
@@ -215,6 +110,14 @@
             } else {
                 console.error("WebSocket connection abruptly closed");
             }
+
+            const disconnectionData = {
+                username: username,
+                id: myId,
+                message: "S'est déconnecté."
+            };
+            
+            conn.send(JSON.stringify(disconnectionData));
         };
     </script>
 
@@ -239,5 +142,6 @@
 
     <script src="../assets/js/chat-scroll-auto.js"></script>
     <script src="../assets/js/show-user.js"></script>
+    <script src="../assets/js/proximity-chat-messages-handler.js"></script>
 </body>
 </html>

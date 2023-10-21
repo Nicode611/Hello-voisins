@@ -1,11 +1,53 @@
 .main-content {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 100vh;
     padding-bottom: 200px;
 }
 
+/* All users */
+.all-users-container {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    padding: 5px;
+    background-color: rgba(177, 173, 173, 0.712);
+    box-shadow: inset 0 0 10px 5px #0000002c; /* Ombre interne */
+    width: 90%;
+    border-radius: 45px;
+}
+
+.all-users-list {
+    display: flex;
+    align-items: center;
+}
+
+#user-count {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 5px 20px 5px 10px;
+}
+
+.all-users {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.all-users-img {
+    height: 30px;
+    width: 30px;
+    min-width: 30px;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+
 .messages-container {
     height: 80%;
+    width: 100%;
     overflow-y: auto;
     padding-bottom: 200px;
 }
@@ -30,7 +72,7 @@
     margin: 20px 0px 20px 20px;
 }
 
-.received-message-container img {
+.other-users-img {
     height: 30px;
     width: 30px;
     min-width: 30px;
