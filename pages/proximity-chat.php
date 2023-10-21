@@ -129,7 +129,7 @@
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
         // Connection Heroku
         try {
-            var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myid);
+            var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
         } catch (error) {
             console.error('Erreur lors de la création de la connexion WebSocket :', error);
         }
