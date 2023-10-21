@@ -21,14 +21,7 @@
 
     <p id="user-count">Utilisateurs à portée: 0</p>
         <div class="messages-container">
-            <div class="received-message-container">
-                <p class="other-users-id">1</p>
-                <img class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <div class="received-message">
-                    <span class="received-message-username">Maya</span>
-                    <p class="received-message-content"> lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala </p>
-                </div>
-            </div>
+            
         </div>
 
         <div class="send-container">
@@ -136,7 +129,7 @@
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
         // Connection Heroku
         try {
-            var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + id);
+            var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myid);
         } catch (error) {
             console.error('Erreur lors de la création de la connexion WebSocket :', error);
         }
