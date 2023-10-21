@@ -105,7 +105,7 @@
         username = '<?php echo $_SESSION['user_firstName']; ?>';
         // Connection Heroku
         try {
-            var conn = new WebSocket('wss://hello-voisins.com:8888/wss2/?username=' + username);
+            var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username);
         } catch (error) {
             console.error('Erreur lors de la création de la connexion WebSocket :', error);
         }
