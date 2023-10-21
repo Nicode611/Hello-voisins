@@ -12,7 +12,7 @@ $logFilePath = 'logs.html';
 $customLogMessage = "Serveur Ratchet démarré avec succès le " . date('Y-m-d H:i:s');
 echo $customLogMessage ;
 
-echo 'voici le port' . 8080;
+echo 'voici le port' . 8088;
 
 class Chat implements MessageComponentInterface {
     protected $clients;
