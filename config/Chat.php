@@ -74,18 +74,19 @@ class Chat implements MessageComponentInterface {
     }
 
     public function onClose(ConnectionInterface $conn) {
-
-        $username = $this->usernames[$conn->resourceId] ?? null;
-    if ($username) {
-        $this->userCounts[$username] = ($this->userCounts[$username] ?? 0) - 1;
-        if ($this->userCounts[$username] <= 0) {
-            unset($this->userCounts[$username]);
+        $userData = $this->usernames[$conn->resourceId] ?? null;
+        if ($userData) {
+            $username = $userData['username'];
+            $this->userCounts[$username] = ($this->userCounts[$username] ?? 0) - 1;
+            if ($this->userCounts[$username] <= 0) {
+                unset($this->userCounts[$username]);
+            }
+            $this->sendUserCountToClient($username, $this->userCounts[$username] ?? 0);
         }
-        $this->sendUserCountToClient($username, $this->userCounts[$username] ?? 0);
-    }
         $this->clients->detach($conn);
         echo "Connection ({$conn->resourceId}) has disconnected - Username: $username\n";
     }
+    
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
         function logErrorToHTML($message) {
