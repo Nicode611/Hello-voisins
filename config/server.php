@@ -9,6 +9,15 @@ use \MyApp\Chat;
 
 $port = 8080;
 
+// Configuration du contexte SSL/TLS
+$context = stream_context_create([
+    'ssl' => [
+        'local_cert' => '/etc/letsencrypt/live/hello-voisins.com/fullchain.pem',
+        'local_pk' => '/etc/letsencrypt/live/hello-voisins.com/privkey.pem',
+        'verify_peer' => false,
+    ]
+]);
+
 // Lier le serveur WebSocket au contexte SSL/TLS
 $socket = stream_socket_server("ssl://0.0.0.0:{$port}", $errno, $errstr, STREAM_SERVER_BIND | STREAM_SERVER_LISTEN, $context);
 
