@@ -139,6 +139,7 @@
 
         conn.onopen = function(e) {
             console.log("Connection established!");
+            conn.send('l\'utilisateur s\'est connecté');
         };
 
         conn.onmessage = function(e) {
