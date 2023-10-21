@@ -23,6 +23,7 @@
             <input type="password" name="signInPassword" id="signInPassword" required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)">
             <label for="signInConfirmPassword">Confirmez le mot de passe :</label>
             <input type="password" name="signInConfirmPassword" id="signInConfirmPassword" required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)">
+            <p class="format-pswd">Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)</p>
             <input type="submit" name="submit_create" value="Valider">
         </form>
     </div>

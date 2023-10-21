@@ -18,6 +18,13 @@ body {
     color: white;
 }
 
+.format-pswd {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 0px;
+}
+
 .sign-in-form {
     display: flex;
     flex-direction: column;
