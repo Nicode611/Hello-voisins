@@ -140,7 +140,7 @@
             allUsersId.textContent = user.id;
 
             var userImg = document.createElement('img');
-            userImg.className = 'other-users-img';
+            userImg.className = 'all-users-img';
             userImg.src = '../assets/images/user2.jpg';
             userImg.alt = '';
 
@@ -174,7 +174,7 @@
             allUsersId.textContent = userId;
     
             var userImg = document.createElement('img');
-            userImg.className = 'other-users-img';
+            userImg.className = 'all-users-img';
             userImg.src = '../assets/images/user2.jpg';
             userImg.alt = '';
     
