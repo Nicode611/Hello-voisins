@@ -24,7 +24,10 @@
             <div class="received-message-container">
                 <p class="other-users-id">1</p>
                 <img class="other-users-img" src="../assets/images/user2.jpg" alt="">
-                <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
+                <div class="received-message">
+                    <span class="received-message-username">Maya</span>
+                    <p class="received-message-content"> lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala </p>
+                </div>
             </div>
         </div>
 
@@ -90,30 +93,40 @@
         var messageContainer = document.createElement('div');
         messageContainer.className = 'received-message-container';
 
+        var idText = document.createElement('p');
+        idText.className = 'other-users-id';
+        idText.textContent = id;
+
         var userImg = document.createElement('img');
         userImg.className = 'other-users-img';
         userImg.src = '../assets/images/user2.jpg';
         userImg.alt = '';
 
-        var messageText = document.createElement('p');
-        messageText.className = 'received-message';
-        messageText.textContent = message;
+        var receivedMessage = document.createElement('div');
+        receivedMessage.className = 'received-message';
 
-        var usernameText = document.createElement('p');
-        usernameText.className = 'username';
+        var usernameText = document.createElement('span');
+        usernameText.className = 'received-message-username';
         usernameText.textContent = username;
 
-        var idText = document.createElement('p');
-        idText.className = 'other-users-id';
-        idText.textContent = id;
+        var messageText = document.createElement('p');
+        messageText.className = 'received-message-content';
+        messageText.textContent = message;
 
         messagesContainer.appendChild(messageContainer);
-        messageContainer.appendChild(userImg);
         messageContainer.appendChild(idText); // Ajoutez l'ID de l'utilisateur
-        messageContainer.appendChild(usernameText);
-        messageContainer.appendChild(messageText);
+        messageContainer.appendChild(userImg);
+        messageContainer.appendChild(receivedMessage);
+        receivedMessage.appendChild(usernameText);
+        receivedMessage.appendChild(messageText);
 
         scrollToBottom();
+    }
+
+    function updateUserCount(count) {
+        // Mettez à jour l'affichage du compteur d'utilisateurs
+        var userCountElement = document.querySelector('#user-count');
+        userCountElement.textContent = 'Utilisateurs connectés ' + count;
     }
 
 
@@ -140,8 +153,12 @@
 
             try {
                 var data = JSON.parse(receivedMessage);
-                if (data.username !== undefined && data.message !== undefined && data.id !== undefined) {
-                    // Vous avez reçu un message JSON correctement formaté.
+
+                if (data.user_count !== undefined) {
+                // C'est un message de compteur d'utilisateurs
+                updateUserCount(data.user_count); // Fonction pour mettre à jour le compteur
+                } else if (data.username !== undefined && data.message !== undefined && data.id !== undefined) {
+                    // C'est un message texte
                     // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
                     // et data.message pour le message.
                     // Par exemple, vous pouvez appeler une fonction pour ajouter le message au chat.
@@ -153,8 +170,6 @@
                 appendReceivedMessage(receivedMessage);
             }
         };
-
-
 
         conn.onerror = function (event) {
             console.error("WebSocket error: ", event);
@@ -186,9 +201,9 @@
                 <span class="popup-last_name">Wils</span>
             </div>
         </div>
-        <div class="popup-user-container2">
+        <!-- <div class="popup-user-container2">
             <span>adresse adresse ad ress 64512 ADRESSE</span>
-        </div>
+        </div> -->
         <div class="popup-user-container3">
             <svg fill="#000000" viewBox="0 0 24 24" id="add-user-left-6" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M7,5H3M5,7V3" style="fill: none; stroke: #69E13F; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M11,3.41A5.11,5.11,0,0,1,13,3a5,5,0,1,1-4.59,7" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-2" data-name="primary" d="M12,13h2a7,7,0,0,1,7,7v0a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1v0A7,7,0,0,1,12,13Z" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
         </div>

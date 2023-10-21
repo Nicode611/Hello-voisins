@@ -38,8 +38,8 @@ class Chat implements MessageComponentInterface {
                     "id" => $id,
                 ];
                 $this->usernames[$conn->resourceId] = $userData;
-                $this->userCounts[$username] = ($this->userCounts[$username] ?? 0) + 1;
-                $this->sendUserCountToClient($username, $this->userCounts[$username]);
+                $countAllUsers = count($this->clients); // Compte tous les utilisateurs connectés
+                $this->sendUserCountToClient($countAllUsers);
 
                 echo "New connection! ({$conn->resourceId}) - Username: $username, ID: $id\n";
             }
@@ -63,38 +63,39 @@ class Chat implements MessageComponentInterface {
             
             foreach ($this->clients as $client) {
                 if ($from !== $client) {
-                    $clientUserData = $this->usernames[$client->resourceId] ?? null;
-                    
-                    if ($clientUserData && $fromUsername === $clientUserData['username']) {
-                        $client->send($messageData);
-                    }
+
+                    $client->send($messageData);
+
+                    // Condition pour envoyer a ceux qui ont le meme username
+                    // $clientUserData = $this->usernames[$client->resourceId] ?? null;
+                    // if ($clientUserData && $fromUsername === $clientUserData['username']) {
+                    //     $client->send($messageData);
+                    // }
                 }
             }
         }
     }
 
     public function onClose(ConnectionInterface $conn) {
+        $this->clients->detach($conn); // Supprimez la connexion de la liste des clients
+    
+        // Mettez à jour le nombre total d'utilisateurs connectés
+        $countAllUsers = count($this->clients);
+    
+        // Envoyez le nombre total d'utilisateurs connectés à tous les clients
+        $this->sendUserCountToClient($countAllUsers);
+    
+        // Vous pouvez toujours afficher les informations de l'utilisateur qui se déconnecte
         $userData = $this->usernames[$conn->resourceId] ?? null;
         if ($userData) {
             $username = $userData['username'];
             $id = $userData['id'];
-            $this->userCounts[$username] = ($this->userCounts[$username] ?? 0) - 1;
-            if ($this->userCounts[$username] <= 0) {
-                unset($this->userCounts[$username]);
-            }
-            $this->sendUserCountToClient($username, $this->userCounts[$username] ?? 0);
+            echo "Connection ({$conn->resourceId}) has disconnected - Username: $username, ID: $id\n";
         }
-        $this->clients->detach($conn);
-        echo "Connection ({$conn->resourceId}) has disconnected - Username: $username, ID: $id\n";
     }
     
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
-        function logErrorToHTML($message) {
-            global $logFilePath;
-            $errorLog = date('Y-m-d H:i:s') . ' - ' . $message . "<br>";
-            file_put_contents($logFilePath, $errorLog, FILE_APPEND);
-        }
 
         $username = $this->usernames[$conn->resourceId] ?? 'N/A';
         echo("WebSocket Error - Username: $username, Error Message: {$e->getMessage()}"). "\n";
@@ -103,12 +104,11 @@ class Chat implements MessageComponentInterface {
         $conn->close();
     }
 
-    private function sendUserCountToClient($username, $count) {
-        // Loop through clients to find those with the same username
+    private function sendUserCountToClient($count) {
+        // Loop through clients to send the total user count to all of them
         foreach ($this->clients as $client) {
-            if ($this->usernames[$client->resourceId] === $username) {
-                $client->send(json_encode(["user_count" => $count]));
-            }
+            $client->send(json_encode(["user_count" => $count]));
         }
     }
+    
 }
