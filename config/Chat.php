@@ -38,7 +38,7 @@ class Chat implements MessageComponentInterface {
                 ];
                 $this->usernames[$conn->resourceId] = $userData;
                 
-                // Compte tous les utilisateurs connectés
+                // Compte tous les utilisateurs connectés (visible dans l'objet $this->clients)
                 $countAllUsers = count($this->clients); 
 
                 // Après avoir ajouté l'utilisateur, envoyez les données des utilisateurs connectés
@@ -51,6 +51,7 @@ class Chat implements MessageComponentInterface {
                     "message" => "S'est connecté."
                 ];
                 $this->sendToAllClients($connectionMessage);
+                // Envoie le nombre d'utilisateurs connectés a la fonction
                 $this->sendUserCountToClient($countAllUsers);
 
                 echo "New connection! ({$conn->resourceId}) - Username: $username, ID: $id\n";
@@ -90,7 +91,8 @@ class Chat implements MessageComponentInterface {
 
     public function onClose(ConnectionInterface $conn) {
         // Mettez à jour le nombre total d'utilisateurs connectés
-        $countAllUsers = count($this->clients);
+        
+
     
         // Vous pouvez toujours afficher les informations de l'utilisateur qui se déconnecte
         $userData = $this->usernames[$conn->resourceId] ?? null;
@@ -118,8 +120,11 @@ class Chat implements MessageComponentInterface {
             $this->sendToAllClients(["connected_users" => $connectedUsers]);
 
         }
-    
-        $this->clients->detach($conn); // Supprimez la connexion de la liste des clients
+        // Supprimez la connexion de la liste des clients
+        $this->clients->detach($conn); 
+        // Compte tous les utilisateurs connectés (visible dans l'objet $this->clients)
+        $countAllUsers = count($this->clients);
+        // Envoie le nombre d'utilisateurs connectés a la fonction
         $this->sendUserCountToClient($countAllUsers);
     }
     
