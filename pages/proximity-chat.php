@@ -46,15 +46,15 @@
         // Connection websocket
         username = '<?php echo $_SESSION['user_firstName']; ?>';
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
-        // Connection Heroku
-        // try {
-        //     var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
-        // } catch (error) {
-        //     console.error('Erreur lors de la création de la connexion WebSocket :', error);
-        // }
+        // Connection online
+        try {
+            var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
+        } catch (error) {
+            console.error('Erreur lors de la création de la connexion WebSocket :', error);
+        }
 
         // Connection en local
-        var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId);
+        // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId);
 
         conn.onopen = function(e) {
             console.log("Connection established!");
