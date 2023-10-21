@@ -24,6 +24,7 @@
 }
 
 .received-message-container {
+    position: relative;
     display: flex;
     align-items: end;
     margin-left: 20px;
@@ -36,6 +37,14 @@
     border-radius: 50px;
     object-fit: cover;
     margin-right: 10px;
+}
+
+.other-users-id {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    margin: 0px;
+    color: transparent;
 }
 
 .received-message {

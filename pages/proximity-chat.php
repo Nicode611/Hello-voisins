@@ -21,7 +21,8 @@
 
     <p id="user-count">Utilisateurs à portée: 0</p>
         <div class="messages-container">
-        <div class="received-message-container">
+            <div class="received-message-container">
+                <p class="other-users-id">1</p>
                 <img class="other-users-img" src="../assets/images/user2.jpg" alt="">
                 <p class="received-message">lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala lorem ipsum lalali lalala</p>
             </div>
@@ -103,13 +104,13 @@
         usernameText.textContent = username;
 
         var idText = document.createElement('p');
-        idText.className = 'id';
+        idText.className = 'other-users-id';
         idText.textContent = id;
 
         messagesContainer.appendChild(messageContainer);
         messageContainer.appendChild(userImg);
-        messageContainer.appendChild(usernameText);
         messageContainer.appendChild(idText); // Ajoutez l'ID de l'utilisateur
+        messageContainer.appendChild(usernameText);
         messageContainer.appendChild(messageText);
 
         scrollToBottom();
