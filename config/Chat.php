@@ -77,6 +77,7 @@ class Chat implements MessageComponentInterface {
         $userData = $this->usernames[$conn->resourceId] ?? null;
         if ($userData) {
             $username = $userData['username'];
+            $id = $userData['id'];
             $this->userCounts[$username] = ($this->userCounts[$username] ?? 0) - 1;
             if ($this->userCounts[$username] <= 0) {
                 unset($this->userCounts[$username]);
@@ -84,7 +85,7 @@ class Chat implements MessageComponentInterface {
             $this->sendUserCountToClient($username, $this->userCounts[$username] ?? 0);
         }
         $this->clients->detach($conn);
-        echo "Connection ({$conn->resourceId}) has disconnected - Username: $username\n";
+        echo "Connection ({$conn->resourceId}) has disconnected - Username: $username, ID: $id\n";
     }
     
 
