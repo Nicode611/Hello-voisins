@@ -1,17 +1,13 @@
 <?php
 
-
-
 namespace MyApp;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-// $port = getenv('PORT'); // Port par défaut si non spécifié
 
 $logFilePath = 'logs.html';
 $customLogMessage = "Serveur Ratchet démarré avec succès le " . date('Y-m-d H:i:s');
 echo $customLogMessage ;
-
 echo 'voici le port' . 8888;
 
 class Chat implements MessageComponentInterface {
@@ -28,42 +24,54 @@ class Chat implements MessageComponentInterface {
     
 
     public function onOpen(ConnectionInterface $conn) {
+        try {
+            parse_str($conn->httpRequest->getUri()->getQuery(), $queryParameters);
+            // Store the new connection to send messages to later
+            $this->clients->attach($conn);
+            
+            $username = $queryParameters['username'] ?? null;
+            $id = $queryParameters['id'] ?? null; // Ajout pour récupérer l'ID
+            
+            if ($username && $id) {
+                $userData = [
+                    "username" => $username,
+                    "id" => $id,
+                ];
+                $this->usernames[$conn->resourceId] = $userData;
+                $this->userCounts[$username] = ($this->userCounts[$username] ?? 0) + 1;
+                $this->sendUserCountToClient($username, $this->userCounts[$username]);
 
-        try { parse_str($conn->httpRequest->getUri()->getQuery(), $queryParameters);
-        // Store the new connection to send messages to later
-        $this->clients->attach($conn);
-        
-        $username = $queryParameters['username'] ?? null;
-        if ($username) {
-            $this->usernames[$conn->resourceId] = $username;
-            $this->userCounts[$username] = ($this->userCounts[$username] ?? 0) + 1;
-            $this->sendUserCountToClient($username, $this->userCounts[$username]);
-
-            echo "New connection! ({$conn->resourceId}) - Username: $username\n";
-        }
-
+                echo "New connection! ({$conn->resourceId}) - Username: $username, ID: $id\n";
+            }
         } catch (\Exception $e) {
-            echo("WebSocket erreur de connection - Username: $username, Error Message: {$e->getMessage()}"). "\n";
+            echo "WebSocket erreur de connection - Error Message: {$e->getMessage()}\n";
         }
-
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
-        // Lorsqu'un utilisateur envoie un message, vérifiez si d'autres utilisateurs ont le même nom
-        $fromUsername = $this->usernames[$from->resourceId] ?? null;
+        $fromUserData = $this->usernames[$from->resourceId] ?? null;
         
-        foreach ($this->clients as $client) {
-            if ($from !== $client) {
-                $clientUsername = $this->usernames[$client->resourceId] ?? null;
-                
-                // Les noms d'utilisateur sont les mêmes,
-                if ($fromUsername && $clientUsername && $fromUsername === $clientUsername) {
-                    $client->send($msg);
+        if ($fromUserData) {
+            $fromUsername = $fromUserData['username'];
+            $fromId = $fromUserData['id'];
+            
+            $messageData = json_encode([
+                "username" => $fromUsername,
+                "id" => $fromId,
+                "message" => $msg
+            ]);
+            
+            foreach ($this->clients as $client) {
+                if ($from !== $client) {
+                    $clientUserData = $this->usernames[$client->resourceId] ?? null;
+                    
+                    if ($clientUserData && $fromUsername === $clientUserData['username']) {
+                        $client->send($messageData);
+                    }
                 }
             }
         }
     }
-    
 
     public function onClose(ConnectionInterface $conn) {
 

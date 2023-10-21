@@ -1,3 +1,6 @@
-const container = document.querySelector('.main-content');
+const sendMessageInput = document.getElementById('sendMessage');
 
-container.scrollTop = container.scrollHeight;
+  sendMessageInput.addEventListener('blur', () => {
+    // Faites défiler la page vers le haut
+    window.scrollTo(0, 0);
+  });
