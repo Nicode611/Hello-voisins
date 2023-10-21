@@ -13,7 +13,6 @@ echo 'voici le port' . 8888;
 class Chat implements MessageComponentInterface {
     protected $clients;
     protected $usernames;
-    protected $userCounts = [];
 
 
     public function __construct() {
@@ -38,7 +37,9 @@ class Chat implements MessageComponentInterface {
                     "id" => $id,
                 ];
                 $this->usernames[$conn->resourceId] = $userData;
-                $countAllUsers = count($this->clients); // Compte tous les utilisateurs connectés
+                
+                // Compte tous les utilisateurs connectés
+                $countAllUsers = count($this->clients); 
 
                 // Après avoir ajouté l'utilisateur, envoyez les données des utilisateurs connectés
                 $this->sendConnectedUsersDataToUser($conn);
@@ -111,7 +112,6 @@ class Chat implements MessageComponentInterface {
             unset($this->usernames[$conn->resourceId]);
     
             // Mise à jour de $connectedUsers pour supprimer l'utilisateur déconnecté
-            // Mise à jour de $connectedUsers pour supprimer l'utilisateur déconnecté
             $connectedUsers = $this->getAllConnectedUsersData();
 
             // Envoyez la nouvelle liste des utilisateurs connectés à tous les clients
@@ -125,10 +125,8 @@ class Chat implements MessageComponentInterface {
     
     
     public function onError(ConnectionInterface $conn, \Exception $e) {
-
         $username = $this->usernames[$conn->resourceId] ?? 'N/A';
         echo("WebSocket Error - Username: $username, Error Message: {$e->getMessage()}"). "\n";
-
         $conn->close();
     }
 
