@@ -38,7 +38,6 @@
                 $_SESSION["user_latitude"] = $row["latitude"];
                 $_SESSION["user_longitude"] = $row["longitude"];
                 
-                $_SESSION["success"] = "<p class='validation'>Connecté !</p>";
                 $conn->close();
                 header("Location: proximity-chat.php");
                 exit();
