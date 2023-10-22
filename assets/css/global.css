@@ -31,8 +31,59 @@ button:hover, input[type="submit"]:hover {
     width: 100%;
 }
 
+.validation {
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    padding: 3px;
+    border: solid 3px #2b8004;
+    border-radius: 5px;
+    text-align: center;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+    opacity: 1;
+    transition: opacity 2s ease;
+    animation: fadeOut 2s ease 2s forwards;
+    z-index: 999;
+}
+
+.error {
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    padding: 3px;
+    border: solid 3px #800404;
+    border-radius: 5px;
+    text-align: center;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+    opacity: 1;
+    transition: opacity 2s ease;
+    animation: fadeOut 2s ease 2s forwards;
+    z-index: 999;
+}
+
 .hide {
     display: none;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
 }
 
 

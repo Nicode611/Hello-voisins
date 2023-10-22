@@ -1,4 +1,9 @@
 <?php
+session_destroy();
+session_set_cookie_params(3600);
+session_start(); 
+
+
 if (isset($_POST["submit_create"])) {
 
     $db_host = "mysql-garage-v-parrot.alwaysdata.net";
@@ -40,7 +45,7 @@ if (isset($_POST["submit_create"])) {
 
         if ($stmt->execute()) {
             ?> <span class="validation">Compte crée, connectez vous</span> <?php
-            $_SESSION["success"] = "<p class='validation'>Compte crée !</p>";
+            $_SESSION["success"] = "<p class='validation'>Compte crée, connectez vous !</p>";
             $conn->close();
             header("Location: ../pages/connection.php");
             exit();

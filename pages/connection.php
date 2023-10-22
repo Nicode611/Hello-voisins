@@ -1,3 +1,8 @@
+<?php 
+    session_set_cookie_params(3600);
+    session_start(); 
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,6 +13,9 @@
     <title>Connectez-vous</title>
 </head>
 <body>
+
+<div id="validation"><?php if (isset($_SESSION["success"])) { echo $_SESSION["success"]; unset($_SESSION["success"]); } ?></div>
+<div id="error"><?php if (isset($_SESSION["error"])) { echo $_SESSION["error"]; unset($_SESSION["error"]); } ?></div>
     
     <div class="log-in-container">
         <h2>Connectez-vous</h2>
