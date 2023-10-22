@@ -46,13 +46,9 @@
         // Connection websocket
         username = '<?php echo $_SESSION['user_firstName']; ?>';
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
+        
         // Connection online
-        try {
-            var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
-        } catch (error) {
-            console.error('Erreur lors de la création de la connexion WebSocket :', error);
-        }
-
+        var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
         // Connection en local
         // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId);
 
