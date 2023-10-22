@@ -46,14 +46,14 @@
                 session_start();
                 $_SESSION["error"] = "<p class='error'>Mot de passe incorect</p>";
                 $conn->close();
-                header("Location: ../pages/maps.php");
+                header("Location: connection.php");
                 exit();
             }
         } else {
             session_start();
             $_SESSION["error"] = "<p class='error'>Mot de passe incorect</p>";
             $conn->close();
-            header("Location: ../pages/connection.php");
+            header("Location: connection.php");
             exit();
         }
 
