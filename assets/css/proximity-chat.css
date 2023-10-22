@@ -185,6 +185,10 @@
     box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.438);
 }
 
+.all-users-img:hover, .other-users-img:hover, .other-users-id:hover {
+    cursor: pointer;
+}
+
 
 
 @media screen and (max-width: 1000px) {

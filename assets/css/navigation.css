@@ -74,10 +74,13 @@
 }
 
 .popup-user-container1 div {
-    margin-right: 50px;
     font-size: 1.5rem;
     font-weight: 700;
     text-align: center;
+}
+
+.popup-user-container1 div span {
+    margin: 0px 5px 0px 5px;
 }
 
 .popup-user-container2 {
