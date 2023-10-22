@@ -122,8 +122,8 @@
         <div class="popup-user-container1">
             <img src="../assets/images/user2.jpg" alt="">
             <div>
-                <span class="popup-first_name">Bruce</span>
-                <span class="popup-last_name">Wils</span>
+                <span class="popup-first_name"></span>
+                <span class="popup-last_name"></span>
             </div>
         </div>
         <!-- <div class="popup-user-container2">
