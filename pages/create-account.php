@@ -25,9 +25,9 @@
             <label for="signInEmail">Email :</label>
             <input type="email" name="signInEmail" id="signInEmail" required>
             <label for="signInPassword">Mot de passe :</label>
-            <input type="password" name="signInPassword" id="signInPassword" required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)">
+            <input type="password" name="signInPassword" id="signInPassword" required pattern="^(?=.*[0-9])(?=.*[?!@#$%^&*-_])[A-Za-z0-9?!@#$%^&*-/]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (? ! @ # $ % ^ & * - _)">
             <label for="signInConfirmPassword">Confirmez le mot de passe :</label>
-            <input type="password" name="signInConfirmPassword" id="signInConfirmPassword" required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)">
+            <input type="password" name="signInConfirmPassword" id="signInConfirmPassword" required pattern="^(?=.*[0-9])(?=.*[?!@#$%^&*-_])[A-Za-z0-9?!@#$%^&*-_]{8,}$" title="Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (? ! @ # $ % ^ & * - _)">
             <p class="format-pswd">Le mot de passe ne doit pas contenir d'accents et doit contenir 8 caracteres dont 1 chiffre et 1 caractere special (! @ # $ % ^ & *)</p>
             <input type="submit" name="submit_create" value="Valider">
         </form>

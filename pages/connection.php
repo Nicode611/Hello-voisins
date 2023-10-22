@@ -21,9 +21,11 @@
         <h2>Connectez-vous</h2>
         <form class="log-in-form" method="POST">
             <label for="logInEmail">Email :</label>
-            <input type="email" name="logInEmail" id="logInEmail" value="nicolas.guigay@gmail.com" required>
+            <input type="email" name="logInEmail" id="logInEmail" required>
+            <!-- value="nicolas.guigay@gmail.com" -->
             <label for="logInPassword">Mot de passe :</label>
-            <input type="password" name="logInPassword" id="logInPassword" value="Azerty12!" required>
+            <input type="password" name="logInPassword" id="logInPassword" required>
+            <!-- value="Azerty12!" -->
             <input type="submit" name="submit_connect" value="Se connecter">
         </form>
     </div>
