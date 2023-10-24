@@ -29,20 +29,8 @@
         var userData = <?php echo $jsonUserData; ?>;
     </script>
 
-    <script>
-        var conn = new WebSocket('ws://localhost:8080');
-        conn.onopen = function(e) {
-            console.log("Connection established!");
-            conn.send('hello world !');
-        };
     
-        conn.onmessage = function(e) {
-            console.log(e.data);
-        };
-    </script>
-
-    
-    <script src="../assets/js/loc-test.js"></script>
+    <script src="../assets/js/get-loc.js"></script>
 
     <div class="main-content">
 
