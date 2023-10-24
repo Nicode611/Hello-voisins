@@ -30,7 +30,7 @@
     </script>
 
     
-    <script src="../assets/js/get-loc.js"></script>
+    <script src="../assets/js/get-loc-and-map.js"></script>
 
     <div class="main-content">
 

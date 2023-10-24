@@ -74,9 +74,16 @@
 }
 
 .popup-user-container1 div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 208px;
+    flex-grow: 1;
     font-size: 1.5rem;
     font-weight: 700;
     text-align: center;
+    overflow-wrap: anywhere;
 }
 
 .popup-user-container1 div span {
