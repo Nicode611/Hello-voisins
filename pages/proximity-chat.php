@@ -124,6 +124,7 @@
             <div>
                 <span class="popup-first_name"></span>
                 <span class="popup-last_name"></span>
+                <span class="popup-id"></span>
             </div>
         </div>
         <div class="popup-user-container3">

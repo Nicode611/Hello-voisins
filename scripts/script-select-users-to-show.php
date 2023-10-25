@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Requête SQL pour obtenir firstname et lastname de l'utilisateur avec l'ID spécifié
-    $sql = "SELECT first_name, last_name FROM users WHERE id = $id";
+    $sql = "SELECT first_name, last_name, id FROM users WHERE id = $id";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -24,7 +24,8 @@ if (isset($_GET['id'])) {
         // Créez un tableau associatif pour les données que vous souhaitez convertir en JSON
         $user_data = array(
             'first_name' => $row['first_name'],
-            'last_name' => $row['last_name']
+            'last_name' => $row['last_name'],
+            'id' => $row['id']
         );
 
         // Convertissez le tableau en JSON

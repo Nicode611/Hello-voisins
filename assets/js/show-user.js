@@ -56,10 +56,12 @@ allUsersContainer.addEventListener('click', function(event) {
 
                 const firstNameSpan = document.querySelector('.popup-first_name');
                 const lastNameSpan = document.querySelector('.popup-last_name');
+                const idSpan = document.querySelector('.popup-id');
 
                 // Remplacez le texte dans les éléments <span> avec les données de l'utilisateur
                 firstNameSpan.textContent = userData.first_name;
                 lastNameSpan.textContent = userData.last_name;
+                idSpan.textContent = userData.id;
             }
         };
         xhr.send();
