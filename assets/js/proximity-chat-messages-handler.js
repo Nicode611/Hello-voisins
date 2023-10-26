@@ -25,15 +25,15 @@
         function appendConnectionMessage(username, message) {
             var messageContainer = document.createElement('div');
             messageContainer.className = 'received-message-container';
-
-            var idText = document.createElement('p');
-            idText.className = 'other-users-id';
-            idText.textContent = id;
-
+            
             var userImg = document.createElement('img');
             userImg.className = 'other-users-img';
             userImg.src = '../assets/images/user2.jpg';
             userImg.alt = '';
+
+            var idText = document.createElement('p');
+            idText.className = 'other-users-id hide';
+            idText.textContent = id;
 
             var receivedMessage = document.createElement('div');
             receivedMessage.className = 'received-message';
@@ -47,8 +47,8 @@
             messageText.textContent = message;
 
             messagesContainer.appendChild(messageContainer);
-            messageContainer.appendChild(idText); // Ajoutez l'ID de l'utilisateur
             messageContainer.appendChild(userImg);
+            messageContainer.appendChild(idText);
             messageContainer.appendChild(receivedMessage);
             receivedMessage.appendChild(usernameText);
             receivedMessage.appendChild(messageText);
@@ -89,14 +89,14 @@
         var messageContainer = document.createElement('div');
         messageContainer.className = 'received-message-container';
 
-        var idText = document.createElement('p');
-        idText.className = 'other-users-id';
-        idText.textContent = id;
-
         var userImg = document.createElement('img');
         userImg.className = 'other-users-img';
         userImg.src = '../assets/images/user2.jpg';
         userImg.alt = '';
+
+        var idText = document.createElement('p');
+        idText.className = 'other-users-id hide';
+        idText.textContent = id;
 
         var receivedMessage = document.createElement('div');
         receivedMessage.className = 'received-message';
@@ -110,8 +110,8 @@
         messageText.textContent = message;
 
         messagesContainer.appendChild(messageContainer);
-        messageContainer.appendChild(idText); // Ajoutez l'ID de l'utilisateur
         messageContainer.appendChild(userImg);
+        messageContainer.appendChild(idText);
         messageContainer.appendChild(receivedMessage);
         receivedMessage.appendChild(usernameText);
         receivedMessage.appendChild(messageText);
@@ -134,22 +134,22 @@
         usersData.forEach(function(user) {
             var allUsers = document.createElement('div');
             allUsers.className = 'all-users';
-
-            var allUsersId = document.createElement('span')
-            allUsersId.className = 'other-users-id';
-            allUsersId.textContent = user.id;
-
+            
             var userImg = document.createElement('img');
             userImg.className = 'all-users-img';
             userImg.src = '../assets/images/user2.jpg';
             userImg.alt = '';
 
+            var allUsersId = document.createElement('span')
+            allUsersId.className = 'other-users-id hide';
+            allUsersId.textContent = user.id;
+
             var allUsersName = document.createElement('span')
             allUsersName.className = 'all-users-name';
             allUsersName.textContent = user.username;
 
-            allUsers.appendChild(allUsersId);
             allUsers.appendChild(userImg);
+            allUsers.appendChild(allUsersId);
             allUsers.appendChild(allUsersName);
 
             allUsersList.appendChild(allUsers);
@@ -169,21 +169,21 @@
             var allUsers = document.createElement('div');
             allUsers.className = 'all-users';
     
-            var allUsersId = document.createElement('span');
-            allUsersId.className = 'other-users-id';
-            allUsersId.textContent = userId;
-    
             var userImg = document.createElement('img');
             userImg.className = 'all-users-img';
             userImg.src = '../assets/images/user2.jpg';
             userImg.alt = '';
+
+            var allUsersId = document.createElement('span');
+            allUsersId.className = 'other-users-id hide';
+            allUsersId.textContent = userId;
     
             var allUsersName = document.createElement('span');
             allUsersName.className = 'all-users-name';
             allUsersName.textContent = username;
     
-            allUsers.appendChild(allUsersId);
             allUsers.appendChild(userImg);
+            allUsers.appendChild(allUsersId);
             allUsers.appendChild(allUsersName);
     
             allUsersList.appendChild(allUsers);

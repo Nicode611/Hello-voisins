@@ -87,7 +87,7 @@
     height: 30px;
     width: 30px;
     margin: 0px;
-    color: transparent;
+    color: rgba(255, 255, 255, 0);
 }
 
 .received-message {

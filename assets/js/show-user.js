@@ -1,12 +1,11 @@
 const allUsersContainer = document.querySelector('.all-users-container');
-const messagesContainerPopup = document.querySelector('.messages-container');
-const userIdPopup = document.querySelectorAll('.other-users-id');
 const popupUser = document.querySelector('.popup-user');
+const messagesContainerPopup = document.querySelector('.messages-container');
 
 // Au clic sur un user dans le chat
 messagesContainerPopup.addEventListener('click', function(event) {
-    if (event.target.classList.contains('other-users-id')) {
-        const idPopup = event.target;
+    if (event.target.classList.contains('other-users-img')) {
+        const idPopup = event.target.nextElementSibling;
 
         // Selectionne l'ancienne popup et la supprime
         const popupUser = document.querySelector('.popup-user');
@@ -112,9 +111,8 @@ messagesContainerPopup.addEventListener('click', function(event) {
 
 
 allUsersContainer.addEventListener('click', function(event) {
-    if (event.target.classList.contains('other-users-id')) {
-
-        const idPopup = event.target;
+    if (event.target.classList.contains('all-users-img')) {
+        const idPopup = event.target.nextElementSibling;
 
         const popupUser = document.querySelector('.popup-user');
         popupUser.remove();
@@ -264,14 +262,9 @@ function createPopupWindow() {
 
     popupUserDiv.appendChild(container3Div);
 
-    // Crée l'élément div pour l'overlay
-    const overlayDiv = document.createElement("div");
-    overlayDiv.classList.add("overlay");
-
     // Sélectionne le corps du document
     const body = document.body;
 
     // Ajoute les éléments créés au corps du document
     body.appendChild(popupUserDiv);
-    body.appendChild(overlayDiv);
 }

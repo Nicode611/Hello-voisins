@@ -120,7 +120,6 @@
     <!-- Fenetre modale users -->
     <div class="popup-user">
     </div>
-    <div class="overlay"></div> 
 
 
     <script src="../assets/js/chat-scroll-auto.js"></script>
