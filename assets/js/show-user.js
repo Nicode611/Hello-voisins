@@ -1,12 +1,16 @@
 const allUsersContainer = document.querySelector('.all-users-container');
 const messagesContainerPopup = document.querySelector('.messages-container');
 const userIdPopup = document.querySelectorAll('.other-users-id');
+const popupUser = document.querySelector('.popup-user');
 
 
 messagesContainerPopup.addEventListener('click', function(event) {
     if (event.target.classList.contains('other-users-id')) {
 
         const idPopup = event.target;
+
+        const popupUser = document.querySelector('.popup-user');
+        popupUser.remove();
         
         // Envoyez une requête AJAX pour obtenir les informations de l'utilisateur
         const xhr = new XMLHttpRequest();
@@ -20,15 +24,21 @@ messagesContainerPopup.addEventListener('click', function(event) {
                 createPopupWindow();
                 const popupUser = document.querySelector('.popup-user');
                 const overlay2 = document.querySelector('.overlay');
-                popupUser.classList.toggle('open');
-                overlay2.classList.toggle('active');
+                popupUser.classList.add('open');
+                overlay2.classList.add('active');
 
+                // Gestion du click sur l'overlay
+                overlay2.addEventListener('click', function() {
+                    popupUser.classList.remove('open');
+                    overlay2.classList.remove('active');
+                });
                 
-
                 // Utilisez userData pour afficher les informations dans votre popup
                 const firstNameSpan = document.querySelector('.popup-first_name');
                 const lastNameSpan = document.querySelector('.popup-last_name');
                 const idSpan = document.querySelector('.popup-id');
+                const containerDiv3 = document.querySelector('.popup-user-container3');
+
 
                 // Afficher ou non le bouton de contact
                 if (data.contact_statut == 'null') {
@@ -38,21 +48,21 @@ messagesContainerPopup.addEventListener('click', function(event) {
                     addContactIcon.setAttribute("src", "../assets/images/add-user-icon.png");
                     addContactIcon.setAttribute("alt", "");
 
-                    container3Div.appendChild(addContactIcon);
+                    containerDiv3.appendChild(addContactIcon);
 
                 } else if (data.contact_statut == 'waiting') {
                     const waitingForValidation = document.createElement("p");
                     waitingForValidation.classList.add('waiting-for-validation');
-                    waitingForValidation.textContent('Demande d\'ajout envoyée !')
+                    waitingForValidation.textContent = 'Demande d\'ajout envoyée !';
 
-                    container3Div.appendChild(waitingForValidation);
+                    containerDiv3.appendChild(waitingForValidation);
 
                 } else if (data.contact_statut == 'added') {
                     const alreadyAddText = document.createElement("p");
                     alreadyAddText.classList.add('already-add-text');
-                    alreadyAddText.textContent('Cette personne est déja dans vos contacts')
+                    alreadyAddText.textContent = 'Cette personne est déja dans vos contacts';
 
-                    container3Div.appendChild(alreadyAddText);
+                    containerDiv3.appendChild(alreadyAddText);
                 }
 
                 const addContactBtn = document.querySelector('.add-contact-btn');
@@ -62,45 +72,42 @@ messagesContainerPopup.addEventListener('click', function(event) {
                 lastNameSpan.textContent = data.user_data.last_name;
                 idSpan.textContent = data.user_data.id;
 
-                // Ajouter un contact
-                addContactBtn.addEventListener('click', function(event) {
+                if (addContactBtn) {  
+                    // Ajouter un contact
+                    addContactBtn.addEventListener('click', function(event) {
 
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('POST', '../scripts/script-add-contact.php', true);
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('POST', '../scripts/script-add-contact.php', true);
 
-                    var contactData = new FormData();
-                    contactData.append('idContact', idSpan.textContent);
-                    contactData.append('firstNameContact', firstNameSpan.textContent);
-                    contactData.append('lastNameContact', lastNameSpan.textContent);
+                        var contactData = new FormData();
+                        contactData.append('idContact', idSpan.textContent);
+                        contactData.append('firstNameContact', firstNameSpan.textContent);
+                        contactData.append('lastNameContact', lastNameSpan.textContent);
 
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            var response = xhr.responseText;
-                            var ok = JSON.parse(response);
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                var response = xhr.responseText;
+                                var ok = JSON.parse(response);
 
-                            if (ok == 'ok') {
-                                console.log('oui');
-                                addContactBtn.remove();
+                                if (ok == 'ok') {
+                                    console.log('oui');
+                                    addContactBtn.remove();
 
-                                var validMessage = document.createElement('p');
-                                validMessage.innerText = 'Demande d\'ajout envoyée !'
+                                    var validMessage = document.createElement('p');
+                                    validMessage.innerText = 'Demande d\'ajout envoyée !'
 
-                                container3Div.appendChild(validMessage);
+                                    containerDiv3.appendChild(validMessage);
 
-                                // Gestion du click sur l'overlay
-                                overlay2.addEventListener('click', function() {
-                                    popupUser.classList.remove('open');
-                                    overlay2.classList.remove('active');
-                                    popupUser.remove();
-                                });
+                                    
+                                };
                             };
                         };
-                    };
 
-                    xhr.send(contactData);
-                });
+                        xhr.send(contactData);
+                    });
+                };
 
-            }
+            };
         };
         xhr.send();
     }
@@ -109,74 +116,105 @@ messagesContainerPopup.addEventListener('click', function(event) {
 allUsersContainer.addEventListener('click', function(event) {
     if (event.target.classList.contains('other-users-id')) {
 
-        createPopupWindow();
-        const popupUser = document.querySelector('.popup-user');
-        const overlay2 = document.querySelector('.overlay');
-
-        overlay2.addEventListener('click', function() {
-            userIdPopup.forEach(function(idPopup) {
-                idPopup.classList.remove('open')
-            });
-            popupUser.classList.remove('open');
-            overlay2.classList.remove('active');
-        });
-
         const idPopup = event.target;
-        idPopup.classList.toggle('open');
-        popupUser.classList.toggle('open');
-        overlay2.classList.toggle('active');
 
+        const popupUser = document.querySelector('.popup-user');
+        popupUser.remove();
+        
         // Envoyez une requête AJAX pour obtenir les informations de l'utilisateur
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '../scripts/script-select-users-to-show.php?id=' + idPopup.textContent, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Les données JSON de l'utilisateur seront dans xhr.responseText
-                const userData = JSON.parse(xhr.responseText);
+                const data = JSON.parse(xhr.responseText);
 
+                // Genere la popup (placée ici pour gérer l'affichage apres la recup de donnée dans la bdd)
+                createPopupWindow();
+                const popupUser = document.querySelector('.popup-user');
+                const overlay2 = document.querySelector('.overlay');
+                popupUser.classList.add('open');
+                overlay2.classList.add('active');
+
+                // Gestion du click sur l'overlay
+                overlay2.addEventListener('click', function() {
+                    popupUser.classList.remove('open');
+                    overlay2.classList.remove('active');
+                });
+                
                 // Utilisez userData pour afficher les informations dans votre popup
-
                 const firstNameSpan = document.querySelector('.popup-first_name');
                 const lastNameSpan = document.querySelector('.popup-last_name');
                 const idSpan = document.querySelector('.popup-id');
+                const containerDiv3 = document.querySelector('.popup-user-container3');
+
+
+                // Afficher ou non le bouton de contact
+                if (data.contact_statut == 'null') {
+                    // Crée l'élément contact button avec des dimensions
+                    const addContactIcon = document.createElement("img");
+                    addContactIcon.classList.add('add-contact-btn');
+                    addContactIcon.setAttribute("src", "../assets/images/add-user-icon.png");
+                    addContactIcon.setAttribute("alt", "");
+
+                    containerDiv3.appendChild(addContactIcon);
+
+                } else if (data.contact_statut == 'waiting') {
+                    const waitingForValidation = document.createElement("p");
+                    waitingForValidation.classList.add('waiting-for-validation');
+                    waitingForValidation.textContent = 'Demande d\'ajout envoyée !';
+
+                    containerDiv3.appendChild(waitingForValidation);
+
+                } else if (data.contact_statut == 'added') {
+                    const alreadyAddText = document.createElement("p");
+                    alreadyAddText.classList.add('already-add-text');
+                    alreadyAddText.textContent = 'Cette personne est déja dans vos contacts';
+
+                    containerDiv3.appendChild(alreadyAddText);
+                }
+
                 const addContactBtn = document.querySelector('.add-contact-btn');
 
                 // Remplacez le texte dans les éléments <span> avec les données de l'utilisateur
-                firstNameSpan.textContent = userData.first_name;
-                lastNameSpan.textContent = userData.last_name;
-                idSpan.textContent = userData.id;
+                firstNameSpan.textContent = data.user_data.first_name;
+                lastNameSpan.textContent = data.user_data.last_name;
+                idSpan.textContent = data.user_data.id;
 
-                // Ajouter un contact
-                addContactBtn.addEventListener('click', function(event) {
+                if (addContactBtn) {  
+                    // Ajouter un contact
+                    addContactBtn.addEventListener('click', function(event) {
 
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('POST', '../scripts/script-add-contact.php', true);
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('POST', '../scripts/script-add-contact.php', true);
 
-                    var contactData = new FormData();
-                    contactData.append('idContact', idSpan.textContent);
-                    contactData.append('firstNameContact', firstNameSpan.textContent);
-                    contactData.append('lastNameContact', lastNameSpan.textContent);
+                        var contactData = new FormData();
+                        contactData.append('idContact', idSpan.textContent);
+                        contactData.append('firstNameContact', firstNameSpan.textContent);
+                        contactData.append('lastNameContact', lastNameSpan.textContent);
 
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            var response = xhr.responseText;
-                            var ok = JSON.parse(response);
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                var response = xhr.responseText;
+                                var ok = JSON.parse(response);
 
-                            if (ok == 'ok') {
-                                console.log('oui');
-                                var validMessage = document.createElement('p');
-                                validMessage.innerText = 'Demande d\'ajout envoyée !'
+                                if (ok == 'ok') {
+                                    console.log('oui');
+                                    addContactBtn.remove();
 
-                                popupUser.appendChild(validMessage);
+                                    var validMessage = document.createElement('p');
+                                    validMessage.innerText = 'Demande d\'ajout envoyée !'
 
-                                validMessage.innerText = 'Demande d\'ajout envoyée !'
+                                    containerDiv3.appendChild(validMessage);
+                                };
                             };
                         };
-                    };
 
-                    xhr.send(contactData);
-                });
-            }
+                        xhr.send(contactData);
+                    });
+                };
+
+            };
         };
         xhr.send();
     }
@@ -186,58 +224,57 @@ allUsersContainer.addEventListener('click', function(event) {
 
 function createPopupWindow() {
     // Crée l'élément div avec la classe "popup-user"
-const popupUserDiv = document.createElement("div");
-popupUserDiv.classList.add("popup-user");
+    const popupUserDiv = document.createElement("div");
+    popupUserDiv.classList.add("popup-user");
 
-// Crée le premier conteneur à l'intérieur de "popup-user"
-const container1Div = document.createElement("div");
-container1Div.classList.add("popup-user-container1");
+    // Crée le premier conteneur à l'intérieur de "popup-user"
+    const container1Div = document.createElement("div");
+    container1Div.classList.add("popup-user-container1");
 
-popupUserDiv.appendChild(container1Div);
+    popupUserDiv.appendChild(container1Div);
 
-// Crée l'image à l'intérieur de container1Div
-const image = document.createElement("img");
-image.classList.add('contact-img')
-image.setAttribute("src", "../assets/images/user2.jpg");
-image.setAttribute("alt", "");
+    // Crée l'image à l'intérieur de container1Div
+    const image = document.createElement("img");
+    image.classList.add('contact-img')
+    image.setAttribute("src", "../assets/images/user2.jpg");
+    image.setAttribute("alt", "");
 
-// Crée le conteneur div pour le texte à l'intérieur de container1Div
-const textContainer = document.createElement("div");
+    // Crée le conteneur div pour le texte à l'intérieur de container1Div
+    const textContainer = document.createElement("div");
 
-// Crée les éléments span pour le texte
-const firstNameSpan = document.createElement("span");
-firstNameSpan.classList.add("popup-first_name");
-const lastNameSpan = document.createElement("span");
-lastNameSpan.classList.add("popup-last_name");
-const idSpan = document.createElement("span");
-idSpan.classList.add("popup-id");
+    // Crée les éléments span pour le texte
+    const firstNameSpan = document.createElement("span");
+    firstNameSpan.classList.add("popup-first_name");
+    const lastNameSpan = document.createElement("span");
+    lastNameSpan.classList.add("popup-last_name");
+    const idSpan = document.createElement("span");
+    idSpan.classList.add("popup-id");
+    idSpan.classList.add("hide");
 
-// Ajoute les éléments span au conteneur de texte
-textContainer.appendChild(firstNameSpan);
-textContainer.appendChild(lastNameSpan);
-textContainer.appendChild(idSpan);
 
-// Ajoute l'image et le texte au container1Div
-container1Div.appendChild(image);
-container1Div.appendChild(textContainer);
+    // Ajoute les éléments span au conteneur de texte
+    textContainer.appendChild(firstNameSpan);
+    textContainer.appendChild(lastNameSpan);
+    textContainer.appendChild(idSpan);
 
-// Crée le deuxième conteneur à l'intérieur de "popup-user"
-const container3Div = document.createElement("div");
-container3Div.classList.add("popup-user-container3");
+    // Ajoute l'image et le texte au container1Div
+    container1Div.appendChild(image);
+    container1Div.appendChild(textContainer);
 
-popupUserDiv.appendChild(container3Div);
+    // Crée le deuxième conteneur à l'intérieur de "popup-user"
+    const container3Div = document.createElement("div");
+    container3Div.classList.add("popup-user-container3");
 
-// Crée l'élément div pour l'overlay
-const overlayDiv = document.createElement("div");
-overlayDiv.classList.add("overlay");
+    popupUserDiv.appendChild(container3Div);
 
-// Sélectionne le corps du document
-const body = document.body;
+    // Crée l'élément div pour l'overlay
+    const overlayDiv = document.createElement("div");
+    overlayDiv.classList.add("overlay");
 
-// Ajoute les éléments créés au corps du document
-body.appendChild(popupUserDiv);
-body.appendChild(overlayDiv);
+    // Sélectionne le corps du document
+    const body = document.body;
 
-// Remarque : Cela créera la structure HTML demandée et l'ajoutera au corps du document.
-
+    // Ajoute les éléments créés au corps du document
+    body.appendChild(popupUserDiv);
+    body.appendChild(overlayDiv);
 }
