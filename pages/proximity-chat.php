@@ -21,11 +21,6 @@
         <div class="all-users-container">
             <p id="user-count"></p>
             <div class="all-users-list">
-                <!-- <div class="all-users">
-                    <span class="other-users-id">1</span>
-                    <img class="all-users-img" src="../assets/images/user2.jpg" alt="">
-                    <span class="all-users-name">Nicolas</span>
-                </div> -->
             </div>
         </div>
 

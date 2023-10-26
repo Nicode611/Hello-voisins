@@ -72,6 +72,11 @@
                     };
                 ?>
             </span>
+            <span class="self-user-id hide">
+                <?php if (isset($_SESSION['user_id'])) {
+                    echo $sessionSelfUserId = $_SESSION['user_id'];
+                }; ?>
+            </span>
             <nav class="nav-menu">
                 <ul>
     
