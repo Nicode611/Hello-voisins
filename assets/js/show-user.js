@@ -3,24 +3,24 @@ const messagesContainerPopup = document.querySelector('.messages-container');
 const userIdPopup = document.querySelectorAll('.other-users-id');
 const popupUser = document.querySelector('.popup-user');
 
-
+// Au clic sur un user dans le chat
 messagesContainerPopup.addEventListener('click', function(event) {
     if (event.target.classList.contains('other-users-id')) {
-
         const idPopup = event.target;
 
+        // Selectionne l'ancienne popup et la supprime
         const popupUser = document.querySelector('.popup-user');
         popupUser.remove();
         
-        // Envoyez une requête AJAX pour obtenir les informations de l'utilisateur
+        // Envoie une requête AJAX pour obtenir les informations de l'utilisateur
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '../scripts/script-select-users-to-show.php?id=' + idPopup.textContent, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                // Les données JSON de l'utilisateur seront dans xhr.responseText
+                // Contient les données JSON retournées par le script PHP
                 const data = JSON.parse(xhr.responseText);
 
-                // Genere la popup (placée ici pour gérer l'affichage apres la recup de donnée dans la bdd)
+                // Genere la popup (placée ici pour gérer l'affichage du btn ou pas apres la recup de donnée dans la bdd)
                 createPopupWindow();
                 const popupUser = document.querySelector('.popup-user');
                 const overlay2 = document.querySelector('.overlay');
@@ -33,16 +33,14 @@ messagesContainerPopup.addEventListener('click', function(event) {
                     overlay2.classList.remove('active');
                 });
                 
-                // Utilisez userData pour afficher les informations dans votre popup
                 const firstNameSpan = document.querySelector('.popup-first_name');
                 const lastNameSpan = document.querySelector('.popup-last_name');
                 const idSpan = document.querySelector('.popup-id');
                 const containerDiv3 = document.querySelector('.popup-user-container3');
 
 
-                // Afficher ou non le bouton de contact
+                // Afficher ou non le bouton de contact selon le statut du contact
                 if (data.contact_statut == 'null') {
-                    // Crée l'élément contact button avec des dimensions
                     const addContactIcon = document.createElement("img");
                     addContactIcon.classList.add('add-contact-btn');
                     addContactIcon.setAttribute("src", "../assets/images/add-user-icon.png");
@@ -67,18 +65,19 @@ messagesContainerPopup.addEventListener('click', function(event) {
 
                 const addContactBtn = document.querySelector('.add-contact-btn');
 
-                // Remplacez le texte dans les éléments <span> avec les données de l'utilisateur
+                // Remplace le texte dans les éléments span avec les données de l'utilisateur
                 firstNameSpan.textContent = data.user_data.first_name;
                 lastNameSpan.textContent = data.user_data.last_name;
                 idSpan.textContent = data.user_data.id;
 
                 if (addContactBtn) {  
-                    // Ajouter un contact
                     addContactBtn.addEventListener('click', function(event) {
 
+                        // Requete pour ajouter un contact
                         const xhr = new XMLHttpRequest();
                         xhr.open('POST', '../scripts/script-add-contact.php', true);
 
+                        // Envoie des données du contact au script PHP
                         var contactData = new FormData();
                         contactData.append('idContact', idSpan.textContent);
                         contactData.append('firstNameContact', firstNameSpan.textContent);
@@ -89,16 +88,14 @@ messagesContainerPopup.addEventListener('click', function(event) {
                                 var response = xhr.responseText;
                                 var ok = JSON.parse(response);
 
+                                // Si contact bien ajouté on enleve le btn et on met un texte de validation
                                 if (ok == 'ok') {
-                                    console.log('oui');
                                     addContactBtn.remove();
 
                                     var validMessage = document.createElement('p');
                                     validMessage.innerText = 'Demande d\'ajout envoyée !'
 
                                     containerDiv3.appendChild(validMessage);
-
-                                    
                                 };
                             };
                         };
@@ -112,6 +109,7 @@ messagesContainerPopup.addEventListener('click', function(event) {
         xhr.send();
     }
 });
+
 
 allUsersContainer.addEventListener('click', function(event) {
     if (event.target.classList.contains('other-users-id')) {
@@ -199,7 +197,6 @@ allUsersContainer.addEventListener('click', function(event) {
                                 var ok = JSON.parse(response);
 
                                 if (ok == 'ok') {
-                                    console.log('oui');
                                     addContactBtn.remove();
 
                                     var validMessage = document.createElement('p');
