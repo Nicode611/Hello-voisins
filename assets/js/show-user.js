@@ -20,15 +20,48 @@ messagesContainerPopup.addEventListener('click', function(event) {
                 const userData = JSON.parse(xhr.responseText);
 
                 // Utilisez userData pour afficher les informations dans votre popup
-                // Par exemple : document.getElementById('firstname').textContent = userData.firstname;
-                // Remplacez 'firstname' par l'ID de l'élément HTML où vous souhaitez afficher le prénom.
 
                 const firstNameSpan = document.querySelector('.popup-first_name');
                 const lastNameSpan = document.querySelector('.popup-last_name');
+                const idSpan = document.querySelector('.popup-id');
+                const addContactBtn = document.querySelector('.add-contact-btn');
 
                 // Remplacez le texte dans les éléments <span> avec les données de l'utilisateur
                 firstNameSpan.textContent = userData.first_name;
                 lastNameSpan.textContent = userData.last_name;
+                idSpan.textContent = userData.id;
+
+                // Ajouter un contact
+                addContactBtn.addEventListener('click', function(event) {
+
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', '../scripts/script-add-contact.php', true);
+
+                    var contactData = new FormData();
+                    contactData.append('idContact', idSpan.textContent);
+                    contactData.append('firstNameContact', firstNameSpan.textContent);
+                    contactData.append('lastNameContact', lastNameSpan.textContent);
+
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            var response = xhr.responseText;
+                            var ok = JSON.parse(response);
+
+                            if (ok == 'ok') {
+                                console.log('oui');
+                                var validMessage = document.createElement('p');
+                                validMessage.innerText = 'Demande d\'ajout envoyée !'
+
+                                popupUser.appendChild(validMessage);
+
+                                validMessage.innerText = 'Demande d\'ajout envoyée !'
+                            };
+                        };
+                    };
+
+                    xhr.send(contactData);
+                });
+
             }
         };
         xhr.send();
@@ -51,17 +84,47 @@ allUsersContainer.addEventListener('click', function(event) {
                 const userData = JSON.parse(xhr.responseText);
 
                 // Utilisez userData pour afficher les informations dans votre popup
-                // Par exemple : document.getElementById('firstname').textContent = userData.firstname;
-                // Remplacez 'firstname' par l'ID de l'élément HTML où vous souhaitez afficher le prénom.
 
                 const firstNameSpan = document.querySelector('.popup-first_name');
                 const lastNameSpan = document.querySelector('.popup-last_name');
                 const idSpan = document.querySelector('.popup-id');
+                const addContactBtn = document.querySelector('.add-contact-btn');
 
                 // Remplacez le texte dans les éléments <span> avec les données de l'utilisateur
                 firstNameSpan.textContent = userData.first_name;
                 lastNameSpan.textContent = userData.last_name;
                 idSpan.textContent = userData.id;
+
+                // Ajouter un contact
+                addContactBtn.addEventListener('click', function(event) {
+
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', '../scripts/script-add-contact.php', true);
+
+                    var contactData = new FormData();
+                    contactData.append('idContact', idSpan.textContent);
+                    contactData.append('firstNameContact', firstNameSpan.textContent);
+                    contactData.append('lastNameContact', lastNameSpan.textContent);
+
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            var response = xhr.responseText;
+                            var ok = JSON.parse(response);
+
+                            if (ok == 'ok') {
+                                console.log('oui');
+                                var validMessage = document.createElement('p');
+                                validMessage.innerText = 'Demande d\'ajout envoyée !'
+
+                                popupUser.appendChild(validMessage);
+
+                                validMessage.innerText = 'Demande d\'ajout envoyée !'
+                            };
+                        };
+                    };
+
+                    xhr.send(contactData);
+                });
             }
         };
         xhr.send();
