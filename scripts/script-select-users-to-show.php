@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_GET['id'])) {
 
     $db_host = "mysql-garage-v-parrot.alwaysdata.net";
@@ -11,15 +12,16 @@ if (isset($_GET['id'])) {
         die("La connexion à la base de données a échoué : " . $conn->connect_error);
     }
 
-    // Supposons que vous avez déjà défini $id, par exemple :
+    $selfId = $_SESSION['user_id'];
     $id = $_GET['id'];
+    $response = array();
 
     // Requête SQL pour obtenir firstname et lastname de l'utilisateur avec l'ID spécifié
-    $sql = "SELECT first_name, last_name, id FROM users WHERE id = $id";
-    $result = $conn->query($sql);
+    $sqlUsers = "SELECT first_name, last_name, id FROM users WHERE id = $id";
+    $resultUsers = $conn->query($sqlUsers);
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
+    if ($resultUsers->num_rows > 0) {
+        $row = $resultUsers->fetch_assoc();
         
         // Créez un tableau associatif pour les données que vous souhaitez convertir en JSON
         $user_data = array(
@@ -28,14 +30,24 @@ if (isset($_GET['id'])) {
             'id' => $row['id']
         );
 
-        // Convertissez le tableau en JSON
-        // Convertissez le tableau en JSON et renvoyez-le
-        echo json_encode($user_data);
-    } else {
-        echo json_encode(array('error' => 'Utilisateur non trouvé'));
+        $response['user_data'] = $user_data;
     }
-} else {
-    echo json_encode(array('error' => 'ID non spécifié'));
+
+    $sqlContact = "SELECT statut FROM contacts WHERE added_user_id = $id AND added_by_user_id = $selfId";
+    $resultContact = $conn->query($sqlContact);
+
+    if ($resultContact->num_rows > 0) {
+        $row = $resultContact->fetch_assoc();
+        
+        // Créez un tableau associatif pour les données que vous souhaitez convertir en JSON
+        $contactStatut = $row["statut"];
+
+        $response['contact_statut'] = $contactStatut;
+    } else { 
+        $response['contact_statut'] = 'null';
+    };
+
+    echo json_encode($response);
 }
 
 $conn->close();
