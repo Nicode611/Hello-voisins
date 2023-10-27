@@ -36,10 +36,15 @@ messagesContainerPopup.addEventListener('click', function(event) {
                 const lastNameSpan = document.querySelector('.popup-last_name');
                 const idSpan = document.querySelector('.popup-id');
                 const containerDiv3 = document.querySelector('.popup-user-container3');
+                const selfUserId = document.querySelector('.self-user-id');
 
+                // Remplace le texte dans les éléments span avec les données de l'utilisateur
+                firstNameSpan.textContent = data.user_data.first_name;
+                lastNameSpan.textContent = data.user_data.last_name;
+                idSpan.textContent = data.user_data.id;
 
                 // Afficher ou non le bouton de contact selon le statut du contact
-                if (data.contact_statut == 'null') {
+                if (data.contact_statut == 'null' && selfUserId.textContent !== idSpan.textContent) {
                     const addContactIcon = document.createElement("img");
                     addContactIcon.classList.add('add-contact-btn');
                     addContactIcon.setAttribute("src", "../assets/images/add-user-icon.png");
@@ -47,14 +52,14 @@ messagesContainerPopup.addEventListener('click', function(event) {
 
                     containerDiv3.appendChild(addContactIcon);
 
-                } else if (data.contact_statut == 'waiting') {
+                } else if (data.contact_statut == 'waiting' && selfUserId.textContent !== idSpan.textContent) {
                     const waitingForValidation = document.createElement("p");
                     waitingForValidation.classList.add('waiting-for-validation');
                     waitingForValidation.textContent = 'Demande d\'ajout envoyée !';
 
                     containerDiv3.appendChild(waitingForValidation);
 
-                } else if (data.contact_statut == 'added') {
+                } else if (data.contact_statut == 'added' && selfUserId.textContent !== idSpan.textContent) {
                     const alreadyAddText = document.createElement("p");
                     alreadyAddText.classList.add('already-add-text');
                     alreadyAddText.textContent = 'Cette personne est déja dans vos contacts';
@@ -64,10 +69,7 @@ messagesContainerPopup.addEventListener('click', function(event) {
 
                 const addContactBtn = document.querySelector('.add-contact-btn');
 
-                // Remplace le texte dans les éléments span avec les données de l'utilisateur
-                firstNameSpan.textContent = data.user_data.first_name;
-                lastNameSpan.textContent = data.user_data.last_name;
-                idSpan.textContent = data.user_data.id;
+                
 
                 if (addContactBtn) {  
                     addContactBtn.addEventListener('click', function(event) {
