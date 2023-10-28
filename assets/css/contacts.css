@@ -26,6 +26,7 @@ input[type="search"] {
     border-radius: 10px;
     box-shadow: 4px 4px 10px rgb(0, 0, 0);
     padding: 5px 15px 5px 15px;
+    margin-bottom: 50px;
     width: 60%;
 }
 

@@ -231,7 +231,7 @@ function createPopupWindow() {
 
     // Crée l'image à l'intérieur de container1Div
     const image = document.createElement("img");
-    image.classList.add('contact-img')
+    image.classList.add('popup-user-img')
     image.setAttribute("src", "../assets/images/user2.jpg");
     image.setAttribute("alt", "");
 
