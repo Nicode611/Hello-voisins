@@ -81,8 +81,6 @@ messagesContainerPopup.addEventListener('click', function(event) {
                         // Envoie des données du contact au script PHP
                         var contactData = new FormData();
                         contactData.append('idContact', idSpan.textContent);
-                        contactData.append('firstNameContact', firstNameSpan.textContent);
-                        contactData.append('lastNameContact', lastNameSpan.textContent);
 
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -190,8 +188,6 @@ allUsersContainer.addEventListener('click', function(event) {
                         // Envoie des données du contact au script PHP
                         var contactData = new FormData();
                         contactData.append('idContact', idSpan.textContent);
-                        contactData.append('firstNameContact', firstNameSpan.textContent);
-                        contactData.append('lastNameContact', lastNameSpan.textContent);
 
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState === 4 && xhr.status === 200) {

@@ -19,7 +19,7 @@ if (isset($_POST['idContact'])) {
     $statut = 'waiting';
 
     // Requette pour ajouter le contact
-    $sqlContact = "INSERT INTO contacts (added_by_user_id, added_user_id, statut) VALUES (?, ?, ?) ";
+    $sqlContact = "INSERT INTO contacts (added_by_user_id, added_user_id, statut) VALUES ( ?, ?, ?) ";
 
     $stmtContact = $conn->prepare($sqlContact);
 
@@ -27,14 +27,15 @@ if (isset($_POST['idContact'])) {
         die("Erreur de préparation de la requête : " . $conn->error);
     }
 
-    $stmtContact->bind_param('sssss', $selfId, $contactId, $statut);
+    $stmtContact->bind_param('sss', $selfId, $contactId, $statut);
 
     if ($stmtContact->execute()) { 
+
         $ok = 'ok';
         echo json_encode($ok);
 
     } else {
-        header('../pages/proximity-chat.php');
+        header('Location: ../pages/proximity-chat.php');
     };
 
     
