@@ -7,7 +7,9 @@ deleteContactBtns.forEach(deleteContactBtn => {
 
             var clickedBtn = event.target;
             var contactContainer = clickedBtn.closest(".contact");
-            const action = 'delete';
+            var contactIdElement = contactContainer.querySelector(".contact-id");
+            var contactId = contactIdElement.textContent;
+
 
             // Envoie une requette au meme script que pour les notifs afin de delete le contact
             const xhr = new XMLHttpRequest();
@@ -15,7 +17,7 @@ deleteContactBtns.forEach(deleteContactBtn => {
 
             // Envoie les données du btn au script PHP
             var actionData = new FormData();
-            actionData.append('delete_contact', action);
+            actionData.append('contact_id', contactId);
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
@@ -26,7 +28,6 @@ deleteContactBtns.forEach(deleteContactBtn => {
                     if (responseData == 'deleted') {
                         
                         contactContainer.remove();
-                        
                     }
                 }
             }
