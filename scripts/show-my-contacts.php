@@ -20,6 +20,7 @@ $resultContacts = $conn->query($sqlContacts);
 if ($resultContacts->num_rows > 0) {
     while ($rowContacts = $resultContacts->fetch_assoc()) {
 
+        $contactId = $rowContacts["id"];
         $contactAddedUserId = $rowContacts["added_user_id"];
         $contactAddedByUserId = $rowContacts["added_by_user_id"];
         $contactStatut = $rowContacts["statut"];
@@ -40,6 +41,7 @@ if ($resultContacts->num_rows > 0) {
             }; ?>
 
             <div class="contact">
+                <span class="hide contact-id"><?php echo $contactId ?></span>
                 <div class="contact-infos">
                     <img class="contact-img" src="../assets/images/user2.jpg" alt="">
                     <h4><?php echo $userFirstName . ' ' . $userLastName ?></h4>
@@ -69,6 +71,7 @@ if ($resultContacts->num_rows > 0) {
             }; ?>
 
             <div class="contact">
+                <span class="hide contact-id"><?php echo $contactId ?></span>
                 <div class="contact-infos">
                     <img class="contact-img" src="../assets/images/user2.jpg" alt="">
                     <h4><?php echo $userFirstName . ' ' . $userLastName ?></h4>

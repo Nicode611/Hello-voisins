@@ -14,8 +14,8 @@ deleteContactBtns.forEach(deleteContactBtn => {
             xhr.open('POST', '../scripts/script-delete-contact.php', true);
 
             // Envoie les données du btn au script PHP
-            var choiceData = new FormData();
-            choiceData.append('choice_notifs', choice);
+            var actionData = new FormData();
+            actionData.append('delete_contact', action);
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
@@ -30,7 +30,7 @@ deleteContactBtns.forEach(deleteContactBtn => {
                     }
                 }
             }
-            xhr.send(choiceData);
+            xhr.send(actionData);
         }
     });
 });
