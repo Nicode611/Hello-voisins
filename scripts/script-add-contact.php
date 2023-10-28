@@ -16,13 +16,10 @@ if (isset($_POST['idContact'])) {
 
     $selfId = $_SESSION['user_id'];
     $contactId = $_POST["idContact"];
-    $firstNameContact = $_POST['firstNameContact'];
-    $lastNameContact = $_POST['lastNameContact'];
     $statut = 'waiting';
-    $notifMessage = 'Souhaite vous ajouter à ses contacts';
 
     // Requette pour ajouter le contact
-    $sqlContact = "INSERT INTO contacts (contact_firstName, contact_lastName, added_by_user_id, added_user_id, statut) VALUES (?, ?, ?, ?, ?) ";
+    $sqlContact = "INSERT INTO contacts (added_by_user_id, added_user_id, statut) VALUES (?, ?, ?) ";
 
     $stmtContact = $conn->prepare($sqlContact);
 
@@ -30,28 +27,11 @@ if (isset($_POST['idContact'])) {
         die("Erreur de préparation de la requête : " . $conn->error);
     }
 
-    $stmtContact->bind_param('sssss', $firstNameContact, $lastNameContact, $selfId, $contactId, $statut);
+    $stmtContact->bind_param('sssss', $selfId, $contactId, $statut);
 
     if ($stmtContact->execute()) { 
-
-        // Requette pour ajouter la notif
-        $sqlNotif = "INSERT INTO notifs (contact_id, target_id, message, statut) VALUES (?, ?, ?, ?) ";
-
-        $stmtNotif = $conn->prepare($sqlNotif);
-
-        if ($stmtNotif === false) {
-            die("Erreur de préparation de la requête : " . $conn->error);
-        }
-
-        $stmtNotif->bind_param('ssss', $selfId, $contactId, $notifMessage, $statut);
-
-        if ($stmtNotif->execute()) { 
-
-            $ok = 'ok';
-            echo json_encode($ok);
-        } else {
-            header('../pages/maps.php');
-        };
+        $ok = 'ok';
+        echo json_encode($ok);
 
     } else {
         header('../pages/proximity-chat.php');
