@@ -12,20 +12,19 @@ if ($conn->connect_error) {
 
 $selfId = $_SESSION['user_id'];
 
-$sqlNotifs = "SELECT * FROM notifs WHERE target_id = $selfId";
+$sqlNotifsContacts = "SELECT * FROM contacts WHERE added_user_id = $selfId AND statut = 'waiting'";
 
-$resultNotifs = $conn->query($sqlNotifs);
+$resultNotifsContacts = $conn->query($sqlNotifsContacts);
 
 // On récupere toutes les notifs
-if ($resultNotifs->num_rows > 0) {
-    while ($rowNotifs = $resultNotifs->fetch_assoc()) {
+if ($resultNotifsContacts->num_rows > 0) {
+    while ($rowNotifsContacts = $resultNotifsContacts->fetch_assoc()) {
 
-        $notifsId = $rowNotifs["id"];
-        $notifsContactId = $rowNotifs["contact_id"];
-        $notifsMessage = $rowNotifs["message"];
-        $notifsStatut = $rowNotifs["statut"];
+        $notifsAddedByUserId = $rowNotifsContacts["added_by_user_id"];
+        $notifsContactStatut = $rowNotifsContacts["statut"];
+        $notifsContactMessage = 'Souhaite vous ajouter à ses contacts';
         
-        $sqlUsers = "SELECT first_name, last_name FROM users WHERE id = $notifsContactId";
+        $sqlUsers = "SELECT first_name, last_name FROM users WHERE id = $notifsAddedByUserId";
 
         $resultUsers = $conn->query($sqlUsers);
 
@@ -39,7 +38,7 @@ if ($resultNotifs->num_rows > 0) {
         }; ?>
 
         <div class="notification-container">
-            <label class="notif-label" for="notif"><?php echo $notifsMessage ?></label>
+            <label class="notif-label" for="notif"><?php echo $notifsContactMessage ?></label>
             <div class="notification" name="notif">
                 <div>
                     <img src="../assets/images/user2.jpg" alt="">
