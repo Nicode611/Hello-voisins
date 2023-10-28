@@ -19,7 +19,7 @@ if (isset($_POST['idContact'])) {
     $firstNameContact = $_POST['firstNameContact'];
     $lastNameContact = $_POST['lastNameContact'];
     $statut = 'waiting';
-    $notifMessage = $firstNameContact . ' ' . $lastNameContact . ' Souhaite vous ajouter à ses contacts';
+    $notifMessage = 'Souhaite vous ajouter à ses contacts';
 
     // Requette pour ajouter le contact
     $sqlContact = "INSERT INTO contacts (contact_firstName, contact_lastName, added_by_user_id, added_user_id, statut) VALUES (?, ?, ?, ?, ?) ";
@@ -43,7 +43,7 @@ if (isset($_POST['idContact'])) {
             die("Erreur de préparation de la requête : " . $conn->error);
         }
 
-        $stmtNotif->bind_param('ssss', $contactId, $selfId, $notifMessage, $statut);
+        $stmtNotif->bind_param('ssss', $selfId, $contactId, $notifMessage, $statut);
 
         if ($stmtNotif->execute()) { 
 
