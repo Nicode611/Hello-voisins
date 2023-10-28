@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_POST['choice_notifs'])) { 
 
     session_start();
@@ -18,11 +17,14 @@ if (isset($_POST['choice_notifs'])) {
     $choice = $_POST['choice_notifs'];
 
 
+
     if ($choice == 'accept') { 
 
-        $sql = "UPDATE contact SET statut='$choice' WHERE added_user_id='$selfId'";
+        $choice = 'added';
 
-        if ($connexion->query($sql) === TRUE) {
+        $sql = "UPDATE contacts SET statut='$choice' WHERE added_user_id='$selfId'";
+
+        if ($conn->query($sql) === TRUE) {
 
             $choiceResponse = 'accepted';
             echo json_encode($choiceResponse);
@@ -32,17 +34,18 @@ if (isset($_POST['choice_notifs'])) {
 
     } else if ($choice == 'refuses') { 
 
-        $sql = "DELETE contact WHERE added_user_id='$selfId'";
+        $sql = "DELETE FROM contacts WHERE added_user_id='$selfId'";
 
-        if ($connexion->query($sql) === TRUE) {
+        if ($conn->query($sql) === TRUE) {
 
             $choiceResponse = 'deleted';
             echo json_encode($choiceResponse);
             
         }
 
-    };
+    }
 
     $conn->close();
 
 };
+?>

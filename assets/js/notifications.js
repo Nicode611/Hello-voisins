@@ -44,6 +44,7 @@ deleteBtns.forEach(deleteBtn => {
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
+
                 // Contient les données JSON retournées par le script PHP
                 const responseData = JSON.parse(xhr.responseText);
 
@@ -59,9 +60,9 @@ deleteBtns.forEach(deleteBtn => {
 
                     }, delai);
                 }
-
             }
         }
+        xhr.send(choiceData);
     });
 });
 
@@ -82,6 +83,7 @@ validBtns.forEach(ValidBtn => {
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
+
                 // Contient les données JSON retournées par le script PHP
                 const responseData = JSON.parse(xhr.responseText);
 
@@ -96,9 +98,9 @@ validBtns.forEach(ValidBtn => {
                         confirmMessage.remove();
 
                     }, delai);
-                }
+                } 
             }
         }
-
+        xhr.send(choiceData);
     });
 });
