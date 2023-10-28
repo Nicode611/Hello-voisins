@@ -266,6 +266,11 @@
     width: 35px;
 }
 
+.valid-notification-icon:hover, .cross-notification-icon:hover {
+    cursor: pointer;
+    zoom: 102%;
+}
+
 .overlay {
     position: fixed;
     top: 0;
