@@ -84,10 +84,10 @@ if ($resultContacts->num_rows > 0) {
             </div>
 
             <?php
-        } else {
-            echo "Pas de contacts";
-        };
+        }
     };
+} else {
+    echo "Vous n'avez pas encore de contacts";
 };
 
     $conn->close();
