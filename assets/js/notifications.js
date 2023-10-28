@@ -28,8 +28,11 @@ const validBtns = document.querySelectorAll('.valid-notification-icon');
 const deleteBtns = document.querySelectorAll('.cross-notification-icon');
 
 deleteBtns.forEach(deleteBtn => {
-    deleteBtn.addEventListener('click', () => {
-
+    deleteBtn.addEventListener('click', function(event) {
+        var clickedBtn = event.target;
+        var notifContainer = clickedBtn.closest(".notification-container");
+        var confirmMessage = document.createElement("p");
+        confirmMessage.textContent = "Refusé";
         const choice = 'refuses';
 
         const xhr = new XMLHttpRequest();
@@ -37,20 +40,37 @@ deleteBtns.forEach(deleteBtn => {
 
         // Envoie les données du btn au script PHP
         var choiceData = new FormData();
-        choiceData.append('choice', choice);
+        choiceData.append('choice_notifs', choice);
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Contient les données JSON retournées par le script PHP
-                const data = JSON.parse(xhr.responseText);
+                const responseData = JSON.parse(xhr.responseText);
+
+                if (responseData == 'deleted') {
+                    
+                    notifContainer.replaceWith(confirmMessage);
+
+                    var delai = 3000;
+
+                    setTimeout(function() {
+
+                        confirmMessage.remove();
+
+                    }, delai);
+                }
+
             }
         }
     });
 });
 
 validBtns.forEach(ValidBtn => {
-    ValidBtn.addEventListener('click', () => {
-
+    ValidBtn.addEventListener('click', function(event) {
+        var clickedBtn = event.target;
+        var notifContainer = clickedBtn.closest(".notification-container");
+        var confirmMessage = document.createElement("p");
+        confirmMessage.textContent = "Contact ajouté";
         const choice = 'accept';
 
         const xhr = new XMLHttpRequest();
@@ -58,12 +78,25 @@ validBtns.forEach(ValidBtn => {
 
         // Envoie les données du btn au script PHP
         var choiceData = new FormData();
-        choiceData.append('choice', choice);
+        choiceData.append('choice_notifs', choice);
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Contient les données JSON retournées par le script PHP
-                const data = JSON.parse(xhr.responseText);
+                const responseData = JSON.parse(xhr.responseText);
+
+                if (responseData == 'accepted') {
+
+                    notifContainer.replaceWith(confirmMessage);
+
+                    var delai = 3000;
+
+                    setTimeout(function() {
+
+                        confirmMessage.remove();
+
+                    }, delai);
+                }
             }
         }
 
