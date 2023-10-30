@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "aws-sdk": "^2.1483.0",
     "browser-sync": "^2.29.3"
   }
 }
