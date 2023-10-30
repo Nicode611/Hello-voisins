@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@aws-amplify/storage": "^5.9.5",
     "aws-amplify": "^5.3.11",
     "browser-sync": "^2.29.3"
   }
