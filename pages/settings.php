@@ -52,6 +52,6 @@
     </div>
     
 
-    <script src="../assets/js/loc-test.js"></script>
+    <script src="../assets/js/get-loc.js"></script>
 </body>
 </html>
