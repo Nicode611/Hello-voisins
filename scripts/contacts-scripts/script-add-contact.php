@@ -32,7 +32,7 @@ if (isset($_POST['idContact'])) {
         echo json_encode($ok);
 
     } else {
-        header('Location: ../pages/proximity-chat.php');
+        header('Location: ../../pages/proximity-chat.php');
     };
 
     

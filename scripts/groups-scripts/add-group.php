@@ -32,7 +32,7 @@ if (isset($_POST['create_group'])) {
         header('Location: ../../pages/groups.php');
 
     } else {
-        header('Location: ../pages/contacts.php');
+        header('Location: ../../pages/contacts.php');
     };
 
     

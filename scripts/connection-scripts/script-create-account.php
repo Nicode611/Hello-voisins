@@ -44,28 +44,28 @@ if (isset($_POST["submit_create"])) {
             ?> <span class="validation">Compte crée, connectez vous</span> <?php
             $_SESSION["success"] = "<p class='validation'>Compte crée, connectez vous !</p>";
             $conn->close();
-            header("Location: ../pages/connection.php");
+            header("Location: ../../pages/connection.php");
             exit();
 
             } else {
                 $_SESSION["error"] = "<p class='error'>Erreur</p>";
                 $stmt->close();
                 $conn->close();
-                header("Location: ../pages/create-account.php");
+                header("Location: ../../pages/create-account.php");
                 exit();
             }
         } else {
             $_SESSION["error"] = "<p class='error'>Code incorrect.</p>";
             $stmt->close();
             $conn->close();
-            header("Location: ../pages/create-account.php");
+            header("Location: ../../pages/create-account.php");
             exit();
         }
     } else {
         $_SESSION["error"] = "<p class='error'>Les mdps ne correspondent pas.</p>";
         $stmt->close();
         $conn->close();
-        header("Location: ../pages/create-account.php");
+        header("Location: ../../pages/create-account.php");
         exit();
     }
 } else {
