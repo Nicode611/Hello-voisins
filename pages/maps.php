@@ -21,7 +21,7 @@
     ?>
 
 <?php
-        $includeFile = "../scripts/script-get-users-locations.php";
+        $includeFile = "../scripts/infos-scripts/script-get-users-locations.php";
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     ?>
     <script type="text/javascript">

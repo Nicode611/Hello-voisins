@@ -13,7 +13,7 @@ messagesContainerPopup.addEventListener('click', function(event) {
         
         // Envoie une requête AJAX pour obtenir les informations de l'utilisateur
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '../scripts/script-select-users-to-show.php?id=' + idPopup.textContent, true);
+        xhr.open('GET', '../scripts/infos-scripts/script-select-users-to-show.php?id=' + idPopup.textContent, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Contient les données JSON retournées par le script PHP

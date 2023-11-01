@@ -10,7 +10,7 @@ function initMap() {
                 
             $.ajax({
                 type: "POST",
-                url: "../scripts/send-loc.php",
+                url: "../scripts/infos-scripts/send-loc.php",
                 data: { 
                     latitude: latitude,
                     longitude: longitude

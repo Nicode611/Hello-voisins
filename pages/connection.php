@@ -31,7 +31,7 @@
     </div>
 
     <?php
-        $includeFile = "../scripts/script-connection.php";
+        $includeFile = "../scripts/connection-scripts/script-connection.php";
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     ?>
 
