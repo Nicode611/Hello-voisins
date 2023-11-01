@@ -21,7 +21,18 @@
         <div class="create-new-group">
             <form class="new-group-form" action="">
                 <input type="text" name="newGroup" id="newGroup" placeholder="Nom du groupe">
-                <input type="submit" value="Créer le groupe">
+
+                
+                
+
+                <select name="chooseContact" id="chooseContact">
+                    <option value="">Ajoutez un contact</option>
+                    <?php
+                        $includeFile = "../includes/show-contacts-to-choose.php";
+                        if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+                    ?>
+                </select>
+                <input type="submit" value="Créer un groupe">
             </form>
         </div>
 
