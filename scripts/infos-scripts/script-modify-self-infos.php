@@ -45,28 +45,28 @@ if (isset($_POST["submit_modify_self_infos"])) {
         if ($stmt->execute()) {
             $_SESSION["success"] = "<p class='validation'>Compte crée !</p>";
             $conn->close();
-            header("Location: ../pages/self-profile.php");
+            header("Location: ../../pages/self-profile.php");
             exit();
 
             } else {
                 $_SESSION["error"] = "<p class='error'>Erreur</p>";
                 $stmt->close();
                 $conn->close();
-                header("Location: ../pages/self-profile.php");
+                header("Location: ../../pages/self-profile.php");
                 exit();
             }
         } else {
             $_SESSION["error"] = "<p class='error'>Les mdps ne correspondent pas.</p>";
             $stmt->close();
             $conn->close();
-            header("Location: ../pages/self-profile.php");
+            header("Location: ../../pages/self-profile.php");
             exit();
         }
     } else {
         $_SESSION["error"] = "<p class='error'>Le format du mot de passe n'est pas correct.</p>";
         $stmt->close();
         $conn->close();
-        header("Location: ../pages/self-profile.php");
+        header("Location: ../../pages/self-profile.php");
         exit();
     }
 } else {

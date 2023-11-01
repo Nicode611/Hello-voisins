@@ -1,7 +1,7 @@
 <?php
         if (isset($_POST["submit_connect"])) {
 
-        $includeFile = "../../config/db/db.php";
+        $includeFile = "../config/db/db.php";
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
 
         if ($conn->connect_error) {
