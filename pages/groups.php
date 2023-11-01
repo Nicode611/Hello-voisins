@@ -19,7 +19,7 @@
         <input class="search-bar" type="search" name="findContacts" id="findContacts" placeholder="Rechercher">
 
         <div class="create-new-group">
-            <form class="new-group-form" action="../scripts/groups-scripts/add-group.php" method="POST">
+            <form class="new-group-form" action="../scripts/groups-scripts/add-group.php" method="POST" onsubmit="return verifierCasesCochees()">
                 <input type="text" name="groupName" id="groupName" placeholder="Nom du groupe" required>
                 <div class="contacts-container-new-group">
                     <?php
@@ -29,6 +29,33 @@
                 </div>
                 <input type="submit" name="create_group" value="Créer un groupe">
             </form>
+
+            <script>
+                function verifierCasesCochees() {
+                    // Sélectionnez toutes les cases à cocher avec le nom "choix[]"
+                    const casesCocher = document.querySelectorAll('input[name="contacts[]"]');
+
+                    // Compteur pour les cases cochées
+                    let casesCochees = 0;
+
+                    // Parcourez les cases à cocher et comptez celles qui sont cochées
+                    casesCocher.forEach(checkbox => {
+                        if (checkbox.checked) {
+                            casesCochees++;
+                        }
+                    });
+
+                    // Vérifiez si au moins deux cases sont cochées
+                    if (casesCochees >= 2) {
+                        return true; // Autoriser la soumission du formulaire
+                    } else {
+                        alert("Sélectionnez au moins deux cases à cocher.");
+                        return false; // Empêcher la soumission du formulaire
+                    }
+                }
+            </script>
+
+
         </div>
 
         <div class="group">
