@@ -19,20 +19,15 @@
         <input class="search-bar" type="search" name="findContacts" id="findContacts" placeholder="Rechercher">
 
         <div class="create-new-group">
-            <form class="new-group-form" action="">
-                <input type="text" name="newGroup" id="newGroup" placeholder="Nom du groupe">
-
-                
-                
-
-                <select name="chooseContact" id="chooseContact">
-                    <option value="">Ajoutez un contact</option>
+            <form class="new-group-form" action="../scripts/groups-scripts/add-group.php" method="POST">
+                <input type="text" name="groupName" id="groupName" placeholder="Nom du groupe" required>
+                <div class="contacts-container-new-group">
                     <?php
-                        $includeFile = "../includes/show-contacts-to-choose.php";
+                        $includeFile = "../scripts/groups-scripts/show-contacts-to-choose-for-groups.php";
                         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
                     ?>
-                </select>
-                <input type="submit" value="Créer un groupe">
+                </div>
+                <input type="submit" name="create_group" value="Créer un groupe">
             </form>
         </div>
 
