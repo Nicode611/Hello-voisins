@@ -23,7 +23,7 @@
         ?>
     </div>
 
-    <script src="../assets/js/actions-contact.js"></script>
+    <script src="../assets/js/contacts-js/actions-contact.js"></script>
     
 </body>
 </html>

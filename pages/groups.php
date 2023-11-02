@@ -122,6 +122,6 @@
             </div>
         </div>
     </div>
-    <script src="../assets/js/groups-options.js"></script>
+    <script src="../assets/js/groups-js/groups-options.js"></script>
 </body>
 </html>

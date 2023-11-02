@@ -30,7 +30,7 @@
     </script>
 
     
-    <script src="../assets/js/get-loc-and-map.js"></script>
+    
 
     <div class="main-content">
 
@@ -41,7 +41,7 @@
     </div>
 
 
-
+    <script src="../assets/js/maps-js/get-loc-and-map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGd9Tr4P6a71MMWhjcWjpApcEFhN7dURk&callback=initMap" async defer></script>
     
 </body>

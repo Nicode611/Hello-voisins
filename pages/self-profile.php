@@ -56,6 +56,6 @@
         <button class="modify">Modifier les infos</button>
     </div>
     
-    <script src="../assets/js/modify-infos.js"></script>
+    <script src="../assets/js/infos-js/modify-infos.js"></script>
 </body>
 </html>

@@ -116,9 +116,9 @@
     </div>
 
 
-    <script src="../assets/js/chat-scroll-auto.js"></script>
-    <script src="../assets/js/show-user.js"></script>
-    <script src="../assets/js/proximity-chat-messages-handler.js"></script>
-    <script src="../assets/js/get-loc.js"></script>
+    <script src="../assets/js/chats-js/chat-scroll-auto.js"></script>
+    <script src="../assets/js/chats-js/show-user.js"></script>
+    <script src="../assets/js/chats-js/proximity-chat-messages-handler.js"></script>
+    <script src="../assets/js/infos-js/get-loc.js"></script>
 </body>
 </html>
