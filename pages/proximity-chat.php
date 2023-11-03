@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/proximity-chat.css">
-    
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Chat de proximité</title>
 </head>
 <body>
@@ -117,9 +116,9 @@
     </div>
 
 
-    <script src="../assets/js/chat-scroll-auto.js"></script>
-    <script src="../assets/js/show-user.js"></script>
-    <script src="../assets/js/proximity-chat-messages-handler.js"></script>
-    <script src="../assets/js/get-loc.js"></script>
+    <script src="../assets/js/chats-js/chat-scroll-auto.js"></script>
+    <script src="../assets/js/chats-js/show-user.js"></script>
+    <script src="../assets/js/chats-js/proximity-chat-messages-handler.js"></script>
+    <script src="../assets/js/infos-js/get-loc.js"></script>
 </body>
 </html>

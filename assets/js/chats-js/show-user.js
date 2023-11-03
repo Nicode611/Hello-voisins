@@ -13,7 +13,7 @@ messagesContainerPopup.addEventListener('click', function(event) {
         
         // Envoie une requête AJAX pour obtenir les informations de l'utilisateur
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '../scripts/script-select-users-to-show.php?id=' + idPopup.textContent, true);
+        xhr.open('GET', '../scripts/infos-scripts/script-select-users-to-show.php?id=' + idPopup.textContent, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Contient les données JSON retournées par le script PHP
@@ -76,7 +76,7 @@ messagesContainerPopup.addEventListener('click', function(event) {
 
                         // Requete pour ajouter un contact
                         const xhr = new XMLHttpRequest();
-                        xhr.open('POST', '../scripts/script-add-contact.php', true);
+                        xhr.open('POST', '../scripts/contacts-scripts/script-add-contact.php', true);
 
                         // Envoie des données du contact au script PHP
                         var contactData = new FormData();
@@ -120,7 +120,7 @@ allUsersContainer.addEventListener('click', function(event) {
         
         // Envoie une requête AJAX pour obtenir les informations de l'utilisateur
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '../scripts/script-select-users-to-show.php?id=' + idPopup.textContent, true);
+        xhr.open('GET', '../scripts/infos-scripts/script-select-users-to-show.php?id=' + idPopup.textContent, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Contient les données JSON retournées par le script PHP
@@ -183,7 +183,7 @@ allUsersContainer.addEventListener('click', function(event) {
 
                         // Requete pour ajouter un contact
                         const xhr = new XMLHttpRequest();
-                        xhr.open('POST', '../scripts/script-add-contact.php', true);
+                        xhr.open('POST', '../scripts/contacts-scripts/script-add-contact.php', true);
 
                         // Envoie des données du contact au script PHP
                         var contactData = new FormData();

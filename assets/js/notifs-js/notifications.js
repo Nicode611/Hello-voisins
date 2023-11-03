@@ -36,7 +36,7 @@ deleteBtns.forEach(deleteBtn => {
         const choice = 'refuses';
 
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', '../scripts/script-choice-notifs.php', true);
+        xhr.open('POST', '../scripts/notifs-scripts/script-choice-notifs.php', true);
 
         // Envoie les données du btn au script PHP
         var choiceData = new FormData();
@@ -75,7 +75,7 @@ validBtns.forEach(ValidBtn => {
         const choice = 'accept';
 
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', '../scripts/script-choice-notifs.php', true);
+        xhr.open('POST', '../scripts/notifs-scripts/script-choice-notifs.php', true);
 
         // Envoie les données du btn au script PHP
         var choiceData = new FormData();

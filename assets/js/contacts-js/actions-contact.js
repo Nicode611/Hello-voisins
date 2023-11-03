@@ -13,7 +13,7 @@ deleteContactBtns.forEach(deleteContactBtn => {
 
             // Envoie une requette au meme script que pour les notifs afin de delete le contact
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', '../scripts/script-delete-contact.php', true);
+            xhr.open('POST', '../scripts/contacts-scripts/script-delete-contact.php', true);
 
             // Envoie les données du btn au script PHP
             var actionData = new FormData();

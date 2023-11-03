@@ -18,12 +18,12 @@
         <h1>Vos contacts</h1>
         <input type="search" name="findContacts" id="findContacts" placeholder="Rechercher">
         <?php
-            $includeFile = "../scripts/show-my-contacts.php";
+            $includeFile = "../scripts/contacts-scripts/show-my-contacts.php";
             if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
         ?>
     </div>
 
-    <script src="../assets/js/actions-contact.js"></script>
+    <script src="../assets/js/contacts-js/actions-contact.js"></script>
     
 </body>
 </html>

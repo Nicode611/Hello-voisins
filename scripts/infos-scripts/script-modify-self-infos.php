@@ -3,11 +3,8 @@ if (isset($_POST["submit_modify_self_infos"])) {
     session_set_cookie_params(3600);
     session_start();
 
-    $db_host = "mysql-garage-v-parrot.alwaysdata.net";
-    $db_user = "331032";
-    $db_pass = "Beta2k15";
-    $db_name = "hello-voisins_2023";
-    $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+    $includeFile = "../../config/db/db.php";
+    if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
 
     if ($conn->connect_error) {
         die("La connexion à la base de données a échoué : " . $conn->connect_error);
@@ -48,28 +45,28 @@ if (isset($_POST["submit_modify_self_infos"])) {
         if ($stmt->execute()) {
             $_SESSION["success"] = "<p class='validation'>Compte crée !</p>";
             $conn->close();
-            header("Location: ../pages/self-profile.php");
+            header("Location: ../../pages/self-profile.php");
             exit();
 
             } else {
                 $_SESSION["error"] = "<p class='error'>Erreur</p>";
                 $stmt->close();
                 $conn->close();
-                header("Location: ../pages/self-profile.php");
+                header("Location: ../../pages/self-profile.php");
                 exit();
             }
         } else {
             $_SESSION["error"] = "<p class='error'>Les mdps ne correspondent pas.</p>";
             $stmt->close();
             $conn->close();
-            header("Location: ../pages/self-profile.php");
+            header("Location: ../../pages/self-profile.php");
             exit();
         }
     } else {
         $_SESSION["error"] = "<p class='error'>Le format du mot de passe n'est pas correct.</p>";
         $stmt->close();
         $conn->close();
-        header("Location: ../pages/self-profile.php");
+        header("Location: ../../pages/self-profile.php");
         exit();
     }
 } else {

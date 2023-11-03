@@ -16,7 +16,7 @@
 
     <div class="main-content">
         
-        <form class="self-infos" action="../scripts/script-modify-self-infos.php" method="POST">
+        <form class="self-infos" action="../scripts/infos-scripts/script-modify-self-infos.php" method="POST">
             <div class="self-infos-section">
                 <img class="self-img" src="../assets/images/user1.jpg" alt="">
                 <input class="hide" type="file" name="selfImage" id="selfImage" accept="image/*">
@@ -56,6 +56,6 @@
         <button class="modify">Modifier les infos</button>
     </div>
     
-    <script src="../assets/js/modify-infos.js"></script>
+    <script src="../assets/js/infos-js/modify-infos.js"></script>
 </body>
 </html>
