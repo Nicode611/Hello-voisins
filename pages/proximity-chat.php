@@ -29,7 +29,7 @@
 
         <div class="send-container">
             <div class="send-message-container"><input type="text" name="sendMessage" id="sendMessage" placeholder="Ecrivez votre message ici"></div>
-            <button class="send-button">Envoyer OOOOOO</button>
+            <button class="send-button">Envoyer</button>
         </div>
 
     </div>
