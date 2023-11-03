@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100vh;
 }
 
 input[type="search"] {
@@ -44,7 +45,27 @@ input[type="search"] {
 }
 
 
+.groups-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
 
+.groups-container::-webkit-scrollbar-track {
+    opacity: 0;
+}
+
+.groups-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.groups-container::-webkit-scrollbar-thumb {
+    background-color: #69E13F;
+    border-radius: 10px;
+}
 
 .group {
     display: flex;
