@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
         <defaults public="false" />
@@ -12,11 +12,11 @@
             <argument type="collection" /> <!-- engines -->
         </service>
 
-        <service id="templating.name_parser" class="Symfony\Bundle\FrameworkBundle\Templating\TemplateNameParser" public="true">
+        <service id="templating.name_parser" class="Symfony\Bundle\FrameworkBundle\Templating\TemplateNameParser">
             <argument type="service" id="kernel" />
         </service>
 
-        <service id="templating.filename_parser" class="Symfony\Bundle\FrameworkBundle\Templating\TemplateFilenameParser" public="true" />
+        <service id="templating.filename_parser" class="Symfony\Bundle\FrameworkBundle\Templating\TemplateFilenameParser" />
 
         <service id="templating.locator" class="Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator">
             <argument type="service" id="file_locator" />

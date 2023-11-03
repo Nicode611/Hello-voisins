@@ -20,9 +20,18 @@ use Symfony\Component\DependencyInjection\Reference;
  * HttpDigestFactory creates services for HTTP digest authentication.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @deprecated since 3.4, to be removed in 4.0
  */
 class HttpDigestFactory implements SecurityFactoryInterface
 {
+    public function __construct($triggerDeprecation = true)
+    {
+        if ($triggerDeprecation) {
+            @trigger_error(sprintf('The "%s" class and the whole HTTP digest authentication system is deprecated since Symfony 3.4 and will be removed in 4.0.', __CLASS__), \E_USER_DEPRECATED);
+        }
+    }
+
     public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
     {
         $provider = 'security.authentication.provider.dao.'.$id;
@@ -42,8 +51,9 @@ class HttpDigestFactory implements SecurityFactoryInterface
         $listener->replaceArgument(1, new Reference($userProvider));
         $listener->replaceArgument(2, $id);
         $listener->replaceArgument(3, new Reference($entryPointId));
+        $listener->addMethodCall('setSessionAuthenticationStrategy', [new Reference('security.authentication.session_strategy.'.$id)]);
 
-        return array($provider, $listenerId, $entryPointId);
+        return [$provider, $listenerId, $entryPointId];
     }
 
     public function getPosition()
@@ -59,6 +69,7 @@ class HttpDigestFactory implements SecurityFactoryInterface
     public function addConfiguration(NodeDefinition $node)
     {
         $node
+            ->setDeprecated('The HTTP digest authentication is deprecated since 3.4 and will be removed in 4.0.')
             ->children()
                 ->scalarNode('provider')->end()
                 ->scalarNode('realm')->defaultValue('Secured Area')->end()

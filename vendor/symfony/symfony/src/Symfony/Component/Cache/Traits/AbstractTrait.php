@@ -24,7 +24,9 @@ trait AbstractTrait
     use LoggerAwareTrait;
 
     private $namespace;
-    private $deferred = array();
+    private $namespaceVersion = '';
+    private $versioningIsEnabled = false;
+    private $deferred = [];
 
     /**
      * @var int|null The maximum length to enforce for identifiers or null when no limit applies
@@ -52,7 +54,7 @@ trait AbstractTrait
     /**
      * Deletes all items in the pool.
      *
-     * @param string The prefix used for all identifiers managed by this pool
+     * @param string $namespace The prefix used for all identifiers managed by this pool
      *
      * @return bool True if the pool was successfully cleared, false otherwise
      */
@@ -91,7 +93,7 @@ trait AbstractTrait
         try {
             return $this->doHave($id);
         } catch (\Exception $e) {
-            CacheItem::log($this->logger, 'Failed to check if key "{key}" is cached', array('key' => $key, 'exception' => $e));
+            CacheItem::log($this->logger, 'Failed to check if key "{key}" is cached', ['key' => $key, 'exception' => $e]);
 
             return false;
         }
@@ -102,12 +104,23 @@ trait AbstractTrait
      */
     public function clear()
     {
-        $this->deferred = array();
+        $this->deferred = [];
+        if ($cleared = $this->versioningIsEnabled) {
+            $namespaceVersion = substr_replace(base64_encode(pack('V', mt_rand())), static::NS_SEPARATOR, 5);
+            try {
+                $cleared = $this->doSave([static::NS_SEPARATOR.$this->namespace => $namespaceVersion], 0);
+            } catch (\Exception $e) {
+                $cleared = false;
+            }
+            if ($cleared = true === $cleared || [] === $cleared) {
+                $this->namespaceVersion = $namespaceVersion;
+            }
+        }
 
         try {
-            return $this->doClear($this->namespace);
+            return $this->doClear($this->namespace) || $cleared;
         } catch (\Exception $e) {
-            CacheItem::log($this->logger, 'Failed to clear the cache', array('exception' => $e));
+            CacheItem::log($this->logger, 'Failed to clear the cache', ['exception' => $e]);
 
             return false;
         }
@@ -118,7 +131,7 @@ trait AbstractTrait
      */
     public function deleteItem($key)
     {
-        return $this->deleteItems(array($key));
+        return $this->deleteItems([$key]);
     }
 
     /**
@@ -126,7 +139,7 @@ trait AbstractTrait
      */
     public function deleteItems(array $keys)
     {
-        $ids = array();
+        $ids = [];
 
         foreach ($keys as $key) {
             $ids[$key] = $this->getId($key);
@@ -146,16 +159,48 @@ trait AbstractTrait
         foreach ($ids as $key => $id) {
             try {
                 $e = null;
-                if ($this->doDelete(array($id))) {
+                if ($this->doDelete([$id])) {
                     continue;
                 }
             } catch (\Exception $e) {
             }
-            CacheItem::log($this->logger, 'Failed to delete key "{key}"', array('key' => $key, 'exception' => $e));
+            CacheItem::log($this->logger, 'Failed to delete key "{key}"', ['key' => $key, 'exception' => $e]);
             $ok = false;
         }
 
         return $ok;
+    }
+
+    /**
+     * Enables/disables versioning of items.
+     *
+     * When versioning is enabled, clearing the cache is atomic and doesn't require listing existing keys to proceed,
+     * but old keys may need garbage collection and extra round-trips to the back-end are required.
+     *
+     * Calling this method also clears the memoized namespace version and thus forces a resynchonization of it.
+     *
+     * @param bool $enable
+     *
+     * @return bool the previous state of versioning
+     */
+    public function enableVersioning($enable = true)
+    {
+        $wasEnabled = $this->versioningIsEnabled;
+        $this->versioningIsEnabled = (bool) $enable;
+        $this->namespaceVersion = '';
+
+        return $wasEnabled;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reset()
+    {
+        if ($this->deferred) {
+            $this->commit();
+        }
+        $this->namespaceVersion = '';
     }
 
     /**
@@ -177,9 +222,9 @@ trait AbstractTrait
             if (false !== $value = unserialize($value)) {
                 return $value;
             }
-            throw new \DomainException('Failed to unserialize cached value');
+            throw new \DomainException('Failed to unserialize cached value.');
         } catch (\Error $e) {
-            throw new \ErrorException($e->getMessage(), $e->getCode(), E_ERROR, $e->getFile(), $e->getLine());
+            throw new \ErrorException($e->getMessage(), $e->getCode(), \E_ERROR, $e->getFile(), $e->getLine());
         } finally {
             ini_set('unserialize_callback_func', $unserializeCallbackHandler);
         }
@@ -189,11 +234,25 @@ trait AbstractTrait
     {
         CacheItem::validateKey($key);
 
-        if (null === $this->maxIdLength) {
-            return $this->namespace.$key;
+        if ($this->versioningIsEnabled && '' === $this->namespaceVersion) {
+            $this->namespaceVersion = '1'.static::NS_SEPARATOR;
+            try {
+                foreach ($this->doFetch([static::NS_SEPARATOR.$this->namespace]) as $v) {
+                    $this->namespaceVersion = $v;
+                }
+                if ('1'.static::NS_SEPARATOR === $this->namespaceVersion) {
+                    $this->namespaceVersion = substr_replace(base64_encode(pack('V', time())), static::NS_SEPARATOR, 5);
+                    $this->doSave([static::NS_SEPARATOR.$this->namespace => $this->namespaceVersion], 0);
+                }
+            } catch (\Exception $e) {
+            }
         }
-        if (strlen($id = $this->namespace.$key) > $this->maxIdLength) {
-            $id = $this->namespace.substr_replace(base64_encode(hash('sha256', $key, true)), ':', -22);
+
+        if (null === $this->maxIdLength) {
+            return $this->namespace.$this->namespaceVersion.$key;
+        }
+        if (\strlen($id = $this->namespace.$this->namespaceVersion.$key) > $this->maxIdLength) {
+            $id = $this->namespace.$this->namespaceVersion.substr_replace(base64_encode(hash('sha256', $key, true)), static::NS_SEPARATOR, -(\strlen($this->namespaceVersion) + 22));
         }
 
         return $id;

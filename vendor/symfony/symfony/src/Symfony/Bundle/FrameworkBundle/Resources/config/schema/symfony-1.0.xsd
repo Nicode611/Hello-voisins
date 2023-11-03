@@ -29,6 +29,8 @@
             <xsd:element name="property-info" type="property_info" minOccurs="0" maxOccurs="1" />
             <xsd:element name="cache" type="cache" minOccurs="0" maxOccurs="1" />
             <xsd:element name="workflow" type="workflow" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="php-errors" type="php-errors" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="lock" type="lock" minOccurs="0" maxOccurs="1" />
         </xsd:choice>
 
         <xsd:attribute name="http-method-override" type="xsd:boolean" />
@@ -102,6 +104,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="session">
+        <xsd:attribute name="enabled" type="xsd:boolean" />
         <xsd:attribute name="storage-id" type="xsd:string" />
         <xsd:attribute name="handler-id" type="xsd:string" />
         <xsd:attribute name="name" type="xsd:string" />
@@ -110,6 +113,7 @@
         <xsd:attribute name="cookie-domain" type="xsd:string" />
         <xsd:attribute name="cookie-secure" type="xsd:boolean" />
         <xsd:attribute name="cookie-httponly" type="xsd:boolean" />
+        <xsd:attribute name="cookie-samesite" type="cookie_samesite" />
         <xsd:attribute name="use-cookies" type="xsd:boolean" />
         <xsd:attribute name="cache-limiter" type="xsd:string" />
         <xsd:attribute name="gc-maxlifetime" type="xsd:string" />
@@ -117,6 +121,7 @@
         <xsd:attribute name="gc-probability" type="xsd:string" />
         <xsd:attribute name="use-strict-mode" type="xsd:boolean" />
         <xsd:attribute name="save-path" type="xsd:string" />
+        <xsd:attribute name="metadata-update-threshold" type="xsd:nonNegativeInteger" />
     </xsd:complexType>
 
     <xsd:complexType name="request">
@@ -138,6 +143,7 @@
             <xsd:element name="package" type="package" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
 
+        <xsd:attribute name="enabled" type="xsd:boolean" />
         <xsd:attribute name="base-path" type="xsd:string" />
         <xsd:attribute name="version-strategy" type="xsd:string" />
         <xsd:attribute name="version" type="xsd:string" />
@@ -184,6 +190,7 @@
         <xsd:attribute name="enabled" type="xsd:boolean" />
         <xsd:attribute name="fallback" type="xsd:string" />
         <xsd:attribute name="logging" type="xsd:boolean" />
+        <xsd:attribute name="formatter" type="xsd:string" />
     </xsd:complexType>
 
     <xsd:complexType name="validation">
@@ -196,6 +203,8 @@
         <xsd:attribute name="cache" type="xsd:string" />
         <xsd:attribute name="enable-annotations" type="xsd:boolean" />
         <xsd:attribute name="static-method" type="xsd:boolean" />
+        <xsd:attribute name="translation-domain" type="xsd:string" />
+        <xsd:attribute name="strict-email" type="xsd:boolean" />
     </xsd:complexType>
 
     <xsd:complexType name="file_mapping">
@@ -224,6 +233,7 @@
         <xsd:attribute name="cache" type="xsd:string" />
         <xsd:attribute name="enable-annotations" type="xsd:boolean" />
         <xsd:attribute name="name-converter" type="xsd:string" />
+        <xsd:attribute name="circular-reference-handler" type="xsd:string" />
     </xsd:complexType>
 
     <xsd:complexType name="property_info">
@@ -241,6 +251,8 @@
             <xsd:element name="default-memcached-provider" type="xsd:string" minOccurs="0" maxOccurs="1" />
             <xsd:element name="pool" type="cache_pool" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
+
+        <xsd:attribute name="prefix-seed" type="xsd:string" />
     </xsd:complexType>
 
     <xsd:complexType name="cache_pool">
@@ -254,15 +266,21 @@
 
     <xsd:complexType name="workflow">
         <xsd:sequence>
-            <xsd:element name="marking-store" type="marking_store" />
+            <xsd:element name="marking-store" type="marking_store" minOccurs="0" maxOccurs="1" />
             <xsd:element name="support" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
-            <xsd:element name="place" type="xsd:string" minOccurs="1" maxOccurs="unbounded" />
-            <xsd:element name="transition" type="transition" minOccurs="1" maxOccurs="unbounded" />
+            <xsd:element name="place" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="transition" type="transition" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
-        <xsd:attribute name="name" type="xsd:string" use="required" />
+        <xsd:attribute name="name" type="xsd:string" />
         <xsd:attribute name="type" type="workflow_type" />
         <xsd:attribute name="initial-place" type="xsd:string" />
         <xsd:attribute name="support-strategy" type="xsd:string" />
+        <xsd:attribute name="enabled" type="xsd:boolean" />
+    </xsd:complexType>
+
+    <xsd:complexType name="php-errors">
+        <xsd:attribute name="log" type="xsd:boolean" />
+        <xsd:attribute name="throw" type="xsd:boolean" />
     </xsd:complexType>
 
     <xsd:complexType name="marking_store">
@@ -284,9 +302,19 @@
         <xsd:sequence>
             <xsd:element name="from" type="xsd:string" minOccurs="1" maxOccurs="unbounded" />
             <xsd:element name="to" type="xsd:string" minOccurs="1" maxOccurs="unbounded" />
+            <xsd:element name="guard" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
         <xsd:attribute name="name" type="xsd:string" use="required" />
     </xsd:complexType>
+
+    <xsd:simpleType name="cookie_samesite">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="" />
+            <xsd:enumeration value="none" />
+            <xsd:enumeration value="lax" />
+            <xsd:enumeration value="strict" />
+        </xsd:restriction>
+    </xsd:simpleType>
 
     <xsd:simpleType name="workflow_type">
         <xsd:restriction base="xsd:string">
@@ -294,4 +322,19 @@
             <xsd:enumeration value="workflow" />
         </xsd:restriction>
     </xsd:simpleType>
+
+    <xsd:complexType name="lock">
+        <xsd:sequence>
+            <xsd:element name="resource" type="lock_resource" minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="enabled" type="xsd:boolean" />
+    </xsd:complexType>
+
+    <xsd:complexType name="lock_resource">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="name" type="xsd:string" />
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
 </xsd:schema>

@@ -18,6 +18,10 @@ class DoctrineCache extends AbstractCache
 {
     use DoctrineTrait;
 
+    /**
+     * @param string $namespace
+     * @param int    $defaultLifetime
+     */
     public function __construct(CacheProvider $provider, $namespace = '', $defaultLifetime = 0)
     {
         parent::__construct('', $defaultLifetime);

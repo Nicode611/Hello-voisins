@@ -23,17 +23,30 @@ use Symfony\Component\HttpKernel\KernelInterface;
  * A console command to display information about the current installation.
  *
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @final since version 3.4
  */
 class AboutCommand extends ContainerAwareCommand
 {
+    protected static $defaultName = 'about';
+
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
         $this
-            ->setName('about')
             ->setDescription('Displays information about the current project')
+            ->setHelp(<<<'EOT'
+The <info>%command.name%</info> command displays information about the current Symfony project.
+
+The <info>PHP</info> section displays important configuration that could affect your application. The values might
+be different between web and CLI.
+
+The <info>Environment</info> section displays the current environment variables managed by Symfony Dotenv. It will not
+be shown if no variables were found. The values might be different between web and CLI.
+EOT
+            )
         ;
     }
 
@@ -45,36 +58,48 @@ class AboutCommand extends ContainerAwareCommand
         $io = new SymfonyStyle($input, $output);
 
         /** @var $kernel KernelInterface */
-        $kernel = $this->getContainer()->get('kernel');
+        $kernel = $this->getApplication()->getKernel();
 
-        $io->table(array(), array(
-            array('<info>Symfony</>'),
+        $rows = [
+            ['<info>Symfony</>'],
             new TableSeparator(),
-            array('Version', Kernel::VERSION),
-            array('End of maintenance', Kernel::END_OF_MAINTENANCE.(self::isExpired(Kernel::END_OF_MAINTENANCE) ? ' <error>Expired</>' : '')),
-            array('End of life', Kernel::END_OF_LIFE.(self::isExpired(Kernel::END_OF_LIFE) ? ' <error>Expired</>' : '')),
+            ['Version', Kernel::VERSION],
+            ['End of maintenance', Kernel::END_OF_MAINTENANCE.(self::isExpired(Kernel::END_OF_MAINTENANCE) ? ' <error>Expired</>' : '')],
+            ['End of life', Kernel::END_OF_LIFE.(self::isExpired(Kernel::END_OF_LIFE) ? ' <error>Expired</>' : '')],
             new TableSeparator(),
-            array('<info>Kernel</>'),
+            ['<info>Kernel</>'],
             new TableSeparator(),
-            array('Type', get_class($kernel)),
-            array('Name', $kernel->getName()),
-            array('Environment', $kernel->getEnvironment()),
-            array('Debug', $kernel->isDebug() ? 'true' : 'false'),
-            array('Charset', $kernel->getCharset()),
-            array('Root directory', self::formatPath($kernel->getRootDir(), $kernel->getProjectDir())),
-            array('Cache directory', self::formatPath($kernel->getCacheDir(), $kernel->getProjectDir()).' (<comment>'.self::formatFileSize($kernel->getCacheDir()).'</>)'),
-            array('Log directory', self::formatPath($kernel->getLogDir(), $kernel->getProjectDir()).' (<comment>'.self::formatFileSize($kernel->getLogDir()).'</>)'),
+            ['Type', \get_class($kernel)],
+            ['Name', $kernel->getName()],
+            ['Environment', $kernel->getEnvironment()],
+            ['Debug', $kernel->isDebug() ? 'true' : 'false'],
+            ['Charset', $kernel->getCharset()],
+            ['Root directory', self::formatPath($kernel->getRootDir(), $kernel->getProjectDir())],
+            ['Cache directory', self::formatPath($kernel->getCacheDir(), $kernel->getProjectDir()).' (<comment>'.self::formatFileSize($kernel->getCacheDir()).'</>)'],
+            ['Log directory', self::formatPath($kernel->getLogDir(), $kernel->getProjectDir()).' (<comment>'.self::formatFileSize($kernel->getLogDir()).'</>)'],
             new TableSeparator(),
-            array('<info>PHP</>'),
+            ['<info>PHP</>'],
             new TableSeparator(),
-            array('Version', PHP_VERSION),
-            array('Architecture', (PHP_INT_SIZE * 8).' bits'),
-            array('Intl locale', class_exists('Locale', false) && \Locale::getDefault() ? \Locale::getDefault() : 'n/a'),
-            array('Timezone', date_default_timezone_get().' (<comment>'.(new \DateTime())->format(\DateTime::W3C).'</>)'),
-            array('OPcache', extension_loaded('Zend OPcache') && ini_get('opcache.enable') ? 'true' : 'false'),
-            array('APCu', extension_loaded('apcu') && ini_get('apc.enabled') ? 'true' : 'false'),
-            array('Xdebug', extension_loaded('xdebug') ? 'true' : 'false'),
-        ));
+            ['Version', \PHP_VERSION],
+            ['Architecture', (\PHP_INT_SIZE * 8).' bits'],
+            ['Intl locale', class_exists('Locale', false) && \Locale::getDefault() ? \Locale::getDefault() : 'n/a'],
+            ['Timezone', date_default_timezone_get().' (<comment>'.(new \DateTime())->format(\DateTime::W3C).'</>)'],
+            ['OPcache', \extension_loaded('Zend OPcache') && filter_var(ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN) ? 'true' : 'false'],
+            ['APCu', \extension_loaded('apcu') && filter_var(ini_get('apc.enabled'), \FILTER_VALIDATE_BOOLEAN) ? 'true' : 'false'],
+            ['Xdebug', \extension_loaded('xdebug') ? 'true' : 'false'],
+        ];
+
+        if ($dotenv = self::getDotenvVars()) {
+            $rows = array_merge($rows, [
+                new TableSeparator(),
+                ['<info>Environment (.env)</>'],
+                new TableSeparator(),
+            ], array_map(function ($value, $name) {
+                return [$name, $value];
+            }, $dotenv, array_keys($dotenv)));
+        }
+
+        $io->table([], $rows);
     }
 
     private static function formatPath($path, $baseDir = null)
@@ -98,8 +123,20 @@ class AboutCommand extends ContainerAwareCommand
 
     private static function isExpired($date)
     {
-        $date = \DateTime::createFromFormat('m/Y', $date);
+        $date = \DateTime::createFromFormat('d/m/Y', '01/'.$date);
 
         return false !== $date && new \DateTime() > $date->modify('last day of this month 23:59:59');
+    }
+
+    private static function getDotenvVars()
+    {
+        $vars = [];
+        foreach (explode(',', getenv('SYMFONY_DOTENV_VARS')) as $name) {
+            if ('' !== $name && false !== $value = getenv($name)) {
+                $vars[$name] = $value;
+            }
+        }
+
+        return $vars;
     }
 }

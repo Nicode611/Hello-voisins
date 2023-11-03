@@ -30,10 +30,11 @@ class ChildDefinition extends Definition
     public function __construct($parent)
     {
         $this->parent = $parent;
+        $this->setPrivate(false);
     }
 
     /**
-     * Returns the Definition being decorated.
+     * Returns the Definition to inherit from.
      *
      * @return string
      */
@@ -43,7 +44,7 @@ class ChildDefinition extends Definition
     }
 
     /**
-     * Sets the Definition being decorated.
+     * Sets the Definition to inherit from.
      *
      * @param string $parent
      *
@@ -70,7 +71,7 @@ class ChildDefinition extends Definition
      */
     public function getArgument($index)
     {
-        if (array_key_exists('index_'.$index, $this->arguments)) {
+        if (\array_key_exists('index_'.$index, $this->arguments)) {
             return $this->arguments['index_'.$index];
         }
 
@@ -88,13 +89,13 @@ class ChildDefinition extends Definition
      * @param int|string $index
      * @param mixed      $value
      *
-     * @return self the current instance
+     * @return $this
      *
      * @throws InvalidArgumentException when $index isn't an integer
      */
     public function replaceArgument($index, $value)
     {
-        if (is_int($index)) {
+        if (\is_int($index)) {
             $this->arguments['index_'.$index] = $value;
         } elseif (0 === strpos($index, '$')) {
             $this->arguments[$index] = $value;

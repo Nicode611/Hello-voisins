@@ -23,6 +23,15 @@ trait DoctrineTrait
     /**
      * {@inheritdoc}
      */
+    public function reset()
+    {
+        parent::reset();
+        $this->provider->setNamespace($this->provider->getNamespace());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function doFetch(array $ids)
     {
         $unserializeCallbackHandler = ini_set('unserialize_callback_func', parent::class.'::handleUnserializeCallback');
@@ -36,7 +45,7 @@ trait DoctrineTrait
                     case 'unserialize':
                     case 'apcu_fetch':
                     case 'apc_fetch':
-                        throw new \ErrorException($e->getMessage(), $e->getCode(), E_ERROR, $e->getFile(), $e->getLine());
+                        throw new \ErrorException($e->getMessage(), $e->getCode(), \E_ERROR, $e->getFile(), $e->getLine());
                 }
             }
 

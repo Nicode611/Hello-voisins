@@ -32,12 +32,12 @@ class WorkflowExtension extends AbstractExtension
 
     public function getFunctions()
     {
-        return array(
-            new TwigFunction('workflow_can', array($this, 'canTransition')),
-            new TwigFunction('workflow_transitions', array($this, 'getEnabledTransitions')),
-            new TwigFunction('workflow_has_marked_place', array($this, 'hasMarkedPlace')),
-            new TwigFunction('workflow_marked_places', array($this, 'getMarkedPlaces')),
-        );
+        return [
+            new TwigFunction('workflow_can', [$this, 'canTransition']),
+            new TwigFunction('workflow_transitions', [$this, 'getEnabledTransitions']),
+            new TwigFunction('workflow_has_marked_place', [$this, 'hasMarkedPlace']),
+            new TwigFunction('workflow_marked_places', [$this, 'getMarkedPlaces']),
+        ];
     }
 
     /**
@@ -85,7 +85,7 @@ class WorkflowExtension extends AbstractExtension
      * Returns marked places.
      *
      * @param object $subject        A subject
-     * @param string $placesNameOnly If true, returns only places name. If false returns the raw representation
+     * @param bool   $placesNameOnly If true, returns only places name. If false returns the raw representation
      * @param string $name           A workflow name
      *
      * @return string[]|int[]

@@ -12,6 +12,8 @@
 namespace Symfony\Component\Cache\Adapter;
 
 use Psr\Cache\CacheItemInterface;
+use Symfony\Component\Cache\PruneableInterface;
+use Symfony\Component\Cache\ResettableInterface;
 
 /**
  * An adapter that collects data about all cache calls.
@@ -20,10 +22,10 @@ use Psr\Cache\CacheItemInterface;
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class TraceableAdapter implements AdapterInterface
+class TraceableAdapter implements AdapterInterface, PruneableInterface, ResettableInterface
 {
     protected $pool;
-    private $calls = array();
+    private $calls = [];
 
     public function __construct(AdapterInterface $pool)
     {
@@ -105,7 +107,7 @@ class TraceableAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function getItems(array $keys = array())
+    public function getItems(array $keys = [])
     {
         $event = $this->start(__FUNCTION__);
         try {
@@ -114,7 +116,7 @@ class TraceableAdapter implements AdapterInterface
             $event->end = microtime(true);
         }
         $f = function () use ($result, $event) {
-            $event->result = array();
+            $event->result = [];
             foreach ($result as $key => $item) {
                 if ($event->result[$key] = $item->isHit()) {
                     ++$event->hits;
@@ -168,13 +170,42 @@ class TraceableAdapter implements AdapterInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function prune()
+    {
+        if (!$this->pool instanceof PruneableInterface) {
+            return false;
+        }
+        $event = $this->start(__FUNCTION__);
+        try {
+            return $event->result = $this->pool->prune();
+        } finally {
+            $event->end = microtime(true);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reset()
+    {
+        if ($this->pool instanceof ResettableInterface) {
+            $this->pool->reset();
+        }
+
+        $this->clearCalls();
+    }
+
     public function getCalls()
     {
-        try {
-            return $this->calls;
-        } finally {
-            $this->calls = array();
-        }
+        return $this->calls;
+    }
+
+    public function clearCalls()
+    {
+        $this->calls = [];
     }
 
     protected function start($name)

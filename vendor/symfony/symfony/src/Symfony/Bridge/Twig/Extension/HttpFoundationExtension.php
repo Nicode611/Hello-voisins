@@ -11,8 +11,8 @@
 
 namespace Symfony\Bridge\Twig\Extension;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RequestContext;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -38,10 +38,10 @@ class HttpFoundationExtension extends AbstractExtension
      */
     public function getFunctions()
     {
-        return array(
-            new TwigFunction('absolute_url', array($this, 'generateAbsoluteUrl')),
-            new TwigFunction('relative_path', array($this, 'generateRelativePath')),
-        );
+        return [
+            new TwigFunction('absolute_url', [$this, 'generateAbsoluteUrl']),
+            new TwigFunction('relative_path', [$this, 'generateRelativePath']),
+        ];
     }
 
     /**
@@ -72,6 +72,13 @@ class HttpFoundationExtension extends AbstractExtension
                     $port = ':'.$this->requestContext->getHttpsPort();
                 }
 
+                if ('#' === $path[0]) {
+                    $queryString = $this->requestContext->getQueryString();
+                    $path = $this->requestContext->getPathInfo().($queryString ? '?'.$queryString : '').$path;
+                } elseif ('?' === $path[0]) {
+                    $path = $this->requestContext->getPathInfo().$path;
+                }
+
                 if ('/' !== $path[0]) {
                     $path = rtrim($this->requestContext->getBaseUrl(), '/').'/'.$path;
                 }
@@ -82,9 +89,15 @@ class HttpFoundationExtension extends AbstractExtension
             return $path;
         }
 
+        if ('#' === $path[0]) {
+            $path = $request->getRequestUri().$path;
+        } elseif ('?' === $path[0]) {
+            $path = $request->getPathInfo().$path;
+        }
+
         if (!$path || '/' !== $path[0]) {
             $prefix = $request->getPathInfo();
-            $last = strlen($prefix) - 1;
+            $last = \strlen($prefix) - 1;
             if ($last !== $pos = strrpos($prefix, '/')) {
                 $prefix = substr($prefix, 0, $pos).'/';
             }

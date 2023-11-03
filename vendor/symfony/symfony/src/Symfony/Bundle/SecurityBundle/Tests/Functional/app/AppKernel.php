@@ -11,6 +11,7 @@
 
 namespace Symfony\Bundle\SecurityBundle\Tests\Functional\app;
 
+use Doctrine\ORM\Version;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Kernel;
@@ -82,11 +83,16 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->rootConfig);
+
+        // to be removed once https://github.com/doctrine/DoctrineBundle/pull/684 is merged
+        if ('Acl' === $this->testCase && class_exists(Version::class)) {
+            $loader->load(__DIR__.'/Acl/doctrine.yml');
+        }
     }
 
     public function serialize()
     {
-        return serialize(array($this->varDir, $this->testCase, $this->rootConfig, $this->getEnvironment(), $this->isDebug()));
+        return serialize([$this->varDir, $this->testCase, $this->rootConfig, $this->getEnvironment(), $this->isDebug()]);
     }
 
     public function unserialize($str)
