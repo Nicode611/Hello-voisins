@@ -9,21 +9,29 @@ if ($conn->connect_error) {
 
 $selfId = $_SESSION['user_id'];
 
-$sql = "SELECT * FROM groups WHERE JSON_CONTAINS(users_ids, JSON_QUOTE('$selfId'))";
+$sql = "SELECT * FROM groups WHERE JSON_CONTAINS(users_ids, JSON_QUOTE('$selfId')) OR admin_id = $selfId";
 
 $result = $conn->query($sql);
 
-// On récupere toutes les 
+// On récupère toutes les 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-
         $groupName = $row["group_name"];
+        $adminId = $row["admin_id"];
+        
+        // Convertis la colonne JSON en un tableau PHP
+        $groupMembers = json_decode($row["users_ids"]); 
+
+        // Convertis le tableau en une chaîne de IDs séparés par des virgules
+        $idsString = implode(',', $groupMembers);
+        
         
 ?>
     <div class="group">
         <div class="group-infos-container">
             <div class="group-infos">
                 <h4><?php echo $groupName ?></h4>
+                <?php if ($adminId == $selfId) { echo "<span>Admin</span>"; } // Vérifie si l'utilisateur est admin ?> 
                 <img class="group-img" src="../assets/images/user2.jpg" alt="">
                 <div class="number-container">
                     <svg class="user-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="6" r="4" fill="#000000"></circle> <path d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z" fill="#000000"></path></svg>    
@@ -31,16 +39,15 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
             <div class="members-names-container">
-                <span>Bruce Wils</span>
-                <span>Bruce Wils</span>
-                <span>Bruce Wils</span>
-                <span>Bruce Wils</span>
-                <span>Bruce Wils</span>
-                <span>Bruce Wils</span>
-                <span>Bruce Wils</span>
-                <span>Bruce Wils</span>
-                <span>Bruce Wils</span>
-                <span>Bruce Wils</span>
+                <?php
+                    $query = "SELECT * FROM users WHERE id IN ($idsString)";
+
+                    $result2 = $conn->query($query);
+
+                    while ($user = $result2->fetch_assoc()) {
+                        echo "<span>" . $user["first_name"] . "</span>";
+                    }
+                ?>
             </div>
         </div>
         <div class="group-actions">

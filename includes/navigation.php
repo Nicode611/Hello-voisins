@@ -141,7 +141,7 @@
                 </ul>
             </nav>
         </div>
-        <script src="../assets/js/notifications.js"></script>
+        <script src="../assets/js/notifs-js/notifications.js"></script>
         
     </div>
 
