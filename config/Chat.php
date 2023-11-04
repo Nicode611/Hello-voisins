@@ -31,11 +31,13 @@ class Chat implements MessageComponentInterface {
             
             $username = $queryParameters['username'] ?? null;
             $id = $queryParameters['id'] ?? null; // Ajout pour récupérer l'ID
+            $channelName = $queryParameters['channelName'] ?? null;
             
             if ($username && $id) {
                 $userData = [
                     "username" => $username,
                     "id" => $id,
+                    "channel" => $channelName,
                 ];
                 $this->usernames[$conn->resourceId] = $userData;
                 
@@ -55,6 +57,8 @@ class Chat implements MessageComponentInterface {
                     ];
                     $this->usernames[$conn->resourceId] = $userData;
                     $conn->send("Vous avez rejoint le canal $channelName.");
+                    $connectedUsersInChannel = $this->getAllConnectedUsersDataInChannel($channelName);
+                    $conn->send(json_encode(["connected_users" => $connectedUsersInChannel]));
                 }
 
 
@@ -62,7 +66,7 @@ class Chat implements MessageComponentInterface {
                 $countAllUsers = count($this->clients); 
 
                 // Après avoir ajouté l'utilisateur, envoyez les données des utilisateurs connectés
-                $this->sendConnectedUsersDataToUser($conn);
+                $this->sendConnectedUsersDataToUserInChannel($conn);
 
                 // Envoyer un message de connexion à tous les clients
                 $connectionMessage = [
@@ -71,7 +75,9 @@ class Chat implements MessageComponentInterface {
                     "channel" => $channelName,
                     "message" => "S'est connecté."
                 ];
-                $this->sendToAllClients($connectionMessage);
+
+                $this->sendToChannel($channelName, $connectionMessage);
+                // $this->sendToAllClients($connectionMessage);
                 // Envoie le nombre d'utilisateurs connectés a la fonction
                 $this->sendUserCountToClient($countAllUsers);
 
@@ -89,25 +95,22 @@ class Chat implements MessageComponentInterface {
         if ($fromUserData) {
             $fromUsername = $fromUserData['username'];
             $fromId = $fromUserData['id'];
+
             $messageData = json_encode([
                 "username" => $fromUsername,
                 "id" => $fromId,
                 "message" => $msg
             ]);
             
-            foreach ($this->clients as $client) {
-                // Vérifiez si les utilisateurs sont dans le même canal
-                $clientUserData = $this->usernames[$client->resourceId] ?? null;
-                if ($clientUserData && $fromUserData['channel'] === $clientUserData['channel']) {
-                    $client->send($messageData);
-                }
-
+            if (isset($fromUserData['channel'])) {
+                $channelName = $fromUserData['channel'];
+                $this->sendToChannel($channelName, $messageData);
+            
                     // Condition pour envoyer a ceux qui ont le meme username
                     // $clientUserData = $this->usernames[$client->resourceId] ?? null;
                     // if ($clientUserData && $fromUsername === $clientUserData['username']) {
                     //     $client->send($messageData);
                     // }
-                
             }
         }
     }
@@ -120,6 +123,12 @@ class Chat implements MessageComponentInterface {
         if ($userData) {
             $username = $userData['username'];
             $id = $userData['id'];
+            $channelName = $userData['channel'];
+    
+            // Envoie la mise à jour de la liste des utilisateurs dans le canal aux autres utilisateurs
+            $connectedUsersInChannel = $this->getAllConnectedUsersDataInChannel($channelName);
+            $this->sendToChannel($channelName, ["connected_users" => $connectedUsersInChannel]);
+            
     
             // Envoyer un message de déconnexion à tous les clients
             $disconnectionMessage = [
@@ -127,18 +136,15 @@ class Chat implements MessageComponentInterface {
                 "id" => $id,
                 "message" => "S'est déconnecté."
             ];
-            $this->sendToAllClients($disconnectionMessage);
+            $this->sendToChannel($channelName, $disconnectionMessage);
     
             echo "Connection ({$conn->resourceId}) has disconnected - Username: $username, ID: $id\n";
     
             // Supprimez l'utilisateur de la liste $usernames
             unset($this->usernames[$conn->resourceId]);
-    
-            // Mise à jour de $connectedUsers pour supprimer l'utilisateur déconnecté
-            $connectedUsers = $this->getAllConnectedUsersData();
 
             // Envoyez la nouvelle liste des utilisateurs connectés à tous les clients
-            $this->sendToAllClients(["connected_users" => $connectedUsers]);
+            $this->sendToChannel($channelName, ["connected_users" => $connectedUsersInChannel]);
 
         }
         // Supprimez la connexion de la liste des clients
@@ -163,29 +169,47 @@ class Chat implements MessageComponentInterface {
         }
     }
 
-    // Cette fonction envoie un message à tous les clients connectés
-    private function sendToAllClients($message) {
-        foreach ($this->clients as $client) {
-            $client->send(json_encode($message));
+    
+    private function sendToChannel($channelName, $message) {
+        if (isset($this->channels[$channelName])) {
+            $messageData = json_encode($message);
+            foreach ($this->channels[$channelName] as $client) {
+                $client->send($messageData);
+            }
         }
     }
 
-    // Cette fonction récupere tout les utilisateurs connectés au server 
-    private function getAllConnectedUsersData() {
+    // Cette fonction envoie tout les utilisateurs connectés au server
+    private function sendConnectedUsersDataToUserInChannel(ConnectionInterface $userConnection) {
+        $connectedUsers = $this->getAllConnectedUsersDataInChannel($this->channels[$channelName]);
+        $userConnection->send(json_encode(["connected_users" => $connectedUsers]));
+    }
+    
+    
+    // Cette fonction récupere tout les utilisateurs connectés au channel
+    private function getAllConnectedUsersDataInChannel($channelName) {
         $connectedUsers = [];
     
-        foreach ($this->usernames as $userData) {
-            $connectedUsers[] = $userData;
+        if (isset($this->channels[$channelName])) {
+            foreach ($this->channels[$channelName] as $userData) {
+                $connectedUsers[] = $userData;
+            }
         }
     
         return $connectedUsers;
     }
+
+    // // Cette fonction récupere tout les utilisateurs connectés au server 
+    // private function getAllConnectedUsersData() {
+    //     $connectedUsers = [];
     
-    // Cette fonction envoie tout les utilisateurs connectés au server
-    private function sendConnectedUsersDataToUser(ConnectionInterface $userConnection) {
-        $connectedUsers = $this->getAllConnectedUsersData();
-        $userConnection->send(json_encode(["connected_users" => $connectedUsers]));
-    }
+    //     foreach ($this->usernames as $userData) {
+    //         $connectedUsers[] = $userData;
+    //     }
+    
+    //     return $connectedUsers;
+    // }
+    
     
 
 }
