@@ -47,6 +47,7 @@
         var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId);
 
         conn.onopen = function(e) {
+            conn.send(JSON.stringify({ action: 'join_or_create_channel', channelName: 'proximitychat' }));
             console.log("Connection established!");
         };
 

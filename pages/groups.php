@@ -127,6 +127,24 @@
                     <div class="overlay-groups"></div>
                 </div>
             </div>
+
+
+
+            <script>
+                // Script pour lancer le chat (récupération du nom, envoie a la page groups-chat.php)
+                const startGroupChatBtns = document.querySelectorAll('#startGroupDiscussion');
+
+                startGroupChatBtns.forEach(function(startGroupChatBtn) {
+                    startGroupChatBtn.addEventListener('click', function() {
+                        var channelName = startGroupChatBtn.classList.value;
+                        if (channelName) {
+                            // Redirigez l'utilisateur vers la page groups-chat.php avec le nom du canal en tant que paramètre d'URL
+                            window.location.href = "groups-chat.php?channelName=" + channelName;
+                        }
+                    });
+                });
+            </script>
+
         </div>
     </div>
     <script src="../assets/js/groups-js/groups-options.js"></script>
