@@ -56,7 +56,6 @@
 
             try {
                 var data = JSON.parse(receivedMessage);
-                console.log(data);
 
                 if (data.user_count !== undefined) {
                     // C'est un message de compteur d'utilisateurs
@@ -80,9 +79,8 @@
                 }
             } catch (error) {
                 // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
-                // Vous pouvez alors exécuter appendReceivedMessage pour afficher ce message.
+                // Pour modifier le message de connexion au channel
                 appendReceivedMessage(receivedMessage);
-                console.log('error');
             }
 
             // Vérifiez si c'est un message de déconnexion et supprimez l'utilisateur de la liste
