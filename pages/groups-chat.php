@@ -32,8 +32,6 @@
                 var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&channelName=' + channelName);
 
                 conn.onopen = function(e) {
-                    // Envoyez le nom du canal au serveur WebSocket pour rejoindre ou créer le canal
-                    conn.send(JSON.stringify({ action: 'join_or_create_channel', channelName: channelName }));
                     console.log('Connexion établie');
                 };
 

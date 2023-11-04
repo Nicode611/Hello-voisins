@@ -48,6 +48,12 @@ class Chat implements MessageComponentInterface {
                         $this->channels[$channelName] = new \SplObjectStorage();
                     }
                     $this->channels[$channelName]->attach($conn);
+                    $userData = [
+                        "username" => $username,
+                        "id" => $id,
+                        "channel" => $channelName, // Ajoutez cette ligne pour stocker le canal dans le tableau $userData
+                    ];
+                    $this->usernames[$conn->resourceId] = $userData;
                     $conn->send("Vous avez rejoint le canal $channelName.");
                 }
 
@@ -62,13 +68,14 @@ class Chat implements MessageComponentInterface {
                 $connectionMessage = [
                     "username" => $username,
                     "id" => $id,
+                    "channel" => $channelName,
                     "message" => "S'est connecté."
                 ];
                 $this->sendToAllClients($connectionMessage);
                 // Envoie le nombre d'utilisateurs connectés a la fonction
                 $this->sendUserCountToClient($countAllUsers);
 
-                echo "New connection! ({$conn->resourceId}) - Username: $username, ID: $id\n";
+                echo "New connection! ({$conn->resourceId}) - Username: $username, ID: $id Channel: $channelName\n";
             }
         } catch (\Exception $e) {
             echo "WebSocket erreur de connection - Error Message: {$e->getMessage()}\n";
@@ -82,7 +89,6 @@ class Chat implements MessageComponentInterface {
         if ($fromUserData) {
             $fromUsername = $fromUserData['username'];
             $fromId = $fromUserData['id'];
-            
             $messageData = json_encode([
                 "username" => $fromUsername,
                 "id" => $fromId,
@@ -90,16 +96,18 @@ class Chat implements MessageComponentInterface {
             ]);
             
             foreach ($this->clients as $client) {
-                if ($from !== $client) {
-
+                // Vérifiez si les utilisateurs sont dans le même canal
+                $clientUserData = $this->usernames[$client->resourceId] ?? null;
+                if ($clientUserData && $fromUserData['channel'] === $clientUserData['channel']) {
                     $client->send($messageData);
+                }
 
                     // Condition pour envoyer a ceux qui ont le meme username
                     // $clientUserData = $this->usernames[$client->resourceId] ?? null;
                     // if ($clientUserData && $fromUsername === $clientUserData['username']) {
                     //     $client->send($messageData);
                     // }
-                }
+                
             }
         }
     }
