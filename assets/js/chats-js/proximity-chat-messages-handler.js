@@ -52,6 +52,7 @@
             messageContainer.appendChild(receivedMessage);
             receivedMessage.appendChild(usernameText);
             receivedMessage.appendChild(messageText);
+            console.log('connection message');
 
             scrollToBottom();
         }
@@ -115,6 +116,7 @@
         messageContainer.appendChild(receivedMessage);
         receivedMessage.appendChild(usernameText);
         receivedMessage.appendChild(messageText);
+        console.log('received message');
 
         scrollToBottom();
     }

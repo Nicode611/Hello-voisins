@@ -69,6 +69,7 @@
                     // et data.message pour le message.
                     // Par exemple, vous pouvez appeler une fonction pour ajouter le message au chat.
                     appendReceivedMessage(data.username, data.message, data.id);
+                    console.log('oui')
                 }
             } catch (error) {
                 // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
