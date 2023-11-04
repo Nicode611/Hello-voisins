@@ -50,8 +50,10 @@ class Chat implements MessageComponentInterface {
             $this->sendConnectionMessageToChannel($username, $id, $channelName);
 
             // Compter tous les utilisateurs connectés
-            $countAllUsers = count($this->clients);
-            $this->sendUserCountToClient($countAllUsers);
+            $countAllUsers = count($this->channels[$channelName]);
+            echo $countAllUsers . " utilisateurs a la connexion";
+            // On envoie le compteur au channel grace a la fonction
+        $this->sendUserCountToChannel($channelName, $countAllUsers);
 
             echo "Nouvelle connexion ! ({$conn->resourceId}) - Username: $username, ID: $id, Channel: $channelName\n";
         }
@@ -100,12 +102,16 @@ class Chat implements MessageComponentInterface {
             unset($this->usernames[$conn->resourceId]);
         }
 
+
         // Détacher la connexion fermée de la liste des clients
-        $this->clients->detach($conn);
+        $this->channels[$channelName]->detach($conn);
 
         // Compter tous les utilisateurs connectés
-        $countAllUsers = count($this->clients);
-        $this->sendUserCountToClient($countAllUsers);
+        $countAllUsers = count($this->channels[$channelName]);
+        echo $countAllUsers . " utilisateurs a la deconexion";
+        // On envoie le compteur au channel grace a la fonction
+        $this->sendUserCountToChannel($channelName, $countAllUsers);
+
     }
 
     // Étape 4 : En cas d'erreur sur une connexion
@@ -115,12 +121,14 @@ class Chat implements MessageComponentInterface {
         $conn->close();
     }
 
-    // Fonction utilitaire pour envoyer le nombre total d'utilisateurs connectés à tous les clients
-    private function sendUserCountToClient($count) {
-        foreach ($this->clients as $client) {
-            $client->send(json_encode(["user_count" => $count]));
+    // Fonction utilitaire pour envoyer le nombre total d'utilisateurs connectés à un canal
+    private function sendUserCountToChannel($channelName, $count) {
+        if (isset($this->channels[$channelName])) {
+            $countMessage = json_encode(["user_count" => $count]);
+            $this->sendToChannel($channelName, $countMessage);
         }
     }
+
 
     // Fonction utilitaire pour envoyer un message à un canal spécifique
     private function sendToChannel($channelName, $message) {
@@ -128,6 +136,7 @@ class Chat implements MessageComponentInterface {
             $messageData = json_encode($message);
             foreach ($this->channels[$channelName] as $client) {
                 $client->send($messageData);
+                // echo $messageData;
             }
         }
     }
@@ -137,7 +146,7 @@ class Chat implements MessageComponentInterface {
         $connectionMessage = [
             "username" => $username,
             "id" => $id,
-            "channel" => $channelName,
+            "channel" => $channelName, 
             "message" => "S'est connecté."
         ];
         $this->sendToChannel($channelName, $connectionMessage);
