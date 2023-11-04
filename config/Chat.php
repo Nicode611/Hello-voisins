@@ -122,7 +122,7 @@ class Chat implements MessageComponentInterface {
     // Fonction utilitaire pour envoyer le nombre total d'utilisateurs connectés à un canal
     private function sendUserCountToChannel($channelName, $count) {
         if (isset($this->channels[$channelName])) {
-            $countMessage = json_encode(["user_count" => $count]);
+            $countMessage = ["user_count" => $count];
             $this->sendToChannel($channelName, $countMessage);
         }
     }
