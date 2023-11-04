@@ -51,7 +51,6 @@ class Chat implements MessageComponentInterface {
 
             // Compter tous les utilisateurs connectés
             $countAllUsers = count($this->channels[$channelName]);
-            echo $countAllUsers . " utilisateurs a la connexion";
             // On envoie le compteur au channel grace a la fonction
         $this->sendUserCountToChannel($channelName, $countAllUsers);
 
@@ -108,7 +107,6 @@ class Chat implements MessageComponentInterface {
 
         // Compter tous les utilisateurs connectés
         $countAllUsers = count($this->channels[$channelName]);
-        echo $countAllUsers . " utilisateurs a la deconexion";
         // On envoie le compteur au channel grace a la fonction
         $this->sendUserCountToChannel($channelName, $countAllUsers);
 
@@ -135,8 +133,12 @@ class Chat implements MessageComponentInterface {
         if (isset($this->channels[$channelName])) {
             $messageData = json_encode($message);
             foreach ($this->channels[$channelName] as $client) {
-                $client->send($messageData);
-                // echo $messageData;
+                $success = $client->send($messageData);
+                if (!$success) {
+                    echo "Sur le channel ". $channelName ." le message n'a pas été envoyé par : ". $client->resourceId . " Le message = " . $messageData;
+                } else {
+                    echo "Sur le channel ". $channelName ." le message a été envoyé par : ". $client->resourceId . " Le message = " . $messageData;
+                };
             }
         }
     }
