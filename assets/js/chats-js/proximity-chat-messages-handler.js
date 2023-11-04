@@ -52,7 +52,6 @@
             messageContainer.appendChild(receivedMessage);
             receivedMessage.appendChild(usernameText);
             receivedMessage.appendChild(messageText);
-            console.log('connection message');
 
             scrollToBottom();
         }
@@ -116,14 +115,12 @@
         messageContainer.appendChild(receivedMessage);
         receivedMessage.appendChild(usernameText);
         receivedMessage.appendChild(messageText);
-        console.log(message);
 
         scrollToBottom();
     }
 
     // Fonction pour mettre a jour le compteur d'utilisateurs
     function updateUserCount(count) {
-        console.log(count);
         var userCountElement = document.querySelector('#user-count');
         userCountElement.textContent = count;
     }

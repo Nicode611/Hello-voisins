@@ -38,7 +38,7 @@
     <script>
         
         // Connection websocket
-        channelName = 'proximityChat'
+        channelName = 'Global'
         username = '<?php echo $_SESSION['user_firstName']; ?>';
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
         

@@ -36,31 +36,23 @@
                 };
 
                 conn.onmessage = function(e) {
-                    var receivedMessage = e.data;
+            var receivedMessage = e.data;
 
-                    try {
-                        var data = JSON.parse(receivedMessage);
+            try {
+                var data = JSON.parse(receivedMessage);
 
-                        if (data.user_count !== undefined) {
-                            // C'est un message de compteur d'utilisateurs
-                            updateUserCount(data.user_count); // Fonction pour mettre à jour le compteur
-                        } else if (data.connected_users !== undefined) {
-                            // C'est un message contenant les données des utilisateurs connectés
-                            processConnectedUsersData(data.connected_users);
-                        } else if (data.username !== undefined && data.message !== undefined && data.id !== undefined) {
-                            // C'est un message texte
-                            // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
-                            // et data.message pour le message.
-                            // Par exemple, vous pouvez appeler une fonction pour ajouter le message au chat.
-                            appendReceivedMessage(data.username, data.message, data.id);
-                        }
-                    } catch (error) {
-                        // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
-                        // Vous pouvez alors exécuter appendReceivedMessage pour afficher ce message.
-                        appendReceivedMessage(receivedMessage);
-                    }
-
-                    // Vérifiez si c'est un message de déconnexion et supprimez l'utilisateur de la liste
+                if (data.user_count !== undefined) {
+                    // C'est un message de compteur d'utilisateurs
+                    updateUserCount(data.user_count); // Fonction pour mettre à jour le compteur
+                } else if (data.connected_users !== undefined) {
+                    // C'est un message contenant les données des utilisateurs connectés
+                    processConnectedUsersData(data.connected_users);
+                } else if (data.username !== undefined && data.message !== undefined && data.id !== myId) {
+                    // C'est un message texte
+                    // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
+                    // et data.message pour le message.
+                    // Par exemple, vous pouvez appeler une fonction pour ajouter le message au chat.
+                    appendReceivedMessage(data.username, data.message, data.id);
                     if (data.message === "S'est déconnecté.") {
                         removeUserFromList(data.id);
                     }
@@ -68,7 +60,22 @@
                     if (data.message === "S'est connecté.") {
                         addUserToList(data.id, data.username);
                     }
-                };
+                }
+            } catch (error) {
+                // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
+                // Pour modifier le message de connexion au channel
+                appendReceivedMessage(receivedMessage);
+            }
+
+            // Vérifiez si c'est un message de déconnexion et supprimez l'utilisateur de la liste
+            if (data.message === "S'est déconnecté.") {
+                removeUserFromList(data.id);
+            }
+
+            if (data.message === "S'est connecté.") {
+                addUserToList(data.id, data.username);
+            }
+        };
 
 
                 conn.onerror = function (event) {
