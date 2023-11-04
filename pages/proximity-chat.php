@@ -29,7 +29,7 @@
 
         <div class="send-container">
             <div class="send-message-container"><input type="text" name="sendMessage" id="sendMessage" placeholder="Ecrivez votre message ici"></div>
-            <button class="send-button">Envoyer !</button>
+            <button class="send-button">Envoyer</button>
         </div>
 
     </div>
@@ -42,9 +42,9 @@
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
         
         // Connection online
-        var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
+        // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
         // Connection en local
-        // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId);
+        var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId);
 
         conn.onopen = function(e) {
             console.log("Connection established!");

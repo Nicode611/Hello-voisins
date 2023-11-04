@@ -5,7 +5,6 @@ use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
 
-$logFilePath = 'logs.html';
 $customLogMessage = "Serveur Ratchet démarré avec succès le " . date('Y-m-d H:i:s');
 echo $customLogMessage ;
 echo 'voici le port' . 8888;
@@ -13,11 +12,13 @@ echo 'voici le port' . 8888;
 class Chat implements MessageComponentInterface {
     protected $clients;
     protected $usernames;
+    protected $channels;
 
 
     public function __construct() {
         $this->clients = new \SplObjectStorage;
         $this->usernames = [];
+        $this->channels = [];
     }
 
     
@@ -62,6 +63,31 @@ class Chat implements MessageComponentInterface {
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
+
+        // Commence par vérifier si le message reçu est au format JSON et s'il contient une action
+        $data = json_decode($msg, true);
+
+        // Si l'action est "join_or_create_channel", extrait le nom du canal à partir du message JSON. 
+        if ($data && isset($data['action'])) {
+            switch ($data['action']) {
+                case 'join_or_create_channel':
+                    $channelName = $data['channelName'];
+                    if (!isset($this->channels[$channelName])) {
+                        // Le canal n'existe pas, créez-le
+                        $this->channels[$channelName] = new \SplObjectStorage();
+                        $this->channels[$channelName]->attach($from);
+                        $from->send("Le canal $channelName a été créé.");
+                    } else {
+                        // Le canal existe, rejoignez-le
+                        $this->channels[$channelName]->attach($from);
+                        $from->send("Vous avez rejoint le canal $channelName.");
+                    }
+                    break;
+                // ...
+            }
+        }
+
+
         $fromUserData = $this->usernames[$from->resourceId] ?? null;
         
         if ($fromUserData) {
