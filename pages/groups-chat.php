@@ -29,7 +29,7 @@
                 // Connection online
                 // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
                 // Connection en local
-                var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId);
+                var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&channelName=' + channelName);
 
                 conn.onopen = function(e) {
                     // Envoyez le nom du canal au serveur WebSocket pour rejoindre ou créer le canal

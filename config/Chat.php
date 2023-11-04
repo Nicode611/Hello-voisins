@@ -27,7 +27,7 @@ class Chat implements MessageComponentInterface {
         try {
             parse_str($conn->httpRequest->getUri()->getQuery(), $queryParameters);
             // Store the new connection to send messages to later
-            $this->clients->attach($conn);
+            
             
             $username = $queryParameters['username'] ?? null;
             $id = $queryParameters['id'] ?? null; // Ajout pour récupérer l'ID
@@ -39,6 +39,19 @@ class Chat implements MessageComponentInterface {
                 ];
                 $this->usernames[$conn->resourceId] = $userData;
                 
+                
+                // Vérifiez si l'utilisateur a l'intention de rejoindre un canal de groupe privé
+                if (isset($queryParameters['channelName'])) {
+                    $channelName = $queryParameters['channelName'];
+                    if (!isset($this->channels[$channelName])) {
+                        // Le canal n'existe pas, créez-le
+                        $this->channels[$channelName] = new \SplObjectStorage();
+                    }
+                    $this->channels[$channelName]->attach($conn);
+                    $conn->send("Vous avez rejoint le canal $channelName.");
+                }
+
+
                 // Compte tous les utilisateurs connectés (visible dans l'objet $this->clients)
                 $countAllUsers = count($this->clients); 
 
@@ -63,30 +76,6 @@ class Chat implements MessageComponentInterface {
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
-
-        // Commence par vérifier si le message reçu est au format JSON et s'il contient une action
-        $data = json_decode($msg, true);
-
-        // Si l'action est "join_or_create_channel", extrait le nom du canal à partir du message JSON. 
-        if ($data && isset($data['action'])) {
-            switch ($data['action']) {
-                case 'join_or_create_channel':
-                    $channelName = $data['channelName'];
-                    if (!isset($this->channels[$channelName])) {
-                        // Le canal n'existe pas, créez-le
-                        $this->channels[$channelName] = new \SplObjectStorage();
-                        $this->channels[$channelName]->attach($from);
-                        $from->send("Le canal $channelName a été créé.");
-                    } else {
-                        // Le canal existe, rejoignez-le
-                        $this->channels[$channelName]->attach($from);
-                        $from->send("Vous avez rejoint le canal $channelName.");
-                    }
-                    break;
-                // ...
-            }
-        }
-
 
         $fromUserData = $this->usernames[$from->resourceId] ?? null;
         
@@ -118,8 +107,6 @@ class Chat implements MessageComponentInterface {
     public function onClose(ConnectionInterface $conn) {
         // Mettez à jour le nombre total d'utilisateurs connectés
         
-
-    
         // Vous pouvez toujours afficher les informations de l'utilisateur qui se déconnecte
         $userData = $this->usernames[$conn->resourceId] ?? null;
         if ($userData) {

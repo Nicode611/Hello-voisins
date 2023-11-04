@@ -38,13 +38,14 @@
     <script>
         
         // Connection websocket
+        channelName = 'proximityChat'
         username = '<?php echo $_SESSION['user_firstName']; ?>';
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
         
         // Connection online
         // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
         // Connection en local
-        var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId);
+        var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&channelName=' + channelName);
 
         conn.onopen = function(e) {
             conn.send(JSON.stringify({ action: 'join_or_create_channel', channelName: 'proximitychat' }));
