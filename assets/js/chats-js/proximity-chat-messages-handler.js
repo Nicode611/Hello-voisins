@@ -116,13 +116,14 @@
         messageContainer.appendChild(receivedMessage);
         receivedMessage.appendChild(usernameText);
         receivedMessage.appendChild(messageText);
-        console.log('received message');
+        console.log(message);
 
         scrollToBottom();
     }
 
     // Fonction pour mettre a jour le compteur d'utilisateurs
     function updateUserCount(count) {
+        console.log(count);
         var userCountElement = document.querySelector('#user-count');
         userCountElement.textContent = count;
     }

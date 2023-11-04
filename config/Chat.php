@@ -66,11 +66,11 @@ class Chat implements MessageComponentInterface {
             $fromUsername = $fromUserData['username'];
             $fromId = $fromUserData['id'];
 
-            $messageData = json_encode([
+            $messageData = [
                 "username" => $fromUsername,
                 "id" => $fromId,
                 "message" => $msg
-            ]);
+            ];
 
             if (isset($fromUserData['channel'])) {
                 $channelName = $fromUserData['channel'];
