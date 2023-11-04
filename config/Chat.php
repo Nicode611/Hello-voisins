@@ -144,7 +144,7 @@ class Chat implements MessageComponentInterface {
     }
 
     // Fonction utilitaire pour envoyer un message de déconnexion au canal
-    private function sendDisconnectionMessageToChannel($username, $id, $channelName) {
+    private function sendDisconnectionMessageToChannel($username, $id, $channelName) { 
         $disconnectionMessage = [
             "username" => $username,
             "id" => $id,
