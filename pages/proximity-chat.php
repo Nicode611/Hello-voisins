@@ -64,14 +64,19 @@
                 } else if (data.connected_users !== undefined) {
                     // C'est un message contenant les données des utilisateurs connectés
                     processConnectedUsersData(data.connected_users);
-                } else if (data.username !== undefined && data.message !== undefined && data.id !== undefined) {
+                } else if (data.username !== undefined && data.message !== undefined && data.id !== myId) {
                     // C'est un message texte
                     // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
                     // et data.message pour le message.
                     // Par exemple, vous pouvez appeler une fonction pour ajouter le message au chat.
-                    updateUserCount(data.user_count);
                     appendReceivedMessage(data.username, data.message, data.id);
-                    console.log('oui')
+                    if (data.message === "S'est déconnecté.") {
+                        removeUserFromList(data.id);
+                    }
+
+                    if (data.message === "S'est connecté.") {
+                        addUserToList(data.id, data.username);
+                    }
                 }
             } catch (error) {
                 // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
