@@ -27,10 +27,11 @@
                 channelName= '<?php echo $channelName ?>';
                 username = '<?php echo $_SESSION['user_firstName']; ?>';
                 myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
+                profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
                 // Connection online
-                // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId);
+                // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&channelName=' + channelName + '&profileImgPath=' + profileImgPath);
                 // Connection en local
-                var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&channelName=' + channelName);
+                var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&channelName=' + channelName + '&profileImgPath=' + profileImgPath);
 
                 conn.onopen = function(e) {
                     console.log('Connexion établie');
@@ -48,12 +49,12 @@
                 } else if (data.connected_users !== undefined) {
                     // C'est un message contenant les données des utilisateurs connectés
                     processConnectedUsersData(data.connected_users);
-                } else if (data.username !== undefined && data.message !== undefined && data.id !== myId) {
+                } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
                     // C'est un message texte
                     // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
                     // et data.message pour le message.
                     // Par exemple, vous pouvez appeler une fonction pour ajouter le message au chat.
-                    appendReceivedMessage(data.username, data.message, data.id);
+                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath);
                     if (data.message === "S'est déconnecté.") {
                         removeUserFromList(data.id);
                     }
@@ -65,7 +66,7 @@
             } catch (error) {
                 // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
                 // Pour modifier le message de connexion au channel
-                appendReceivedMessage(receivedMessage);
+                appendReceivedServerMessage(receivedMessage);
             }
 
             // Vérifiez si c'est un message de déconnexion et supprimez l'utilisateur de la liste

@@ -23,12 +23,14 @@ class Chat implements MessageComponentInterface {
         $username = $queryParameters['username'] ?? null;
         $id = $queryParameters['id'] ?? null;
         $channelName = $queryParameters['channelName'] ?? null;
+        $profileImgPath = $queryParameters['profileImgPath'] ?? null;
 
         if ($username && $id) {
             $userData = [
                 "username" => $username,
                 "id" => $id,
                 "channel" => $channelName,
+                "profileImgPath" => $profileImgPath
             ];
 
             $this->usernames[$conn->resourceId] = $userData;
@@ -47,7 +49,7 @@ class Chat implements MessageComponentInterface {
             }
 
             // Envoyer un message de connexion au canal
-            $this->sendConnectionMessageToChannel($username, $id, $channelName);
+            $this->sendConnectionMessageToChannel($username, $id, $channelName, $profileImgPath);
 
             // Compter tous les utilisateurs connectés
             $countAllUsers = count($this->channels[$channelName]);
@@ -65,10 +67,12 @@ class Chat implements MessageComponentInterface {
         if ($fromUserData) {
             $fromUsername = $fromUserData['username'];
             $fromId = $fromUserData['id'];
+            $fromProfileImgPath = $fromUserData['profileImgPath'];
 
             $messageData = [
                 "username" => $fromUsername,
                 "id" => $fromId,
+                "profileImgPath" => $fromProfileImgPath,
                 "message" => $msg
             ];
 
@@ -87,9 +91,10 @@ class Chat implements MessageComponentInterface {
             $username = $userData['username'];
             $id = $userData['id'];
             $channelName = $userData['channel'];
+            $profileImgPath = $userData['profileImgPath'];
 
             // Envoyer un message de déconnexion au canal
-            $this->sendDisconnectionMessageToChannel($username, $id, $channelName);
+            $this->sendDisconnectionMessageToChannel($username, $id, $channelName, $profileImgPath);
 
             // Supprimer l'utilisateur de la liste
             unset($this->usernames[$conn->resourceId]);
@@ -141,22 +146,24 @@ class Chat implements MessageComponentInterface {
     }
 
     // Fonction utilitaire pour envoyer un message de connexion au canal
-    private function sendConnectionMessageToChannel($username, $id, $channelName) {
+    private function sendConnectionMessageToChannel($username, $id, $channelName, $profileImgPath) {
         $connectionMessage = [
             "username" => $username,
             "id" => $id,
-            "channel" => $channelName, 
+            "channel" => $channelName,
+            "profileImgPath" => $profileImgPath, 
             "message" => "S'est connecté."
         ];
         $this->sendToChannel($channelName, $connectionMessage);
     }
 
     // Fonction utilitaire pour envoyer un message de déconnexion au canal
-    private function sendDisconnectionMessageToChannel($username, $id, $channelName) { 
+    private function sendDisconnectionMessageToChannel($username, $id, $channelName, $profileImgPath) { 
         $disconnectionMessage = [
             "username" => $username,
             "id" => $id,
             "channel" => $channelName,
+            "profileImgPath" => $profileImgPath,
             "message" => "S'est déconnecté."
         ];
         $this->sendToChannel($channelName, $disconnectionMessage);

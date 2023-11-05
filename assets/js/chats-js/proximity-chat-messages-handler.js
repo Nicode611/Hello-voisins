@@ -22,13 +22,13 @@
         });
 
         // Fonction pour afficher le message de connexion
-        function appendConnectionMessage(username, message) {
+        function appendConnectionMessage(username, message, profileImgPath) {
             var messageContainer = document.createElement('div');
             messageContainer.className = 'received-message-container';
             
             var userImg = document.createElement('img');
             userImg.className = 'other-users-img';
-            userImg.src = '../assets/images/user2.jpg';
+            userImg.src = '../' + profileImgPath;
             userImg.alt = '';
 
             var idText = document.createElement('p');
@@ -58,7 +58,7 @@
 
 
         // Fonction pour ajouter le message qu'on viens d'envoyer
-        function appendSentMessage(message) {
+        function appendSentMessage(message, profileImgPath) {
             var message = sendBar.value;
 
             var messageContainer = document.createElement('div');
@@ -66,7 +66,7 @@
 
             var userImg = document.createElement('img');
             userImg.className = 'self-user-img';
-            userImg.src = '../assets/images/user2.jpg';
+            userImg.src = '../' + profileImgPath;
             userImg.alt = '';
 
             var messageText = document.createElement('p');
@@ -85,13 +85,13 @@
 
 
      // Fonction pour ajouter un message reçu au format souhaité
-    function appendReceivedMessage(username, message, id) {
+    function appendReceivedMessage(username, message, id, profileImgPath) {
         var messageContainer = document.createElement('div');
         messageContainer.className = 'received-message-container';
 
         var userImg = document.createElement('img');
         userImg.className = 'other-users-img';
-        userImg.src = '../assets/images/user2.jpg';
+        userImg.src = '../' + profileImgPath;
         userImg.alt = '';
 
         var idText = document.createElement('p');
@@ -157,7 +157,7 @@
             
             var userImg = document.createElement('img');
             userImg.className = 'all-users-img';
-            userImg.src = '../assets/images/user2.jpg';
+            userImg.src = '../' + user.profileImgPath;
             userImg.alt = '';
 
             var allUsersId = document.createElement('span')
@@ -176,7 +176,7 @@
         });
     }
 
-    function addUserToList(userId, username) {
+    function addUserToList(userId, username, profileImgPath) {
         var allUsersList = document.querySelector('.all-users-list');
     
         // Vérifiez si un élément .all-users contient déjà un .other-users-id avec le même texte
@@ -191,7 +191,7 @@
     
             var userImg = document.createElement('img');
             userImg.className = 'all-users-img';
-            userImg.src = '../assets/images/user2.jpg';
+            userImg.src = '../' + profileImgPath;
             userImg.alt = '';
 
             var allUsersId = document.createElement('span');
