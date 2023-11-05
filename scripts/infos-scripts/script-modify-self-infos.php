@@ -20,61 +20,109 @@ if (isset($_POST["submit_modify_self_infos"])) {
 
     if (strlen($password) >= 8 && preg_match("/[0-9]/", $password) && preg_match("/[!@#$%^&*]/", $password)) { 
 
-    if ($password == $confirmPassword) {
-        
-        $validPassword = $password;
-        $hash_password = password_hash($validPassword, PASSWORD_DEFAULT);
+        if ($password == $confirmPassword) {
 
-        $sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, phone = ? WHERE id = ?";
+            $validPassword = $password;
+            $hash_password = password_hash($validPassword, PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare($sql);
+            // Vérifie si un fichier a été téléchargé
+            if(isset($_FILES["selfImage"])) {
+                $uploadDirectory = "../../assets/images/users-profile-imgs/";
+                $targetFile = $uploadDirectory . basename($_FILES["selfImage"]["name"]);
+                
+                // Vérifie si le fichier est une image valide
+                $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+                $allowedExtensions = array("jpg", "jpeg", "png", "gif");
+                
+                if (in_array($imageFileType, $allowedExtensions)) {
+                    if (move_uploaded_file($_FILES["selfImage"]["tmp_name"], $targetFile)) {
+                        // Le téléchargement de l'image a réussi, met à jour le chemin dans la base de données
+                        $profileImagePath = "assets/images/users-profile-imgs/" . $_FILES["selfImage"]["name"];
+                        
+                        $sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, phone = ?, profile_img_path = ? WHERE id = ?";
+                        
+                        $stmt = $conn->prepare($sql);
+                        
+                        if ($stmt === false) {
+                            die("Erreur de préparation de la requête : " . $conn->error);
+                        }
+                        
+                        $stmt->bind_param("ssssssi", $firstName, $lastName, $email, $hash_password, $phone, $profileImagePath, $id);
 
-        if ($stmt === false) {
-            die("Erreur de préparation de la requête : " . $conn->error);
-        }
-
-        $stmt->bind_param("sssssi", $firstName, $lastName, $email, $hash_password, $phone, $id);
-
-        $_SESSION['user_firstName'] = $firstName;
-        $_SESSION['user_lastName'] = $lastName;
-        $_SESSION['user_phone'] = $phone;
-        $_SESSION['user_email'] = $email;
-        $_SESSION['user_password'] = $hash_password;
-
-
-        if ($stmt->execute()) {
-            $_SESSION["success"] = "<p class='validation'>Compte crée !</p>";
-            $conn->close();
-            header("Location: ../../pages/self-profile.php");
-            exit();
-
+                        if ($stmt->execute()) {
+                            $_SESSION["success"] = "<p class='validation'>Changements effectués au niveau de l'image !</p>";
+                            $conn->close();
+                            header("Location: ../../pages/self-profile.php");
+                            exit();
+                        } else {
+                            $_SESSION["error"] = "<p class='error'>Changement non effectués au niveau de l'image !</p>";
+                            $stmt->close();
+                            $conn->close();
+                            header("Location: ../../pages/self-profile.php");
+                            exit();
+                        }
+                    } else {
+                        // Erreur de téléchargement de l'image
+                        $_SESSION["error"] = "<p class='error'>Erreur lors du téléchargement de l'image.</p>";
+                        $conn->close();
+                        header("Location: ../../pages/self-profile.php");
+                        exit();
+                    }
+                } else {
+                    // Format d'image non pris en charge
+                    $_SESSION["error"] = "<p class='error'>Le format de l'image n'est pas pris en charge. Utilisez JPG, JPEG, PNG ou GIF.</p>";
+                    $conn->close();
+                    header("Location: ../../pages/self-profile.php");
+                    exit();
+                }
             } else {
-                $_SESSION["error"] = "<p class='error'>Erreur</p>";
+                // Aucune image n'a été téléchargée, utilise l'ancien chemin d'image
+                $sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, phone = ? WHERE id = ?";
+                
+                $stmt = $conn->prepare($sql);
+                
+                if ($stmt === false) {
+                    die("Erreur de préparation de la requête : " . $conn->error);
+                }
+                
+                $stmt->bind_param("sssssi", $firstName, $lastName, $email, $hash_password, $phone, $id);
+            }
+
+            $_SESSION['user_firstName'] = $firstName;
+            $_SESSION['user_lastName'] = $lastName;
+            $_SESSION['user_phone'] = $phone;
+            $_SESSION['user_email'] = $email;
+            $_SESSION['user_password'] = $hash_password;
+            $_SESSION['user_profile_img_path'] = $profileImagePath;
+
+            if ($stmt->execute()) {
+                $_SESSION["success"] = "<p class='validation'>Changements effectués !</p>";
+                $conn->close();
+                header("Location: ../../pages/self-profile.php");
+                exit();
+            } else {
+                $_SESSION["error"] = "<p class='error'>Changement non effectués !</p>";
                 $stmt->close();
                 $conn->close();
                 header("Location: ../../pages/self-profile.php");
                 exit();
             }
         } else {
-            $_SESSION["error"] = "<p class='error'>Les mdps ne correspondent pas.</p>";
-            $stmt->close();
+            $_SESSION["error"] = "<p class='error'>Les mots de passe ne correspondent pas.</p>";
             $conn->close();
             header("Location: ../../pages/self-profile.php");
             exit();
         }
     } else {
         $_SESSION["error"] = "<p class='error'>Le format du mot de passe n'est pas correct.</p>";
-        $stmt->close();
         $conn->close();
         header("Location: ../../pages/self-profile.php");
         exit();
     }
 } else {
     $_SESSION["error"] = "<p class='error'>Format incorrect.</p>";
-    $stmt->close();
     $conn->close();
     header("Location: ../../pages/self-profile.php");
     exit();
-};
-
+}
 ?>

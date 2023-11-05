@@ -34,6 +34,7 @@
                 $_SESSION["user_phone"] = $row["phone"];
                 $_SESSION["user_latitude"] = $row["latitude"];
                 $_SESSION["user_longitude"] = $row["longitude"];
+                $_SESSION["user_profile_img_path"] = $row["profile_img_path"];
                 
                 $conn->close();
                 header("Location: proximity-chat.php");
