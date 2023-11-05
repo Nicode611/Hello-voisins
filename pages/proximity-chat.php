@@ -41,6 +41,7 @@
         channelName = 'Global'
         username = '<?php echo $_SESSION['user_firstName']; ?>';
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
+        profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
         
         // Connection online
         // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&channelName=' + channelName + '&profileImgPath=' + profileImgPath);

@@ -17,7 +17,7 @@
 
         sendButton.addEventListener('click', function() {
             var message = sendBar.value; // Obtiens la valeur du champ de texte
-            appendSentMessage(message); // Ajoute le message localement
+            appendSentMessage(message, profileImgPath); // Ajoute le message localement
             sendBar.value = '';
         });
 
