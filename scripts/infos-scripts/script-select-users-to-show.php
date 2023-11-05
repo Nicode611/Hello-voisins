@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
         $response['user_data'] = $user_data;
     }
 
-    $sqlContact = "SELECT statut FROM contacts WHERE added_user_id = $id AND added_by_user_id = $selfId";
+    $sqlContact = "SELECT statut FROM contacts WHERE added_user_id = $id AND added_by_user_id = $selfId OR added_user_id = $selfId AND added_by_user_id = $id";
     $resultContact = $conn->query($sqlContact);
 
     if ($resultContact->num_rows > 0) {
