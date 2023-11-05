@@ -91,7 +91,7 @@ div.main-content {
     margin: 20px 0px 20px 20px;
 }
 
-.other-users-img {
+.other-users-img, .self-user-img {
     height: 30px;
     width: 30px;
     min-width: 30px;

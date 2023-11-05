@@ -65,7 +65,7 @@
             messageContainer.className = 'sent-message-container';
 
             var userImg = document.createElement('img');
-            userImg.className = 'other-users-img';
+            userImg.className = 'self-user-img';
             userImg.src = '../assets/images/user2.jpg';
             userImg.alt = '';
 
