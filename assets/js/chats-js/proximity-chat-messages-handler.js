@@ -119,6 +119,26 @@
         scrollToBottom();
     }
 
+    // Messages du serveur
+    function appendReceivedServerMessage(message) {
+        var messageContainer = document.createElement('div');
+        messageContainer.className = 'received-message-container';
+
+        var receivedMessage = document.createElement('div');
+        receivedMessage.className = 'received-message';
+
+        var messageText = document.createElement('span');
+        messageText.className = 'received-message-username';
+        messageText.textContent = message;
+
+        messagesContainer.appendChild(messageContainer);
+        messageContainer.appendChild(receivedMessage);
+        receivedMessage.appendChild(messageText);
+
+        scrollToBottom();
+    }
+
+
     // Fonction pour mettre a jour le compteur d'utilisateurs
     function updateUserCount(count) {
         var userCountElement = document.querySelector('#user-count');
@@ -189,8 +209,6 @@
             allUsersList.appendChild(allUsers);
         }
     }
-    
-    
     
 
     // Fonction pour supprimer un utilisateur de la liste côté client

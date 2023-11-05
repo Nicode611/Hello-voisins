@@ -80,7 +80,7 @@
             } catch (error) {
                 // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
                 // Pour modifier le message de connexion au channel
-                appendReceivedMessage(receivedMessage);
+                appendReceivedServerMessage(receivedMessage);
             }
 
             // Vérifiez si c'est un message de déconnexion et supprimez l'utilisateur de la liste
