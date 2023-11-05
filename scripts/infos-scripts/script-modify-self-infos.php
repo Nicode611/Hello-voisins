@@ -16,6 +16,7 @@ if (isset($_POST["submit_modify_self_infos"])) {
     $email = $_POST["selfEmail"];
     $password = $_POST["selfPassword"];
     $confirmPassword = $_POST["selfConfirmPassword"];
+    $previousProfileImg = "../../" . $_SESSION["user_profile_img_path"];
     $id = $_SESSION['user_id'];
 
     if (strlen($password) >= 8 && preg_match("/[0-9]/", $password) && preg_match("/[!@#$%^&*]/", $password)) { 
@@ -38,6 +39,7 @@ if (isset($_POST["submit_modify_self_infos"])) {
                     if (move_uploaded_file($_FILES["selfImage"]["tmp_name"], $targetFile)) {
                         // Le téléchargement de l'image a réussi, met à jour le chemin dans la base de données
                         $profileImagePath = "assets/images/users-profile-imgs/" . $_FILES["selfImage"]["name"];
+                        unlink($previousProfileImg);
                         
                         $sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, phone = ?, profile_img_path = ? WHERE id = ?";
                         
@@ -48,6 +50,13 @@ if (isset($_POST["submit_modify_self_infos"])) {
                         }
                         
                         $stmt->bind_param("ssssssi", $firstName, $lastName, $email, $hash_password, $phone, $profileImagePath, $id);
+
+                        $_SESSION['user_firstName'] = $firstName;
+                        $_SESSION['user_lastName'] = $lastName;
+                        $_SESSION['user_phone'] = $phone;
+                        $_SESSION['user_email'] = $email;
+                        $_SESSION['user_password'] = $hash_password;
+                        $_SESSION['user_profile_img_path'] = $profileImagePath;
 
                         if ($stmt->execute()) {
                             $_SESSION["success"] = "<p class='validation'>Changements effectués au niveau de l'image !</p>";
@@ -93,7 +102,6 @@ if (isset($_POST["submit_modify_self_infos"])) {
             $_SESSION['user_phone'] = $phone;
             $_SESSION['user_email'] = $email;
             $_SESSION['user_password'] = $hash_password;
-            $_SESSION['user_profile_img_path'] = $profileImagePath;
 
             if ($stmt->execute()) {
                 $_SESSION["success"] = "<p class='validation'>Changements effectués !</p>";
