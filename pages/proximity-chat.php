@@ -20,42 +20,6 @@
         <div class="all-users-container">
             <p id="user-count"></p>
             <div class="all-users-list">
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
-            <button class="send-button">Envoyer</button>
             </div>
         </div>
 
