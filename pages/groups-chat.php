@@ -29,9 +29,9 @@
                 myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
                 profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
                 // Connection online
-                var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&channelName=' + channelName + '&profileImgPath=' + profileImgPath);
+                // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&channelName=' + channelName + '&profileImgPath=' + profileImgPath);
                 // Connection en local
-                // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&channelName=' + channelName + '&profileImgPath=' + profileImgPath);
+                var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&channelName=' + channelName + '&profileImgPath=' + profileImgPath);
 
                 conn.onopen = function(e) {
                     console.log('Connexion établie');
