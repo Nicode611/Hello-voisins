@@ -7,7 +7,7 @@
         }
 
 
-        $query = "SELECT first_name, last_name, latitude, longitude FROM users WHERE id <> $id AND adress = 'yes'";
+        $query = "SELECT first_name, last_name, latitude, longitude, profile_img_path FROM users WHERE id <> $id AND adress = 'yes'";
         $result = $conn->query($query);
 
         if (!$result) {

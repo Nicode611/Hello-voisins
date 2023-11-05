@@ -52,11 +52,15 @@ function initMap() {
                 var userLongitude = parseFloat(user.longitude);
                 var firstName = user.first_name;
                 var lastName = user.last_name;
+                var profileImg = user.profile_img_path;
             
                 var otherCustomIcons = {
-                    url: '../assets/images/user-marker.png',
+                    url: '../' + profileImg,
                     scaledSize: new google.maps.Size(40, 40)
                 };
+
+                otherCustomIcons.url = otherCustomIcons.url + '?border-radius=50%'; // Modifiez la valeur de border-radius selon vos besoins
+
                 // Position des autres utilisateurs
                 var marker = new google.maps.Marker({
                     position: {
