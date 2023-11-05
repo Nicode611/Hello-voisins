@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/proximity-chat.css">
+    <link rel="stylesheet" href="../assets/css/groups-chat.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Group Chat</title>
 </head>
@@ -105,12 +106,15 @@
                 };
 
             </script>
-            <?php
+    <?php
         }
     ?>
 
 
     <div class="main-content">
+        <div class="group-chat-name-container">
+            <span class="group-chat-name"><?php echo $channelName ?></span>
+        </div>
         <div class="all-users-container">
             <p id="user-count"></p>
             <div class="all-users-list">
