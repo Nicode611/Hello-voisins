@@ -75,7 +75,7 @@
                     }
 
                     if (data.message === "S'est connecté.") {
-                        addUserToList(data.id, data.username);
+                        addUserToList(data.id, data.username, data.profileImgPath);
                     }
                 }
             } catch (error) {
