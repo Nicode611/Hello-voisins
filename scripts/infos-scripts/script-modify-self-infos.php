@@ -27,7 +27,7 @@ if (isset($_POST["submit_modify_self_infos"])) {
             $hash_password = password_hash($validPassword, PASSWORD_DEFAULT);
 
             // Vérifie si un fichier a été téléchargé
-            if(isset($_FILES["selfImage"])) {
+            if(!empty($_FILES["selfImage"]["name"])) {
                 $uploadDirectory = "../../assets/images/users-profile-imgs/";
                 $targetFile = $uploadDirectory . basename($_FILES["selfImage"]["name"]);
                 
@@ -59,12 +59,11 @@ if (isset($_POST["submit_modify_self_infos"])) {
                         $_SESSION['user_profile_img_path'] = $profileImagePath;
 
                         if ($stmt->execute()) {
-                            $_SESSION["success"] = "<p class='validation'>Changements effectués au niveau de l'image !</p>";
                             $conn->close();
                             header("Location: ../../pages/self-profile.php");
                             exit();
                         } else {
-                            $_SESSION["error"] = "<p class='error'>Changement non effectués au niveau de l'image !</p>";
+                            $_SESSION["error"] = "<p class='error'>Changement non effectués !</p>";
                             $stmt->close();
                             $conn->close();
                             header("Location: ../../pages/self-profile.php");
@@ -104,7 +103,6 @@ if (isset($_POST["submit_modify_self_infos"])) {
             $_SESSION['user_password'] = $hash_password;
 
             if ($stmt->execute()) {
-                $_SESSION["success"] = "<p class='validation'>Changements effectués !</p>";
                 $conn->close();
                 header("Location: ../../pages/self-profile.php");
                 exit();
