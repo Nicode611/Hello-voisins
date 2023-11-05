@@ -59,8 +59,6 @@ function initMap() {
                     scaledSize: new google.maps.Size(40, 40)
                 };
 
-                otherCustomIcons.url = otherCustomIcons.url + '?border-radius=50%'; // Modifiez la valeur de border-radius selon vos besoins
-
                 // Position des autres utilisateurs
                 var marker = new google.maps.Marker({
                     position: {
