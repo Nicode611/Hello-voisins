@@ -37,11 +37,14 @@ messagesContainerPopup.addEventListener('click', function(event) {
                 const idSpan = document.querySelector('.popup-id');
                 const containerDiv3 = document.querySelector('.popup-user-container3');
                 const selfUserId = document.querySelector('.self-user-id');
+                const userProfileImg = document.querySelector('.popup-user-img');
 
                 // Remplace le texte dans les éléments span avec les données de l'utilisateur
                 firstNameSpan.textContent = data.user_data.first_name;
                 lastNameSpan.textContent = data.user_data.last_name;
                 idSpan.textContent = data.user_data.id;
+                userProfileImg.src = "../" + data.user_data.profileImgPath;
+
 
                 // Afficher ou non le bouton de contact selon le statut du contact
                 if (data.contact_statut == 'null' && selfUserId.textContent !== idSpan.textContent) {
@@ -144,11 +147,13 @@ allUsersContainer.addEventListener('click', function(event) {
                 const idSpan = document.querySelector('.popup-id');
                 const containerDiv3 = document.querySelector('.popup-user-container3');
                 const selfUserId = document.querySelector('.self-user-id');
+                const userProfileImg = document.querySelector('.popup-user-img');
 
                 // Remplace le texte dans les éléments span avec les données de l'utilisateur
                 firstNameSpan.textContent = data.user_data.first_name;
                 lastNameSpan.textContent = data.user_data.last_name;
                 idSpan.textContent = data.user_data.id;
+                userProfileImg.src = "../" + data.user_data.profileImgPath;
 
                 // Afficher ou non le bouton de contact selon le statut du contact
                 if (data.contact_statut == 'null' && selfUserId.textContent !== idSpan.textContent) {

@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     $response = array();
 
     // Requête SQL pour obtenir firstname et lastname de l'utilisateur avec l'ID spécifié
-    $sqlUsers = "SELECT first_name, last_name, id FROM users WHERE id = $id";
+    $sqlUsers = "SELECT first_name, last_name, id, profile_img_path FROM users WHERE id = $id";
     $resultUsers = $conn->query($sqlUsers);
 
     if ($resultUsers->num_rows > 0) {
@@ -24,7 +24,8 @@ if (isset($_GET['id'])) {
         $user_data = array(
             'first_name' => $row['first_name'],
             'last_name' => $row['last_name'],
-            'id' => $row['id']
+            'id' => $row['id'],
+            'profileImgPath' => $row['profile_img_path']
         );
 
         $response['user_data'] = $user_data;
