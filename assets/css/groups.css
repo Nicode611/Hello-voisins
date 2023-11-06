@@ -172,7 +172,11 @@ input[type="search"] {
     zoom: 105%;
 }
 
-.start {
+.start-mobile {
+    display: none;
+}
+
+.start, .start-mobile {
     padding: 7px 10px 7px 10px;
     background-color: #69E13F;
     border-radius: 5px;
@@ -181,7 +185,7 @@ input[type="search"] {
     box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.295);
 }
 
-.start:hover {
+.start:hover, .start-mobile:hover {
     cursor: pointer;
     zoom: 102%;
 }
@@ -313,8 +317,13 @@ input[type="search"] {
         display: none;
     }
 
-    .plus {
-        transform: translateY(-20px) translateX(15px);
+    .start-mobile {
+        margin-top: 15px;
+        display: flex;
+    }
+
+    .group-actions {
+        height: 100%;
     }
 
     .popup-group-options.open {
