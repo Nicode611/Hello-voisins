@@ -3,20 +3,14 @@ const groupsOverlay = document.querySelector('.overlay');
 
 plusBtns.forEach(plusBtn => {
     plusBtn.addEventListener('click', function() {
-        var plusContainer = plusBtn.nextElementSibling;
-        console.log("click")
-        while (plusContainer) {
-            console.log("détecté")
-            if (plusContainer.classList.contains("popup-group-options")) {
-                console.log("trouvé")
-                plusContainer.classList.toggle('open');
-                groupsOverlay.classList.toggle('active');
-            }
-        }
-    });
-});
+        let groupActionsContainer = plusBtn.closest(".group-actions");
+        let plusContainer = groupActionsContainer.querySelector(".popup-group-options");
+        plusContainer.classList.toggle('open');
+        groupsOverlay.classList.toggle('active');
 
-groupsOverlay.addEventListener('click', function() {
-    plusContainer.classList.remove('open');
-    groupsOverlay.classList.remove('active');
+        groupsOverlay.addEventListener('click', function() {
+            plusContainer.classList.remove('open');
+            groupsOverlay.classList.remove('active');
+        });
+    });
 });
