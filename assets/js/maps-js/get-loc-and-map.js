@@ -29,6 +29,7 @@ function initMap() {
             });
             
             // Crée une icône personnalisée
+            
             var myCustomIcon = {
                 url: '../assets/images/user-marker.png',
                 scaledSize: new google.maps.Size(40, 40)
