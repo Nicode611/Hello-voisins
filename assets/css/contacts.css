@@ -48,20 +48,20 @@ input[type="search"] {
     align-items: center;
 }
 
-.chat-icon {
+#startContactDiscussion {
     height: 30px;
     width: 30px;
     transform: translateY(-5px);
     z-index: 2;
 }
 
-.cross-icon {
+#deleteContact {
     height: 40px;
     width: 40px;
     z-index: 2;
 }
 
-.chat-icon:hover, .cross-icon:hover {
+#startContactDiscussion:hover, #deleteContact:hover {
     cursor: pointer;
     zoom: 103%;
 }

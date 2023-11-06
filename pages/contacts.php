@@ -23,6 +23,21 @@
         ?>
     </div>
 
+    <script>
+        // Script pour lancer le chat (récupération du nom, envoie a la page groups-chat.php)
+        const startContactChatBtns = document.querySelectorAll('#startContactDiscussion');
+
+        startContactChatBtns.forEach(function(startContactChatBtn) {
+            startContactChatBtn.addEventListener('click', function() {
+                var channelName = startContactChatBtn.classList.value;
+                if (channelName) {
+                    // Redirigez l'utilisateur vers la page Contacts-chat.php avec le nom du canal en tant que paramètre d'URL
+                    window.location.href = "contacts-chat.php?channelName=" + channelName;
+                }
+            });
+        });
+    </script>
+
     <script src="../assets/js/contacts-js/actions-contact.js"></script>
     
 </body>
