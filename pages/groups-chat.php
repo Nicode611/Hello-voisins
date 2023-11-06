@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/proximity-chat.css">
-    <link rel="stylesheet" href="../assets/css/groups-chat.css">
+    <link rel="stylesheet" href="../assets/css/private-chats.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Group Chat</title>
 </head>
@@ -111,10 +111,12 @@
         }
     ?>
 
-
+    <div class="chat-name-container-mobile">
+        <span class="chat-name"><?php echo $channelName ?></span>
+    </div>
     <div class="main-content">
-        <div class="group-chat-name-container">
-            <span class="group-chat-name"><?php echo $channelName ?></span>
+        <div class="chat-name-container">
+            <span class="chat-name"><?php echo $channelName ?></span>
         </div>
         <div class="all-users-container">
             <p id="user-count"></p>
