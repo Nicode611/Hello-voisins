@@ -304,11 +304,6 @@ input[type="search"] {
         padding: 20px 15px 20px 40px;
     }
 
-    .group:hover {
-        cursor: pointer;
-        zoom: 101%;
-    }
-
     .group-infos {
         margin: 10px;
     }

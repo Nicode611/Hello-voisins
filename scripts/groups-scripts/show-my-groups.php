@@ -20,7 +20,8 @@ if ($result->num_rows > 0) {
         $adminId = $row["admin_id"];
         
         // Convertis la colonne JSON en un tableau PHP
-        $groupMembers = json_decode($row["users_ids"]); 
+        $groupMembers = json_decode($row["users_ids"]);
+        $groupMembersNmbr = count($groupMembers);
 
         // Convertis le tableau en une chaîne de IDs séparés par des virgules
         $idsString = implode(',', $groupMembers);
@@ -35,7 +36,7 @@ if ($result->num_rows > 0) {
                 <img class="group-img" src="../assets/images/user2.jpg" alt="">
                 <div class="number-container">
                     <svg class="user-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="6" r="4" fill="#000000"></circle> <path d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z" fill="#000000"></path></svg>    
-                    <p class="number">6 membres</p>
+                    <p class="number"><?php echo $groupMembersNmbr; ?> membres</p>
                 </div>
                 <div class="start-mobile">
                 <span class="<?php echo $groupName ?>" id="startGroupDiscussion">Commencer à discuter</span>
