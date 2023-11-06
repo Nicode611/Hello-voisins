@@ -22,7 +22,8 @@
             $hashMdp = $row["password"];
     
             if (password_verify($password, $hashMdp)) {
-    
+                
+                session_destroy();
                 session_start();
     
                 // Stocker les informations de l'utilisateur dans la session
