@@ -105,8 +105,7 @@ class Chat implements MessageComponentInterface {
                     $conn->close();
 
                 }
-
-
+                
                 $this->sendToChannel($channelName, $messageData);
             }
         }
