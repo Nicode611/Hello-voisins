@@ -105,7 +105,7 @@ class Chat implements MessageComponentInterface {
                     $conn->close();
 
                 }
-                
+
                 $this->sendToChannel($channelName, $messageData);
             }
         }
@@ -167,7 +167,7 @@ class Chat implements MessageComponentInterface {
                 if (!$success) {
                     echo "Sur le channel ". $channelName ." le message n'a pas été envoyé par : ". $client->resourceId . " Le message = " . $messageData;
                 } else {
-                    echo "Sur le channel ". $channelName ." le message a été envoyé par : ". $client->resourceId . " Le message = " . $messageData;
+                    // echo "Sur le channel ". $channelName ." le message a été envoyé par : ". $client->resourceId . " Le message = " . $messageData;
                 };
             }
         }
@@ -214,25 +214,7 @@ class Chat implements MessageComponentInterface {
                 $connectedUsers[] = $userData;
             }
         }
-        echo" Les connected Users : ". $connectedUsers ." ";
+        // echo" Les connected Users : ". $connectedUsers ." ";
         return $connectedUsers;
     }
-    
-
-
-
-
-    // // Cette fonction récupere tout les utilisateurs connectés au server 
-    // private function getAllConnectedUsersData() {
-    //     $connectedUsers = [];
-    
-    //     foreach ($this->usernames as $userData) {
-    //         $connectedUsers[] = $userData;
-    //     }
-    
-    //     return $connectedUsers;
-    // }
-    
-    
-
 }
