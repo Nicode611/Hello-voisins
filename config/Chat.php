@@ -42,8 +42,8 @@ class Chat implements MessageComponentInterface {
                 }
                 $this->channels[$channelName]->attach($conn);
 
-                // Envoyer un message de confirmation de rejoindre le canal
-                $conn->send("Vous avez rejoint le canal $channelName.");
+                // Envoie un message de confirmation de rejoindre le canal
+                // $conn->send("Vous avez rejoint le canal $channelName.");
 
                 // Envoyer la liste des utilisateurs connectés dans le canal au nouvel utilisateur
                 $this->sendConnectedUsersDataToUserInChannel($conn, $channelName);
@@ -85,20 +85,20 @@ class Chat implements MessageComponentInterface {
                     $db_user = "331032";
                     $db_pass = "Beta2k15";
                     $db_name = "hello-voisins_2023";
-                    $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+                    $connexion = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-                    if ($conn->connect_error) {
-                        die("La connexion à la base de données a échoué : " . $conn->connect_error);
+                    if ($connexion->connect_error) {
+                        die("La connexion à la base de données a échoué : " . $connexion->connect_error);
                     }
 
                     $globalChatMessage =  $messageData["message"];
                     $globalChatSenderId = $messageData["id"];
 
                     $query = "INSERT INTO global_chat_messages (message, sender_id) VALUES (?, ?)";
-                    $stmt = $conn->prepare($query);
+                    $stmt = $connexion->prepare($query);
 
                     if ($stmt === false) {
-                        die("Erreur de préparation de la requête : " . $conn->error);
+                        die("Erreur de préparation de la requête : " . $connexion->error);
                     }
 
                     // Liaison des paramètres
@@ -106,7 +106,7 @@ class Chat implements MessageComponentInterface {
 
                     $stmt->execute();
 
-                    $conn->close();
+                    $connexion->close();
 
                 }
 
