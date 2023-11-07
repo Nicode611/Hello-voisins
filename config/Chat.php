@@ -4,6 +4,7 @@ namespace MyApp;
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+use mysqli;
 
 class Chat implements MessageComponentInterface {
     protected $clients;
@@ -80,8 +81,11 @@ class Chat implements MessageComponentInterface {
                 $channelName = $fromUserData['channel'];
 
                 if ($channelName == "Global") {
-                    $includeFile = "../config/db/db.php";
-                    if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+                    $db_host = "mysql-garage-v-parrot.alwaysdata.net";
+                    $db_user = "331032";
+                    $db_pass = "Beta2k15";
+                    $db_name = "hello-voisins_2023";
+                    $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
                     if ($conn->connect_error) {
                         die("La connexion à la base de données a échoué : " . $conn->connect_error);
