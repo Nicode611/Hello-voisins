@@ -132,7 +132,7 @@
             <!-- Afficher les anciens messages du groupe -->
             <?php
 
-                $includeFile = "../scripts/groups-scripts/show-old-messages.php";
+                $includeFile = "../scripts/groups-scripts/show-old-groups-chat-messages.php";
                 if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
 
             ?>

@@ -78,6 +78,35 @@ class Chat implements MessageComponentInterface {
 
             if (isset($fromUserData['channel'])) {
                 $channelName = $fromUserData['channel'];
+
+                if ($channelName == "Global") {
+                    $includeFile = "../config/db/db.php";
+                    if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+
+                    if ($conn->connect_error) {
+                        die("La connexion à la base de données a échoué : " . $conn->connect_error);
+                    }
+
+                    $globalChatMessage =  $messageData["message"];
+                    $globalChatSenderId = $messageData["id"];
+
+                    $query = "INSERT INTO global_chat_messages (message, sender_id) VALUES (?, ?)";
+                    $stmt = $conn->prepare($query);
+
+                    if ($stmt === false) {
+                        die("Erreur de préparation de la requête : " . $conn->error);
+                    }
+
+                    // Liaison des paramètres
+                    $stmt->bind_param('ss', $globalChatMessage, $globalChatSenderId);
+
+                    $stmt->execute();
+
+                    $conn->close();
+
+                }
+
+
                 $this->sendToChannel($channelName, $messageData);
             }
         }
