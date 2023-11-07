@@ -38,9 +38,9 @@ if (isset($_POST["submit_modify_self_infos"])) {
                 if (in_array($imageFileType, $allowedExtensions)) {
                     if (move_uploaded_file($_FILES["selfImage"]["tmp_name"], $targetFile)) {
 
-                        // Compresser l'image
-                        $maxWidth = 500; // Largeur maximale de l'image (ajustez selon vos besoins)
-                        $maxHeight = 700; // Hauteur maximale de l'image (ajustez selon vos besoins)
+                        // Compresse l'image
+                        $maxWidth = 500; // Largeur maximale de l'image
+                        $maxHeight = 700; // Hauteur maximale de l'image
 
                         list($width, $height) = getimagesize($targetFile);
                         $aspectRatio = $width / $height;
@@ -58,9 +58,9 @@ if (isset($_POST["submit_modify_self_infos"])) {
                         imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
                         // Enregistrez l'image compressée
-                        imagejpeg($newImage, $targetFile, 80); // 80 est la qualité de compression (ajustez selon vos besoins)
+                        imagejpeg($newImage, $targetFile, 80); // 80 est la qualité de compression
 
-                        // Libérez la mémoire
+                        // Libére la mémoire
                         imagedestroy($image);
                         imagedestroy($newImage);
 
