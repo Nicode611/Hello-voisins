@@ -18,6 +18,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $groupName = $row["group_name"];
         $adminId = $row["admin_id"];
+        $groupId = $row["id"];
         
         // Convertis la colonne JSON en un tableau PHP
         $groupMembers = json_decode($row["users_ids"]);
@@ -31,7 +32,7 @@ if ($result->num_rows > 0) {
     <div class="group">
         <div class="group-infos-container">
             <div class="group-infos">
-                <h4><?php echo $groupName ?></h4>
+                <h4 id="channelName"><?php echo $groupName ?></h4>
                 <?php if ($adminId == $selfId) { echo "<span>Admin</span>"; } // Vérifie si l'utilisateur est admin ?> 
                 <img class="group-img" src="../assets/images/user2.jpg" alt="">
                 <div class="number-container">
@@ -39,7 +40,7 @@ if ($result->num_rows > 0) {
                     <p class="number"><?php echo $groupMembersNmbr; ?> membres</p>
                 </div>
                 <div class="start-mobile">
-                <span class="<?php echo $groupName ?>" id="startGroupDiscussion">Commencer à discuter</span>
+                <span class="<?php echo $groupName . $groupId ?>" id="startGroupDiscussion">Commencer à discuter</span>
             </div>
             </div>
             <div class="members-names-container">

@@ -16,8 +16,7 @@
 
     <div class="main-content">
         <h1>Vos groupes</h1>
-        <input class="search-bar" type="search" name="findContacts" id="findContacts" placeholder="Rechercher">
-
+        
         <div class="create-new-group">
             <form class="new-group-form" action="../scripts/groups-scripts/add-group.php" method="POST" onsubmit="return verifierCasesCochees()">
                 <input type="text" name="groupName" id="groupName" placeholder="Nom du groupe" required>
@@ -70,9 +69,12 @@
                 startGroupChatBtns.forEach(function(startGroupChatBtn) {
                     startGroupChatBtn.addEventListener('click', function() {
                         var channelName = startGroupChatBtn.classList.value;
+                        var channelNameToShowContainer = startGroupChatBtn.closest(".group-infos");
+                        var channelNameToShowElement = document.querySelector("#channelName");
+                        var channelNameToShow = channelNameToShowElement.textContent;
                         if (channelName) {
                             // Redirigez l'utilisateur vers la page groups-chat.php avec le nom du canal en tant que paramètre d'URL
-                            window.location.href = "groups-chat.php?channelName=" + channelName;
+                            window.location.href = "groups-chat.php?channelName=" + channelName + "&channelNameToShow=" + channelNameToShow;
                         }
                     });
                 });

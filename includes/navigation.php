@@ -75,9 +75,9 @@
         </script>
         <?php 
             if (isset($_SESSION['user_id'])) { 
-                ?> <form method="post"><input class="deco" type="submit" name="disconnect" value="Déconnection"></form> <?php
+                ?> <form method="post"><input class="deco" type="submit" name="disconnect" value="Déconnexion"></form> <?php
             } else {
-                ?> <button onclick="connection()">Connection</button> 
+                ?> <button onclick="connection()">Connexion</button> 
                     <button onclick="createAccount()">Créer un compte</button>
                 <?php
             };
@@ -109,9 +109,9 @@
         </script>
         <?php 
             if (isset($_SESSION['user_id'])) { 
-                ?> <form method="post"><input class="session-buttons" type="submit" name="disconnect" value="Déconnection"></form> <?php
+                ?> <form method="post"><input class="session-buttons" type="submit" name="disconnect" value="Déconnexion"></form> <?php
             } else {
-                ?> <button class="session-buttons" onclick="connection()">Connection</button> 
+                ?> <button class="session-buttons" onclick="connection()">Connexion</button> 
                     <button class="session-buttons" onclick="createAccount()">Créer un compte</button>
                 <?php
             };

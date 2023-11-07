@@ -31,11 +31,8 @@
             startContactChatBtn.addEventListener('click', function() {
 
                 var contactContainer = startContactChatBtn.closest(".contact");
-                console.log(contactContainer);
                 var contactNameElement = contactContainer.querySelector("#contactName");
-                console.log(contactNameElement);
                 var contactName = contactNameElement.textContent;
-                console.log(contactName);
                 var channelName = startContactChatBtn.classList.value;
                 if (channelName) {
                     // Redirigez l'utilisateur vers la page Contacts-chat.php avec le nom du canal en tant que paramètre d'URL

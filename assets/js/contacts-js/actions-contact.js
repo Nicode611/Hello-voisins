@@ -1,4 +1,4 @@
-const deleteContactBtns = document.querySelectorAll('.cross-icon');
+const deleteContactBtns = document.querySelectorAll('#deleteContact');
 
 deleteContactBtns.forEach(deleteContactBtn => {
     deleteContactBtn.addEventListener('click', function(event) { 
