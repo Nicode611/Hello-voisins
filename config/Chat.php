@@ -80,36 +80,43 @@ class Chat implements MessageComponentInterface {
             if (isset($fromUserData['channel'])) {
                 $channelName = $fromUserData['channel'];
 
-                if ($channelName == "Global") {
-                    $db_host = "mysql-garage-v-parrot.alwaysdata.net";
-                    $db_user = "331032";
-                    $db_pass = "Beta2k15";
-                    $db_name = "hello-voisins_2023";
-                    $connexion = new mysqli($db_host, $db_user, $db_pass, $db_name);
-
-                    if ($connexion->connect_error) {
-                        die("La connexion à la base de données a échoué : " . $connexion->connect_error);
-                    }
-
-                    $globalChatMessage =  $messageData["message"];
-                    $globalChatSenderId = $messageData["id"];
-
-                    $query = "INSERT INTO global_chat_messages (message, sender_id) VALUES (?, ?)";
-                    $stmt = $connexion->prepare($query);
-
-                    if ($stmt === false) {
-                        die("Erreur de préparation de la requête : " . $connexion->error);
-                    }
-
-                    // Liaison des paramètres
-                    $stmt->bind_param('ss', $globalChatMessage, $globalChatSenderId);
-
-                    $stmt->execute();
-
-                    $connexion->close();
-
+                // Sélection de la table a modifier en fonction du nom du channel
+                if ($channelName == "Global") { 
+                    $tableToChoose = "global_chat_messages";
+                } else if (strpos($channelName, "group") !== false) {
+                    $tableToChoose = "groups_chat_messages";
+                } else if (strpos($channelName, "contact") !== false) {
+                    $tableToChoose = "contacts_chat_messages";
                 }
 
+                $db_host = "mysql-garage-v-parrot.alwaysdata.net";
+                $db_user = "331032";
+                $db_pass = "Beta2k15";
+                $db_name = "hello-voisins_2023";
+                $connexion = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+                if ($connexion->connect_error) {
+                    die("La connexion à la base de données a échoué : " . $connexion->connect_error);
+                }
+
+                $chatMessage =  $messageData["message"];
+                $chatSenderId = $messageData["id"];
+
+                $query = "INSERT INTO $tableToChoose (message, sender_id) VALUES (?, ?)";
+                $stmt = $connexion->prepare($query);
+
+                if ($stmt === false) {
+                    die("Erreur de préparation de la requête : " . $connexion->error);
+                }
+
+                // Liaison des paramètres
+                $stmt->bind_param('ss', $chatMessage, $chatSenderId);
+
+                $stmt->execute();
+
+                $connexion->close();
+
+                // Envoie le message au channel
                 $this->sendToChannel($channelName, $messageData);
             }
         }
@@ -128,7 +135,6 @@ class Chat implements MessageComponentInterface {
             // Envoyer un message de déconnexion au canal
             $this->sendDisconnectionMessageToChannel($username, $id, $channelName, $profileImgPath);
 
-            
 
             // Envoyer la liste des utilisateurs connectés dans le canal au nouvel utilisateur
             $this->sendConnectedUsersDataToUserInChannel($conn, $channelName);
