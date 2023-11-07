@@ -128,11 +128,13 @@ class Chat implements MessageComponentInterface {
             // Envoyer un message de déconnexion au canal
             $this->sendDisconnectionMessageToChannel($username, $id, $channelName, $profileImgPath);
 
-            // Supprimer l'utilisateur de la liste
-            unset($this->usernames[$conn->resourceId]);
+            
 
             // Envoyer la liste des utilisateurs connectés dans le canal au nouvel utilisateur
             $this->sendConnectedUsersDataToUserInChannel($conn, $channelName);
+
+            // Supprime l'utilisateur de la liste
+            unset($this->usernames[$conn->resourceId]);
         }
 
 
