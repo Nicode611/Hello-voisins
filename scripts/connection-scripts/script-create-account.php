@@ -19,6 +19,7 @@ if (isset($_POST["submit_create"])) {
     $email = $_POST["signInEmail"];
     $password = $_POST["signInPassword"];
     $confirmPassword = $_POST["signInConfirmPassword"];
+    $defaultProfileImg = "assets/images/default-profile-img/user-default.png";
 
     if (strlen($password) >= 8 && preg_match("/[0-9]/", $password) && preg_match("/[!@#$%^&*]/", $password)) { 
 
@@ -28,7 +29,7 @@ if (isset($_POST["submit_create"])) {
         $hash_password = password_hash($validPassword, PASSWORD_DEFAULT);
         $adress = 'yes';
 
-        $sql = "INSERT INTO users (first_name, last_name, email, password, phone, adress) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (first_name, last_name, email, password, phone, profile_img_path, adress) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 
         $stmt = $conn->prepare($sql);
@@ -38,7 +39,7 @@ if (isset($_POST["submit_create"])) {
         }
 
         // Liaison des paramètres
-        $stmt->bind_param('ssssss', $firstName, $lastName, $email, $hash_password, $phone, $adress);
+        $stmt->bind_param('sssssss', $firstName, $lastName, $email, $hash_password, $phone, $defaultProfileImg, $adress);
 
         if ($stmt->execute()) {
             ?> <span class="validation">Compte crée, connectez vous</span> <?php

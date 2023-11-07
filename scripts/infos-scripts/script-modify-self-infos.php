@@ -28,8 +28,14 @@ if (isset($_POST["submit_modify_self_infos"])) {
 
             // Vérifie si un fichier a été téléchargé
             if(!empty($_FILES["selfImage"]["name"])) {
+
+                // Modifie le nom du fichier afin d'y ajouter l'id
+                $originalFileName = $_FILES["selfImage"]["name"];
+                $fileInfo = pathinfo($originalFileName);
+                $newFileName = $fileInfo['filename'] . '-' . $id . '.' . $fileInfo['extension'];
+
                 $uploadDirectory = "../../assets/images/users-profile-imgs/";
-                $targetFile = $uploadDirectory . basename($_FILES["selfImage"]["name"]);
+                $targetFile = $uploadDirectory . $newFileName;
                 
                 // Vérifie si le fichier est une image valide
                 $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
@@ -65,8 +71,12 @@ if (isset($_POST["submit_modify_self_infos"])) {
                         imagedestroy($newImage);
 
                         // Mise à jour du chemin dans la base de données
-                        $profileImagePath = "assets/images/users-profile-imgs/" . basename($_FILES["selfImage"]["name"]);
-                        unlink($previousProfileImg);
+                        $profileImagePath = "assets/images/users-profile-imgs/" . $newFileName;
+                        
+                        // Si l'image précédente n'est pas l'image par défault, on supprime
+                        if ($previousProfileImg !== "../../assets/images/default-profile-img/user-default.png") {
+                            unlink($previousProfileImg);
+                        }
 
                         $sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, phone = ?, profile_img_path = ? WHERE id = ?";
                         
