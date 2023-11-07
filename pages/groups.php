@@ -72,9 +72,16 @@
                         var channelNameToShowContainer = startGroupChatBtn.closest(".group-infos");
                         var channelNameToShowElement = document.querySelector("#channelName");
                         var channelNameToShow = channelNameToShowElement.textContent;
-                        if (channelName) {
+                        var groupIdElement = startGroupChatBtn.nextElementSibling;
+                        console.log(groupIdElement);
+                        if (groupIdElement.classList.contains("group-id")) {
+                            var groupId = groupIdElement.textContent;
+                        }
+                        if (channelName, channelNameToShow, groupId) {
                             // Redirigez l'utilisateur vers la page groups-chat.php avec le nom du canal en tant que paramètre d'URL
-                            window.location.href = "groups-chat.php?channelName=" + channelName + "&channelNameToShow=" + channelNameToShow;
+                            window.location.href = "groups-chat.php?channelName=" + channelName + "&channelNameToShow=" + channelNameToShow + "&groupId=" + groupId;
+                        } else {
+                            console.log("Missing arguments : " + channelName + channelNameToShow + groupId)
                         }
                     });
                 });
