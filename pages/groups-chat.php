@@ -129,24 +129,13 @@
 
         <div class="messages-container">
             
-        <!-- Afficher les anciens messages du groupe -->
-        <?php
+            <!-- Afficher les anciens messages du groupe -->
+            <?php
 
-            $includeFile = "../scripts/groups-scripts/show-old-messages.php";
-            if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+                $includeFile = "../scripts/groups-scripts/show-old-messages.php";
+                if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
 
-        ?>
-        <div class="received-message-container">
-            <img class="other-users-img" src="../assets/images/users-profile-imgs/beluga.jpeg" alt="">
-            <p class="other-users-id hide"> 1</p>
-            <div class="received-message">
-                <span class="received-message-username">Maya</span>
-                <p class="received-message-content"><?php echo $groupId ?></p>
-            </div>
-        </div>
-
-
-
+            ?>
 
         </div>
 
