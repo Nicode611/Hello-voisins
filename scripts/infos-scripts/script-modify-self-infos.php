@@ -37,10 +37,37 @@ if (isset($_POST["submit_modify_self_infos"])) {
                 
                 if (in_array($imageFileType, $allowedExtensions)) {
                     if (move_uploaded_file($_FILES["selfImage"]["tmp_name"], $targetFile)) {
-                        // Le téléchargement de l'image a réussi, met à jour le chemin dans la base de données
-                        $profileImagePath = "assets/images/users-profile-imgs/" . $_FILES["selfImage"]["name"];
+
+                        // Compresser l'image
+                        $maxWidth = 500; // Largeur maximale de l'image (ajustez selon vos besoins)
+                        $maxHeight = 700; // Hauteur maximale de l'image (ajustez selon vos besoins)
+
+                        list($width, $height) = getimagesize($targetFile);
+                        $aspectRatio = $width / $height;
+
+                        if ($width > $height) {
+                            $newWidth = $maxWidth;
+                            $newHeight = $maxWidth / $aspectRatio;
+                        } else {
+                            $newHeight = $maxHeight;
+                            $newWidth = $maxHeight * $aspectRatio;
+                        }
+
+                        $image = imagecreatefromstring(file_get_contents($targetFile));
+                        $newImage = imagecreatetruecolor($newWidth, $newHeight);
+                        imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                        // Enregistrez l'image compressée
+                        imagejpeg($newImage, $targetFile, 80); // 80 est la qualité de compression (ajustez selon vos besoins)
+
+                        // Libérez la mémoire
+                        imagedestroy($image);
+                        imagedestroy($newImage);
+
+                        // Mise à jour du chemin dans la base de données
+                        $profileImagePath = "assets/images/users-profile-imgs/" . basename($_FILES["selfImage"]["name"]);
                         unlink($previousProfileImg);
-                        
+
                         $sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, phone = ?, profile_img_path = ? WHERE id = ?";
                         
                         $stmt = $conn->prepare($sql);
