@@ -56,7 +56,7 @@
         var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
 
         conn.onopen = function(e) {
-            console.log("Connection established!");
+            console.log("Connection etablie!");
         };
 
         conn.onmessage = function(e) {
