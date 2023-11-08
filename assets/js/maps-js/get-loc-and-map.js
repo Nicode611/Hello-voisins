@@ -1,3 +1,6 @@
+selfImgElement = document.querySelector(".user-img-container");
+selfImgPath = selfImgElement.src; 
+
 function initMap() {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -31,8 +34,8 @@ function initMap() {
             // Crée une icône personnalisée
             
             var myCustomIcon = {
-                url: '../assets/images/user-marker.png',
-                scaledSize: new google.maps.Size(40, 40)
+                url: selfImgPath,
+                scaledSize: new google.maps.Size(40, 40),
             };
             
             // Position de l'utilisateur principal
@@ -61,7 +64,7 @@ function initMap() {
                 };
 
                 // Position des autres utilisateurs
-                var marker = new google.maps.Marker({
+                var Marker = new google.maps.Marker({
                     position: {
                         lat: userLatitude,
                         lng: userLongitude
@@ -70,6 +73,7 @@ function initMap() {
                     title: firstName + ' ' + lastName,
                     icon: otherCustomIcons
                 });
+                
             }
         }, function(error) {
             var map = document.getElementById('map');
