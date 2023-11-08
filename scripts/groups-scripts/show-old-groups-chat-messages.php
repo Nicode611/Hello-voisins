@@ -28,18 +28,28 @@
                 }
             }
 
-            ?>
-            
-                <div class="received-message-container">
-                    <img class="other-users-img" src="../<?php echo $senderProfileImgPath; ?>" alt="">
-                    <p class="other-users-id hide"><?php echo $senderId; ?></p>
-                    <div class="received-message">
-                        <span class="received-message-username"><?php echo $senderFirstName; ?></span>
-                        <p class="received-message-content"><?php echo $message; ?></p>
+            if ($senderId !== $_SESSION["user_id"]) {
+
+                ?>
+                    <div class="received-message-container">
+                        <img class="other-users-img" src="../<?php echo $senderProfileImgPath; ?>" alt="">
+                        <p class="other-users-id hide"><?php echo $senderId; ?></p>
+                        <div class="received-message">
+                            <span class="received-message-username"><?php echo $senderFirstName; ?></span>
+                            <p class="received-message-content"><?php echo $message; ?></p>
+                        </div>
                     </div>
-                </div>
-            
-            <?php
+                <?php
+
+            } else {
+
+                ?>
+                    <div class="sent-message-container">
+                        <img class="self-user-img" src="../<?php echo $senderProfileImgPath; ?>" alt="">
+                        <p class="sent-message"><?php echo $message; ?></p>
+                    </div>
+                <?php
+            }
         }
     }
 
