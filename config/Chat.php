@@ -225,7 +225,7 @@ class Chat implements MessageComponentInterface {
                 if (!$success) {
                     echo "Sur le channel ". $channelName ." le message n'a pas été envoyé par : ". $client->resourceId . " Le message = " . $messageData;
                 } else {
-                    // echo "Sur le channel ". $channelName ." le message a été envoyé par : ". $client->resourceId . " Le message = " . $messageData;
+                    echo "Sur le channel ". $channelName ." le message a été envoyé par : ". $client->resourceId . " Le message = " . $messageData;
                 };
             }
         }

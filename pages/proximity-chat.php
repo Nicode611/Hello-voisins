@@ -85,7 +85,7 @@
                     processConnectedUsersData(data.connected_users);
                 } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
                     
-                    if (distance(userLatitude, userLongitude, data.messageLatitude, data.messageLongitude) <= 500) {
+                    if (distance(userLatitude, userLongitude, data.messageLatitude, data.messageLongitude) <= 50) {
                         console.log("La position 2 est dans un rayon de 500 mètres de la position 1.");
                         appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath);
                     } else {
