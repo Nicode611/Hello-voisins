@@ -39,7 +39,6 @@
 
     </div>
 
-
     <script>
 
         function distance(lat1, lon1, lat2, lon2) {
@@ -64,9 +63,9 @@
         userLongitude = <?php echo $_SESSION['user_longitude'];?>;
         
         // Connection online
-        // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+        var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
         // Connection en local
-        var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+        // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
 
         conn.onopen = function(e) {
             console.log("Connection etablie!");
