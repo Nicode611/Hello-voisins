@@ -7,7 +7,11 @@
         die("La connexion à la base de données a échoué : " . $conn->connect_error);
     }
 
-    $query = "SELECT * FROM global_chat_messages";
+    $selfLatitude = $_SESSION["user_latitude"];
+    $selfLongitude = $_SESSION["user_longitude"];
+
+    // Cherche les messages dans un rayon de 500m autour de moi
+    $query = "SELECT * FROM global_chat_messages WHERE ST_Distance_Sphere(POINT($selfLongitude, $selfLatitude), POINT(message_longitude, message_latitude)) <= 500";
 
     $result = $conn->query($query);
 
