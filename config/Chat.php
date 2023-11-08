@@ -162,25 +162,6 @@ class Chat implements MessageComponentInterface {
                     $connexion->close();
                 }
 
-                
-
-                if (isset($fromUserData['userLocation'])) {
-                    $messageData = [
-                        "username" => $fromUsername,
-                        "id" => $fromId,
-                        "profileImgPath" => $fromProfileImgPath,
-                        "userLocation"=> $fromUserData["userLocation"],
-                        "message" => $msg
-                    ];
-                } else {
-                    $messageData = [
-                        "username" => $fromUsername,
-                        "id" => $fromId,
-                        "profileImgPath" => $fromProfileImgPath,
-                        "message" => $msg
-                    ];
-                }
-
                 // Envoie le message au channel
                 $this->sendToChannel($channelName, $messageData);
             }

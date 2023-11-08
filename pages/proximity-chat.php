@@ -41,6 +41,18 @@
 
 
     <script>
+
+        function distance(lat1, lon1, lat2, lon2) {
+            // Rayon de la Terre en mètres
+            var R = 6371000;
+            var dLat = (lat2 - lat1) * Math.PI / 180;
+            var dLon = (lon2 - lon1) * Math.PI / 180;
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var distance = R * c; // Distance en mètres
+            return distance;
+        }
+
         
         // Connection websocket
         channelName = 'Global'
@@ -48,7 +60,8 @@
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
         profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
         channelId = "";
-        userLocation = [<?php echo $_SESSION['user_latitude'];?>, <?php echo $_SESSION['user_longitude'];?>];
+        userLatitude = <?php echo $_SESSION['user_latitude'];?>;
+        userLongitude = <?php echo $_SESSION['user_longitude'];?>;
         
         // Connection online
         // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
@@ -72,11 +85,15 @@
                     // C'est un message contenant les données des utilisateurs connectés
                     processConnectedUsersData(data.connected_users);
                 } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
-                    // C'est un message texte
-                    // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
-                    // et data.message pour le message.
-                    // Par exemple, vous pouvez appeler une fonction pour ajouter le message au chat.
-                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath);
+                    
+                    if (distance(userLatitude, userLongitude, data.messageLatitude, data.messageLongitude) <= 500) {
+                        console.log("La position 2 est dans un rayon de 500 mètres de la position 1.");
+                        appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath);
+                    } else {
+                        console.log("La position 2 n'est pas dans un rayon de 500 mètres de la position 1.");
+                    }
+
+                    
                     if (data.message === "S'est déconnecté.") {
                         removeUserFromList(data.id);
                     }
