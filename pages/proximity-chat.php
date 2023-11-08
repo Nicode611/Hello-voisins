@@ -48,6 +48,7 @@
         myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
         profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
         channelId = "";
+        userLocation = [<?php echo $_SESSION['user_latitude'];?>, <?php echo $_SESSION['user_longitude'];?>];
         
         // Connection online
         // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);

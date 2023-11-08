@@ -28,7 +28,7 @@ class Chat implements MessageComponentInterface {
         $channelId = $queryParameters['channelId'] ?? null;
 
         if ($username && $id) {
-            
+
             $userData = [
                 "username" => $username,
                 "id" => $id,
@@ -74,8 +74,6 @@ class Chat implements MessageComponentInterface {
             $fromId = $fromUserData['id'];
             $fromProfileImgPath = $fromUserData['profileImgPath'];
             $channelId = $fromUserData['channelId'];
-            echo $channelId;
-
 
             $messageData = [
                 "username" => $fromUsername,
@@ -87,8 +85,6 @@ class Chat implements MessageComponentInterface {
             if (isset($fromUserData['channel'])) {
                 $channelName = $fromUserData['channel'];
 
-                
-
                 $db_host = "mysql-garage-v-parrot.alwaysdata.net";
                 $db_user = "331032";
                 $db_pass = "Beta2k15";
@@ -99,19 +95,45 @@ class Chat implements MessageComponentInterface {
                     die("La connexion à la base de données a échoué : " . $connexion->connect_error);
                 }
 
-                $chatMessage =  $messageData["message"];
+                $chatMessage = $messageData["message"];
                 $chatSenderId = $messageData["id"];
 
-                // Sélection de la table a modifier en fonction du nom du channel
+
+                // Si c'est le chat global
                 if ($channelName == "Global") { 
 
-                    $query = "INSERT INTO global_chat_messages (message, sender_id) VALUES (?, ?)";
+                    $query = "SELECT latitude, longitude FROM users WHERE id = $chatSenderId";
+                    $result = $connexion->query($query);
+
+                    if ($result->num_rows == 1) {
+                        $row = $result->fetch_assoc();
+                        $userLatitude = $row["latitude"];
+                        $userLongitude = $row["longitude"];
+                    }
+
+                    $query = "INSERT INTO global_chat_messages (message, sender_id, message_latitude, message_longitude ) VALUES (?, ?, ?, ?)";
                     $stmt = $connexion->prepare($query);
                     if ($stmt === false) {
                         echo ("Erreur de préparation de la requête : " . $connexion->error);
                     }
-                    $stmt->bind_param('ss', $chatMessage, $chatSenderId);
+                    $stmt->bind_param('ssss', $chatMessage, $chatSenderId, $userLatitude, $userLongitude);
 
+                    // On execute la requette
+                    $stmt->execute();
+                    $connexion->close();
+
+                    // On modifie le tableau du message pour ajouter la position
+                    $messageData = [
+                        "username" => $fromUsername,
+                        "id" => $fromId,
+                        "profileImgPath" => $fromProfileImgPath,
+                        "messageLatitude" => $userLatitude,
+                        "messageLongitude" => $userLongitude,
+                        "message" => $msg
+                    ];
+
+
+                    // Si c'est un channel de groupe
                 } else if (strpos($channelName, "group") !== false) {
 
                     $query = "INSERT INTO groups_chat_messages (group_id, message, sender_id) VALUES (?, ?, ?)";
@@ -121,6 +143,11 @@ class Chat implements MessageComponentInterface {
                     }
                     $stmt->bind_param('sss', $channelId, $chatMessage, $chatSenderId);
 
+                    // On execute la requette
+                    $stmt->execute();
+                    $connexion->close();
+
+                    // Si c'est un channel de contact
                 } else if (strpos($channelName, "contact") !== false) {
 
                     $query = "INSERT INTO contacts_chat_messages (contact_id, message, sender_id) VALUES (?, ?, ?)";
@@ -130,11 +157,29 @@ class Chat implements MessageComponentInterface {
                     }
                     $stmt->bind_param('sss', $channelId, $chatMessage, $chatSenderId);
 
+                    // On execute la requette
+                    $stmt->execute();
+                    $connexion->close();
                 }
 
-                $stmt->execute();
+                
 
-                $connexion->close();
+                if (isset($fromUserData['userLocation'])) {
+                    $messageData = [
+                        "username" => $fromUsername,
+                        "id" => $fromId,
+                        "profileImgPath" => $fromProfileImgPath,
+                        "userLocation"=> $fromUserData["userLocation"],
+                        "message" => $msg
+                    ];
+                } else {
+                    $messageData = [
+                        "username" => $fromUsername,
+                        "id" => $fromId,
+                        "profileImgPath" => $fromProfileImgPath,
+                        "message" => $msg
+                    ];
+                }
 
                 // Envoie le message au channel
                 $this->sendToChannel($channelName, $messageData);
