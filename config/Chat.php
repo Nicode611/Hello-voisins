@@ -25,13 +25,16 @@ class Chat implements MessageComponentInterface {
         $id = $queryParameters['id'] ?? null;
         $channelName = $queryParameters['channelName'] ?? null;
         $profileImgPath = $queryParameters['profileImgPath'] ?? null;
+        $channelId = $queryParameters['channelId'] ?? null;
 
         if ($username && $id) {
+            
             $userData = [
                 "username" => $username,
                 "id" => $id,
                 "channel" => $channelName,
-                "profileImgPath" => $profileImgPath
+                "profileImgPath" => $profileImgPath,
+                "channelId" => $channelId,
             ];
 
             $this->usernames[$conn->resourceId] = $userData;
@@ -54,8 +57,9 @@ class Chat implements MessageComponentInterface {
 
             // Compter tous les utilisateurs connectés
             $countAllUsers = count($this->channels[$channelName]);
+
             // On envoie le compteur au channel grace a la fonction
-        $this->sendUserCountToChannel($channelName, $countAllUsers);
+            $this->sendUserCountToChannel($channelName, $countAllUsers);
 
             echo "Nouvelle connexion ! ({$conn->resourceId}) - Username: $username, ID: $id, Channel: $channelName\n";
         }
@@ -69,6 +73,9 @@ class Chat implements MessageComponentInterface {
             $fromUsername = $fromUserData['username'];
             $fromId = $fromUserData['id'];
             $fromProfileImgPath = $fromUserData['profileImgPath'];
+            $channelId = $fromUserData['channelId'];
+            echo $channelId;
+
 
             $messageData = [
                 "username" => $fromUsername,
@@ -80,14 +87,7 @@ class Chat implements MessageComponentInterface {
             if (isset($fromUserData['channel'])) {
                 $channelName = $fromUserData['channel'];
 
-                // Sélection de la table a modifier en fonction du nom du channel
-                if ($channelName == "Global") { 
-                    $tableToChoose = "global_chat_messages";
-                } else if (strpos($channelName, "group") !== false) {
-                    $tableToChoose = "groups_chat_messages";
-                } else if (strpos($channelName, "contact") !== false) {
-                    $tableToChoose = "contacts_chat_messages";
-                }
+                
 
                 $db_host = "mysql-garage-v-parrot.alwaysdata.net";
                 $db_user = "331032";
@@ -102,15 +102,35 @@ class Chat implements MessageComponentInterface {
                 $chatMessage =  $messageData["message"];
                 $chatSenderId = $messageData["id"];
 
-                $query = "INSERT INTO $tableToChoose (message, sender_id) VALUES (?, ?)";
-                $stmt = $connexion->prepare($query);
+                // Sélection de la table a modifier en fonction du nom du channel
+                if ($channelName == "Global") { 
 
-                if ($stmt === false) {
-                    die("Erreur de préparation de la requête : " . $connexion->error);
+                    $query = "INSERT INTO global_chat_messages (message, sender_id) VALUES (?, ?)";
+                    $stmt = $connexion->prepare($query);
+                    if ($stmt === false) {
+                        echo ("Erreur de préparation de la requête : " . $connexion->error);
+                    }
+                    $stmt->bind_param('ss', $chatMessage, $chatSenderId);
+
+                } else if (strpos($channelName, "group") !== false) {
+
+                    $query = "INSERT INTO groups_chat_messages (group_id, message, sender_id) VALUES (?, ?, ?)";
+                    $stmt = $connexion->prepare($query);
+                    if ($stmt === false) {
+                        echo ("Erreur de préparation de la requête : " . $connexion->error);
+                    }
+                    $stmt->bind_param('sss', $channelId, $chatMessage, $chatSenderId);
+
+                } else if (strpos($channelName, "contact") !== false) {
+
+                    $query = "INSERT INTO contacts_chat_messages (contact_id, message, sender_id) VALUES (?, ?, ?)";
+                    $stmt = $connexion->prepare($query);
+                    if ($stmt === false) {
+                        echo ("Erreur de préparation de la requête : " . $connexion->error);
+                    }
+                    $stmt->bind_param('sss', $channelId, $chatMessage, $chatSenderId);
+
                 }
-
-                // Liaison des paramètres
-                $stmt->bind_param('ss', $chatMessage, $chatSenderId);
 
                 $stmt->execute();
 
