@@ -19,7 +19,7 @@
     <?php
         // Si on a le nom du channel ...
         $channelName = $_GET['channelName'] ?? null;
-        $channelNameToShow = $_GET['channelNameToShow'] ?? null;
+        $groupName = $_GET['groupName'] ?? null;
         $groupId = $_GET['groupId'] ?? null;
 
         if ($channelName) { ?>
@@ -27,7 +27,7 @@
             <script>
                 // On crée la connexion websocket
                 channelName = '<?php echo $channelName ?>';
-                channelNameToShow = '<?php echo $channelNameToShow ?>';
+                groupName = '<?php echo $groupName ?>';
                 username = '<?php echo $_SESSION['user_firstName']; ?>';
                 myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
                 profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
@@ -115,11 +115,11 @@
     ?>
 
     <div class="chat-name-container-mobile">
-        <span class="chat-name"><?php echo $channelNameToShow ?></span>
+        <span class="chat-name"><?php echo $groupName ?></span>
     </div>
     <div class="main-content">
         <div class="chat-name-container">
-            <span class="chat-name"><?php echo $channelNameToShow ?></span>
+            <span class="chat-name"><?php echo $groupName ?></span>
         </div>
         <div class="all-users-container">
             <p id="user-count"></p>

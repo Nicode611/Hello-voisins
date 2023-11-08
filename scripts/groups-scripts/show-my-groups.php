@@ -40,7 +40,7 @@ if ($result->num_rows > 0) {
                     <p class="number"><?php echo $groupMembersNmbr; ?> membres</p>
                 </div>
                 <div class="start-mobile">
-                <span class="<?php echo $groupName . $groupId ?>" id="startGroupDiscussion">Commencer à discuter</span>
+                <span class="<?php echo $groupName; ?>" id="startGroupDiscussion">Commencer à discuter</span>
                 <span class="group-id hide"><?php echo $groupId ?></span>
             </div>
             </div>
