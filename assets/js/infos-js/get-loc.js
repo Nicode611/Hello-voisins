@@ -20,26 +20,26 @@
                 }
             });
         }, function(error) {
-                var map = document.querySelector('.main-content');
+                var mainContent = document.querySelector('.main-content');
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
                         // L'utilisateur a refusé la demande de géolocalisation
-                        map.innerText = 'L\'utilisateur a refusé la géolocalisation.';
+                        mainContent.innerText = 'L\'utilisateur a refusé la géolocalisation.';
                         console.log("L'utilisateur a refusé la géolocalisation.");
                         break;
                     case error.POSITION_UNAVAILABLE:
                         // La position n'a pas pu être déterminée
-                        map.innerText = 'La position n\'a pas pu être déterminée.';
+                        mainContent.innerText = 'La position n\'a pas pu être déterminée.';
                         console.log("La position n'a pas pu être déterminée.");
                         break;
                     case error.TIMEOUT:
                         // La demande de géolocalisation a expiré
-                        map.innerText = 'La demande de géolocalisation a expiré.';
+                        mainContent.innerText = 'La demande de géolocalisation a expiré.';
                         console.log("La demande de géolocalisation a expiré.");
                         break;
                     case error.UNKNOWN_ERROR:
                         // Une erreur inconnue s'est produite
-                        map.innerText = 'Une erreur inconnue s\'est produite.';
+                        mainContent.innerText = 'Une erreur inconnue s\'est produite.';
                         console.log("Une erreur inconnue s'est produite.");
                         break;
                 }
