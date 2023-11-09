@@ -15,6 +15,7 @@
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     ?>
 
+    
 
     <div class="main-content">
         <div class="all-users-container">
@@ -35,7 +36,6 @@
         <div class="send-container">
             <div class="send-message-container"><input type="text" name="sendMessage" id="sendMessage" placeholder="Ecrivez votre message ici"></div>
             <button class="send-button">Envoyer</button>
-            <button class="refresh-position">8</button>
         </div>
 
     </div>

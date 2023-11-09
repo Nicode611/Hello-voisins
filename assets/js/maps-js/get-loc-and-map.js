@@ -64,7 +64,7 @@ function initMap() {
                 };
 
                 // Position des autres utilisateurs
-                var Marker = new google.maps.Marker({
+                var marker = new google.maps.Marker({
                     position: {
                         lat: userLatitude,
                         lng: userLongitude
@@ -102,4 +102,3 @@ function initMap() {
         });
     }
 }
-
