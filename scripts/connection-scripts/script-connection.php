@@ -52,7 +52,7 @@
             session_start();
             $_SESSION["error"] = "<p class='error'>Mot de passe incorect</p>";
             $conn->close();
-            header("Location: connection.php");
+            header("Location: proximity-chat.php");
             exit();
         }
 
