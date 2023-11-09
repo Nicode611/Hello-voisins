@@ -27,6 +27,7 @@ refreshButton = document.querySelector('.refresh-position');
 refreshButton.addEventListener('click', demanderLocalisation);
 
 function demanderLocalisation() {
+    console.log('click');
     if (navigator.geolocation) {
       // Si le navigateur prend en charge la géolocalisation
       navigator.geolocation.getCurrentPosition(succesCallback, erreurCallback);
