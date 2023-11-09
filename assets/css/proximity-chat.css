@@ -177,7 +177,7 @@ div.main-content {
     justify-content: center;
     align-items: center;
     height: 60%;
-    width: 90%;
+    width: 85%;
 }
 
 #sendMessage {
@@ -201,6 +201,11 @@ div.main-content {
     margin-right: 20px;
     padding: 0px;
     box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.438);
+}
+
+.refresh-position {
+    width: 5%;
+    margin-right: 5px;
 }
 
 .all-users-img:hover, .other-users-img:hover, .other-users-id:hover {
