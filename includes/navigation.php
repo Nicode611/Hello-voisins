@@ -2,6 +2,17 @@
     // Vérifie si user est connecté sinon retour a index.php
     session_set_cookie_params(3600);
     session_start();
+
+    $_SESSION["user_id"] = "1";
+    $_SESSION["user_firstName"] = "Maya";
+    $_SESSION["user_lastName"] = "Dasilva";
+    $_SESSION["user_email"] = "maya@gmail.com";
+    $_SESSION["user_password"] = "Azerty12!";
+    $_SESSION["user_phone"] = "0627201444";
+    $_SESSION["user_latitude"] = "43.2998";
+    $_SESSION["user_longitude"] = "-0.394974";
+    $_SESSION["user_profile_img_path"] = "assets/images/users-profile-imgs/beluga.jpeg";
+
     if (isset($_SESSION['user_id'])) {
         $id = $_SESSION['user_id'];
     } else {
