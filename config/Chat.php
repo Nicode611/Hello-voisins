@@ -46,7 +46,7 @@ class Chat implements MessageComponentInterface {
                 $this->channels[$channelName]->attach($conn);
 
                 // Envoie un message de confirmation de rejoindre le canal
-                $conn->send("Vous avez rejoint le canal $channelName.");
+                // $conn->send("Vous avez rejoint le canal $channelName.");
 
                 // Envoyer la liste des utilisateurs connectés dans le canal au nouvel utilisateur
                 $this->sendConnectedUsersDataToUserInChannel($conn, $channelName);
