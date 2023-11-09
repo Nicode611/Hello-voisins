@@ -40,6 +40,9 @@ if (isset($_POST['latitude'])) {
     // Fermez la connexion
     $stmt->close();
     $conn->close();
+
+    $_SESSION["user_latitude"] = $latitude;
+    $_SESSION["user_longitude"] = $longitude;
 };
 ?>
 
