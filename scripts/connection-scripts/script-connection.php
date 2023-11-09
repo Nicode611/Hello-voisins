@@ -38,21 +38,21 @@
                 $_SESSION["user_profile_img_path"] = $row["profile_img_path"];
                 
                 $conn->close();
-                header("Location: proximity-chat.php");
+                header("Location: contacts.php");
                 exit();
                 
             } else {
                 session_start();
                 $_SESSION["error"] = "<p class='error'>Mot de passe incorect</p>";
                 $conn->close();
-                header("Location: proximity-chat.php");
+                header("Location: contacts.php");
                 exit();
             }
         } else {
             session_start();
             $_SESSION["error"] = "<p class='error'>Mot de passe incorect</p>";
             $conn->close();
-            header("Location: proximity-chat.php");
+            header("Location: contacts.php");
             exit();
         }
 

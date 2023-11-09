@@ -211,9 +211,8 @@ div.main-content {
 
 @media screen and (max-width: 1000px) {
 
-    .main-content {
-        width: 95%;
-        overflow-y: auto;
+    div.main-content {
+        width: 100%;
     }
 
     .messages-container {
