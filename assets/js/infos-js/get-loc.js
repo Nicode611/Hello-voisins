@@ -1,3 +1,4 @@
+var selfId = document.querySelector(".self-user-id").textContent;
 
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -5,9 +6,7 @@
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
     
-            // Vérifiez si les valeurs de latitude et longitude sont définies et valides
-            // Les valeurs sont définies et valides, vous pouvez envoyer la requête AJAX
-                
+            // Envoie la localisation a la BDD
             $.ajax({
                 type: "POST",
                 url: "../scripts/infos-scripts/send-loc.php",
@@ -17,7 +16,26 @@
                 },
                 success: function(response) {
                     console.log('mis a jour')
-                    var getLoc = true;
+                    
+                    // Affiche les anciens messages
+                    $.ajax({
+                        type: "GET",
+                        url: "../scripts/global-chat-scripts/show-old-global-chat-messages.php",
+                        
+                        success: function(response) {
+                            
+                            var messages = JSON.parse(response);
+
+                            messages.forEach(function(message) {
+
+                                if (selfId == message.sender_id) {
+                                    ShowOldsSelfMessages(message.message, message.sender_profile_img_path);
+                                } else {
+                                    showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path);
+                                }
+                            });
+                        }
+                    });
                 }
             });
         }, function(error) {
@@ -45,4 +63,55 @@
                         break;
                 }
             });
+    }
+
+    function showOldsMessages(username, message, id, profileImgPath) {
+        var messageContainer = document.createElement('div');
+        messageContainer.className = 'received-message-container';
+
+        var userImg = document.createElement('img');
+        userImg.className = 'other-users-img';
+        userImg.src = '../' + profileImgPath;
+        userImg.alt = '';
+
+        var idText = document.createElement('p');
+        idText.className = 'other-users-id hide';
+        idText.textContent = id;
+
+        var receivedMessage = document.createElement('div');
+        receivedMessage.className = 'received-message';
+
+        var usernameText = document.createElement('span');
+        usernameText.className = 'received-message-username';
+        usernameText.textContent = username;
+
+        var messageText = document.createElement('p');
+        messageText.className = 'received-message-content';
+        messageText.textContent = message;
+
+        messagesContainer.appendChild(messageContainer);
+        messageContainer.appendChild(userImg);
+        messageContainer.appendChild(idText);
+        messageContainer.appendChild(receivedMessage);
+        receivedMessage.appendChild(usernameText);
+        receivedMessage.appendChild(messageText);
+    }
+
+    function ShowOldsSelfMessages(message, profileImgPath) {
+
+        var messageContainer = document.createElement('div');
+        messageContainer.className = 'sent-message-container';
+
+        var userImg = document.createElement('img');
+        userImg.className = 'self-user-img';
+        userImg.src = '../' + profileImgPath;
+        userImg.alt = '';
+
+        var messageText = document.createElement('p');
+        messageText.className = 'sent-message';
+        messageText.textContent = message;
+        
+        messagesContainer.appendChild(messageContainer);
+        messageContainer.appendChild(userImg);
+        messageContainer.appendChild(messageText);
     }
