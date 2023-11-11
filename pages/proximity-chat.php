@@ -26,11 +26,6 @@
         </div>
 
         <div class="messages-container">
-            
-                <?php // afficher les anciens messages 
-                    // $includeFile = "../scripts/global-chat-scripts/show-old-global-chat-messages.php";
-                    // if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
-                ?>
 
         </div>
 
