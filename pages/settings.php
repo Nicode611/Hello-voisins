@@ -16,28 +16,42 @@
 
     <div class="main-content">
         <div class="settings">
-            <span class="position"></span>
-            <div class="setting night-mode">
-                <p>Mode sombre</p>
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span></span> 
-                </label>
-            </div>
+            
             <div class="setting">
                 <p>Apparaitre sur la carte</p>
                 <label class="switch">
-                    <input type="checkbox" checked>
+                    <input class="hide-on-map" type="checkbox"
+                    
+                    <?php
+                    $includeFile = "../../config/db/db.php";
+                    if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+                
+                    if ($conn->connect_error) {
+                        die("La connexion à la base de données a échoué : " . $conn->connect_error);
+                    }
+
+                    $userId = $_SESSION["user_id"];
+
+                    $sql = "SELECT adress FROM users WHERE id = $userId";
+
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            if ($row["adress"] == "yes") {
+                                echo "checked";
+                            } else {
+                                echo "";
+                            }
+                        }
+                        
+                    }
+                    $conn->close();
+                    ?>
+                    >
                     <span></span> 
                 </label>
             </div>
-            <div class="setting">
-                <p>Masquer l'adresse</p>
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span></span> 
-                </label>
-            </div>
+            
             <div class="setting">
                 <p>Distance de detection</p>
                 <select name="chooseDistance" id="chooseDistance">
@@ -51,7 +65,7 @@
         </div>
     </div>
     
-
+    <script src="../assets/js/settings-js/hide-on-map.js"></script>
     <script src="../assets/js/infos-js/get-loc.js"></script>
 </body>
 </html>
