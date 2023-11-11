@@ -15,7 +15,6 @@ var selfId = document.querySelector(".self-user-id").textContent;
                     longitude: longitude
                 },
                 success: function(response) {
-                    console.log('mis a jour')
                     
                     // Affiche les anciens messages
                     $.ajax({
