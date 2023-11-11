@@ -17,6 +17,7 @@
                 },
                 success: function(response) {
                     console.log('mis a jour')
+                    
                 }
             });
         }, function(error) {
