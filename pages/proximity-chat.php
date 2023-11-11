@@ -15,9 +15,10 @@
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     ?>
 
-    
+    <script src="../assets/js/infos-js/get-loc.js"></script>
 
     <div class="main-content">
+
         <div class="all-users-container">
             <p id="user-count"></p>
             <div class="all-users-list">
@@ -156,6 +157,6 @@
     <script src="../assets/js/chats-js/chat-scroll-auto.js"></script>
     <script src="../assets/js/chats-js/show-user.js"></script>
     <script src="../assets/js/chats-js/proximity-chat-messages-handler.js"></script>
-    <script src="../assets/js/infos-js/get-loc.js"></script>
+    
 </body>
 </html>
