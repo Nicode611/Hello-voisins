@@ -25,16 +25,17 @@
                     <?php
                     $includeFile = "../../config/db/db.php";
                     if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+                    $connexion = new mysqli($db_host, $db_user, $db_pass, $db_name);
                 
-                    if ($conn->connect_error) {
-                        die("La connexion à la base de données a échoué : " . $conn->connect_error);
+                    if ($connexion->connect_error) {
+                        die("La connexion à la base de données a échoué : " . $connexion->connect_error);
                     }
 
                     $userId = $_SESSION["user_id"];
 
                     $sql = "SELECT adress FROM users WHERE id = $userId";
 
-                    $result = $conn->query($sql);
+                    $result = $connexion->query($sql);
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             if ($row["adress"] == "yes") {
@@ -45,7 +46,6 @@
                         }
                         
                     }
-                    $conn->close();
                     ?>
                     >
                     <span></span> 
