@@ -20,10 +20,10 @@
             <div class="setting">
                 <p>Apparaitre sur la carte</p>
                 <label class="switch">
-                    <input class="hide-on-map" type="checkbox"
+                    
                     
                     <?php
-                    $includeFile = "../../config/db/db.php";
+                    $includeFile = "../config/db/db.php";
                     if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
                     $connexion = new mysqli($db_host, $db_user, $db_pass, $db_name);
                 
@@ -39,15 +39,13 @@
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             if ($row["adress"] == "yes") {
-                                echo "checked";
+                                ?> <input class="hide-on-map" type="checkbox" checked > <?php
                             } else {
-                                echo "";
+                                ?> <input class="hide-on-map" type="checkbox" > <?php
                             }
                         }
-                        
                     }
                     ?>
-                    >
                     <span></span> 
                 </label>
             </div>
