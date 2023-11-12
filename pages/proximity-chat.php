@@ -38,6 +38,10 @@
 
     <script>
 
+        
+
+        
+
         // Calcul de la distance
         function distance(lat1, lon1, lat2, lon2) {
             // Rayon de la Terre en mètres
@@ -50,97 +54,103 @@
             return distance;
         }
 
-        
-        // Connection websocket
-        channelName = 'Global'
-        username = '<?php echo $_SESSION['user_firstName']; ?>';
-        myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
-        profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
-        channelId = "";
-        userLatitude = <?php echo $_SESSION['user_latitude'];?>;
-        userLongitude = <?php echo $_SESSION['user_longitude'];?>;
-        console.log(userLatitude);
-        console.log(userLongitude);
-        
-        // Connection online
-        var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
-        // Connection en local
-        // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+        function validationToConnect() {
 
-        conn.onopen = function(e) {
-            console.log("Connection etablie!");
-        };
+            // Connection websocket
+            channelName = 'Global'
+            username = '<?php echo $_SESSION['user_firstName']; ?>';
+            myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
+            profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
+            channelId = "";
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                // Récupère la localisation
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                
+                // Connection online
+                var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+                // Connection en local
+                // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
 
-        conn.onmessage = function(e) {
-            var receivedMessage = e.data;
+                conn.onopen = function(e) {
+                    console.log("Connection etablie!");
+                };
 
-            try {
-                var data = JSON.parse(receivedMessage);
+                conn.onmessage = function(e) {
+                    var receivedMessage = e.data;
 
-                // C'est un message de compteur d'utilisateurs
-                if (data.user_count !== undefined) {
-                    updateUserCount(data.user_count);
+                    try {
+                        var data = JSON.parse(receivedMessage);
 
-                // C'est un message contenantla liste des données des utilisateurs connectés
-                } else if (data.connected_users !== undefined) { 
-                    data.connected_users.forEach(function(user) {
-                        if (distance(userLatitude, userLongitude, user.userLatitude, user.userLongitude) <= 500) {
-                            processConnectedUsersData(user.id, user.username, user.profileImgPath);
+                        // C'est un message de compteur d'utilisateurs
+                        if (data.user_count !== undefined) {
+                            updateUserCount(data.user_count);
+
+                        // C'est un message contenantla liste des données des utilisateurs connectés
+                        } else if (data.connected_users !== undefined) { 
+                            data.connected_users.forEach(function(user) {
+                                if (distance(latitude, longitude, user.userLatitude, user.userLongitude) <= 500) {
+                                    processConnectedUsersData(user.id, user.username, user.profileImgPath);
+                                }
+                            });
+                            
+                            
+
+                        } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
+                            
+                            if (distance(latitude, longitude, data.messageLatitude, data.messageLongitude) <= 500 || distance(latitude, longitude, data.userLatitude, data.userLongitude) <= 500) {
+                                // console.log("La position 2 est dans un rayon de 500 mètres de la position 1.");
+                                appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath);
+                            } else {
+                                // console.log("La position 2 n'est pas dans un rayon de 500 mètres de la position 1.");
+                            }
+
+                            // Si c'est message de déconnexion et qu'on est à bonne distance
+                            if (data.message === "S'est déconnecté." && (distance(latitude, longitude, data.userLatitude, data.userLongitude) <= 500) || (data.id == myId)) {
+                                removeUserFromList(data.id);
+                            }
+
+                            // Si c'est message de connexion et qu'on est à bonne distance
+                            if (data.message === "S'est connecté." && (distance(latitude, longitude, data.userLatitude, data.userLongitude) <= 500) || (data.id == myId)) {
+                                addUserToList(data.id, data.username, data.profileImgPath);
+                            }
                         }
-                    });
-                    
-                    
+                    } catch (error) {
+                        // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
+                        // Pour modifier le message de connexion au channel
+                        // appendReceivedServerMessage(receivedMessage);
+                    }
+                };
 
-                } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
-                    
-                    if (distance(userLatitude, userLongitude, data.messageLatitude, data.messageLongitude) <= 500 || distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500) {
-                        // console.log("La position 2 est dans un rayon de 500 mètres de la position 1.");
-                        appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath);
+
+                conn.onerror = function (event) {
+                    console.error("WebSocket error: ", event);
+                    console.log("Event type:", event.type);
+                    console.log("Event message:", event.message);
+                    console.log("Event target:", event.target);
+                    // ... et ainsi de suite
+                };
+                
+
+                conn.onclose = function(event) {
+                    if (event.wasClean) {
+                        console.log("WebSocket connection closed cleanly, code=" + event.code + ", reason=" + event.reason);
                     } else {
-                        // console.log("La position 2 n'est pas dans un rayon de 500 mètres de la position 1.");
+                        console.error("WebSocket connection abruptly closed");
                     }
 
-                    // Si c'est message de déconnexion et qu'on est à bonne distance
-                    if (data.message === "S'est déconnecté." && (distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500) || (data.id == myId)) {
-                        removeUserFromList(data.id);
-                    }
-
-                    // Si c'est message de connexion et qu'on est à bonne distance
-                    if (data.message === "S'est connecté." && (distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500) || (data.id == myId)) {
-                        addUserToList(data.id, data.username, data.profileImgPath);
-                    }
-                }
-            } catch (error) {
-                // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
-                // Pour modifier le message de connexion au channel
-                // appendReceivedServerMessage(receivedMessage);
-            }
-        };
-
-
-        conn.onerror = function (event) {
-            console.error("WebSocket error: ", event);
-            console.log("Event type:", event.type);
-            console.log("Event message:", event.message);
-            console.log("Event target:", event.target);
-            // ... et ainsi de suite
-        };
-
-        conn.onclose = function(event) {
-            if (event.wasClean) {
-                console.log("WebSocket connection closed cleanly, code=" + event.code + ", reason=" + event.reason);
-            } else {
-                console.error("WebSocket connection abruptly closed");
-            }
-
-            const disconnectionData = {
-                username: username,
-                id: myId,
-                message: "S'est déconnecté."
-            };
-            
-            conn.send(JSON.stringify(disconnectionData));
-        };
+                    const disconnectionData = {
+                        username: username,
+                        id: myId,
+                        message: "S'est déconnecté."
+                    };
+                    
+                    conn.send(JSON.stringify(disconnectionData));
+                };
+            })
+        }
+    }
     </script>
 
     <!-- Fenetre modale users -->

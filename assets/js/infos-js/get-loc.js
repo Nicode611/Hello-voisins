@@ -5,6 +5,13 @@ var selfId = document.querySelector(".self-user-id").textContent;
             // Récupère la localisation
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
+
+            function returnLatitude() {
+                return latitude;
+            }
+            function returnLongitude() {
+                return longitude;
+            }
     
             // Envoie la localisation a la BDD
             $.ajax({
@@ -33,6 +40,8 @@ var selfId = document.querySelector(".self-user-id").textContent;
                                     showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path);
                                 }
                             });
+
+                            validationToConnect();
                         }
                     });
                 }
