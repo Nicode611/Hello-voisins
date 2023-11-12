@@ -38,10 +38,6 @@
 
     <script>
 
-        
-
-        
-
         // Calcul de la distance
         function distance(lat1, lon1, lat2, lon2) {
             // Rayon de la Terre en mètres
@@ -72,6 +68,15 @@
                 var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
                 // Connection en local
                 // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+
+                // Action lors de l'envoi d'un message
+                sendButton.addEventListener('click', function() {
+                    var message = sendBar.value; // Obtiens la valeur du champ de texte
+                    appendSentMessage(message, profileImgPath); // Ajoute le message localement
+                    conn.send(message);
+                    sendBar.value = '';
+                });
+
 
                 conn.onopen = function(e) {
                     console.log("Connection etablie!");

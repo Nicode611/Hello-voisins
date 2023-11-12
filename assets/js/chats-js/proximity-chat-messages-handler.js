@@ -15,12 +15,7 @@
             }
         });
 
-        sendButton.addEventListener('click', function() {
-            var message = sendBar.value; // Obtiens la valeur du champ de texte
-            appendSentMessage(message, profileImgPath); // Ajoute le message localement
-            sendBar.value = '';
-        });
-
+        
         // Fonction pour afficher le message de connexion
         function appendConnectionMessage(username, message, profileImgPath) {
             var messageContainer = document.createElement('div');
@@ -77,7 +72,6 @@
             messageContainer.appendChild(userImg);
             messageContainer.appendChild(messageText);
 
-            conn.send(message);
             scrollToBottom();
         }
 
