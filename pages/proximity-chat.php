@@ -101,19 +101,19 @@
                     }
 
                     // Si c'est message de déconnexion et qu'on est à bonne distance
-                    if (data.message === "S'est déconnecté." && (distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500)) {
+                    if (data.message === "S'est déconnecté." && (distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500) || (data.id == myId)) {
                         removeUserFromList(data.id);
                     }
 
                     // Si c'est message de connexion et qu'on est à bonne distance
-                    if (data.message === "S'est connecté." && (distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500)) {
+                    if (data.message === "S'est connecté." && (distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500) || (data.id == myId)) {
                         addUserToList(data.id, data.username, data.profileImgPath);
                     }
                 }
             } catch (error) {
                 // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
                 // Pour modifier le message de connexion au channel
-                appendReceivedServerMessage(receivedMessage);
+                // appendReceivedServerMessage(receivedMessage);
             }
         };
 
