@@ -50,9 +50,10 @@
                 if (data.user_count !== undefined) {
                     // C'est un message de compteur d'utilisateurs
                     updateUserCount(data.user_count); // Fonction pour mettre à jour le compteur
-                } else if (data.connected_users !== undefined) {
-                    // C'est un message contenant les données des utilisateurs connectés
-                    processConnectedUsersData(data.connected_users);
+                } else if (data.connected_users !== undefined) { 
+                            data.connected_users.forEach(function(user) {
+                                processConnectedUsersData(user.id, user.username, user.profileImgPath);
+                            });
                 } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
                     // C'est un message texte
                     // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
