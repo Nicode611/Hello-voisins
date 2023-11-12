@@ -131,7 +131,7 @@
                     console.log("Event target:", event.target);
                     // ... et ainsi de suite
                 };
-                
+
 
                 conn.onclose = function(event) {
                     if (event.wasClean) {
