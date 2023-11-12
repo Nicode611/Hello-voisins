@@ -94,13 +94,11 @@
 
                 } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
                     
-                    if (distance(userLatitude, userLongitude, data.messageLatitude, data.messageLongitude) <= 500) {
-                        console.log(userLatitude, userLongitude, data.messageLatitude, data.messageLongitude);
-                        console.log("La position 2 est dans un rayon de 500 mètres de la position 1.");
+                    if (distance(userLatitude, userLongitude, data.messageLatitude, data.messageLongitude) <= 500 || distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500) {
+                        // console.log("La position 2 est dans un rayon de 500 mètres de la position 1.");
                         appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath);
                     } else {
-                        console.log(userLatitude, userLongitude, data.messageLatitude, data.messageLongitude);
-                        console.log("La position 2 n'est pas dans un rayon de 500 mètres de la position 1.");
+                        // console.log("La position 2 n'est pas dans un rayon de 500 mètres de la position 1.");
                     }
 
                     // Si c'est message de déconnexion et qu'on est à bonne distance

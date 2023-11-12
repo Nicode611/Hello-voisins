@@ -149,27 +149,27 @@
     function processConnectedUsersData(userId, username, profileImgPath) {
         var allUsersList = document.querySelector('.all-users-list');
 
-            var allUsers = document.createElement('div');
-            allUsers.className = 'all-users';
-            
-            var userImg = document.createElement('img');
-            userImg.className = 'all-users-img';
-            userImg.src = '../' + profileImgPath;
-            userImg.alt = '';
+        var allUsers = document.createElement('div');
+        allUsers.className = 'all-users';
+        
+        var userImg = document.createElement('img');
+        userImg.className = 'all-users-img';
+        userImg.src = '../' + profileImgPath;
+        userImg.alt = '';
 
-            var allUsersId = document.createElement('span')
-            allUsersId.className = 'other-users-id hide';
-            allUsersId.textContent = userId;
+        var allUsersId = document.createElement('span')
+        allUsersId.className = 'other-users-id hide';
+        allUsersId.textContent = userId;
 
-            var allUsersName = document.createElement('span')
-            allUsersName.className = 'all-users-name';
-            allUsersName.textContent = username;
+        var allUsersName = document.createElement('span')
+        allUsersName.className = 'all-users-name';
+        allUsersName.textContent = username;
 
-            allUsers.appendChild(userImg);
-            allUsers.appendChild(allUsersId);
-            allUsers.appendChild(allUsersName);
+        allUsers.appendChild(userImg);
+        allUsers.appendChild(allUsersId);
+        allUsers.appendChild(allUsersName);
 
-            allUsersList.appendChild(allUsers);
+        allUsersList.appendChild(allUsers);
     }
 
     // fonction pour ajouter un utilisateur de la liste coté client 
