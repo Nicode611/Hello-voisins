@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/proximity-chat.css">
     <link rel="stylesheet" href="../assets/css/private-chats.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Contact hat</title>
+    <title>Contact Chat</title>
 </head>
 <body>
 
@@ -19,21 +19,23 @@
     <?php
         // Si on a le nom du channel ...
         $channelName = $_GET['channelName'] ?? null;
-        $contactName = $_GET['contactName'] ?? null;
+        $groupName = $_GET['groupName'] ?? null;
+        $groupId = $_GET['groupId'] ?? null;
 
         if ($channelName) { ?>
             
             <script>
                 // On crée la connexion websocket
                 channelName = '<?php echo $channelName ?>';
-                contactName = '<?php echo $contactName ?>';
+                groupName = '<?php echo $groupName ?>';
+                channelId = '<?php echo $groupId ?>';
                 username = '<?php echo $_SESSION['user_firstName']; ?>';
                 myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
                 profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
                 // Connection online
-                // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&channelName=' + channelName + '&profileImgPath=' + profileImgPath);
+                var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
                 // Connection en local
-                var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&channelName=' + channelName + '&profileImgPath=' + profileImgPath);
+                // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
 
                 conn.onopen = function(e) {
                     console.log('Connexion établie');
@@ -48,9 +50,10 @@
                 if (data.user_count !== undefined) {
                     // C'est un message de compteur d'utilisateurs
                     updateUserCount(data.user_count); // Fonction pour mettre à jour le compteur
-                } else if (data.connected_users !== undefined) {
-                    // C'est un message contenant les données des utilisateurs connectés
-                    processConnectedUsersData(data.connected_users);
+                } else if (data.connected_users !== undefined) { 
+                            data.connected_users.forEach(function(user) {
+                                processConnectedUsersData(user.id, user.username, user.profileImgPath);
+                            });
                 } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
                     // C'est un message texte
                     // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
@@ -113,13 +116,12 @@
         }
     ?>
 
-
     <div class="chat-name-container-mobile">
-        <span class="chat-name"><?php echo $contactName ?></span>
+        <span class="chat-name"><?php echo $groupName ?></span>
     </div>
     <div class="main-content">
         <div class="chat-name-container">
-            <span class="chat-name"><?php echo $contactName ?></span>
+            <span class="chat-name"><?php echo $groupName ?></span>
         </div>
         <div class="all-users-container">
             <p id="user-count"></p>
@@ -129,6 +131,12 @@
 
         <div class="messages-container">
             
+            <!-- Afficher les anciens messages du groupe -->
+            <?php
+                $includeFile = "../scripts/groups-scripts/show-old-groups-chat-messages.php";
+                if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+            ?>
+
         </div>
 
         <div class="send-container">
@@ -146,6 +154,5 @@
     <script src="../assets/js/chats-js/chat-scroll-auto.js"></script>
     <script src="../assets/js/chats-js/show-user.js"></script>
     <script src="../assets/js/chats-js/proximity-chat-messages-handler.js"></script>
-    <script src="../assets/js/infos-js/get-loc.js"></script>
 </body>
 </html>

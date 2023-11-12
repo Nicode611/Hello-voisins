@@ -31,12 +31,12 @@
             startContactChatBtn.addEventListener('click', function() {
 
                 var contactContainer = startContactChatBtn.closest(".contact");
-                var contactNameElement = contactContainer.querySelector("#contactName");
-                var contactName = contactNameElement.textContent;
-                var channelName = startContactChatBtn.classList.value;
-                if (channelName) {
+                var contactName = contactContainer.querySelector("#contactName").textContent;
+                var contactId = contactContainer.querySelector(".contact-id").textContent;
+                var channelName = "contact" + contactId;
+                if (channelName, contactName) {
                     // Redirigez l'utilisateur vers la page Contacts-chat.php avec le nom du canal en tant que paramètre d'URL
-                    window.location.href = "contacts-chat.php?channelName=" + channelName + "&contactName=" + contactName;
+                    window.location.href = "contacts-chat.php?channelName=" + channelName + "&contactName=" + contactName + "&contactId=" + contactId;
                 }
             });
         });
