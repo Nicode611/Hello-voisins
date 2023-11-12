@@ -115,15 +115,6 @@
                 // Pour modifier le message de connexion au channel
                 appendReceivedServerMessage(receivedMessage);
             }
-
-            // Vérifiez si c'est un message de déconnexion et supprimez l'utilisateur de la liste
-            if (data.message === "S'est déconnecté.") {
-                removeUserFromList(data.id);
-            }
-
-            if (data.message === "S'est connecté.") {
-                addUserToList(data.id, data.username);
-            }
         };
 
 
