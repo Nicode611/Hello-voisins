@@ -63,9 +63,9 @@
         console.log(userLongitude);
         
         // Connection online
-        // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+        var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
         // Connection en local
-        var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+        // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
 
         conn.onopen = function(e) {
             console.log("Connection etablie!");
@@ -81,11 +81,10 @@
                 if (data.user_count !== undefined) {
                     updateUserCount(data.user_count);
 
-                // C'est un message contenant les données des utilisateurs connectés
+                // C'est un message contenantla liste des données des utilisateurs connectés
                 } else if (data.connected_users !== undefined) { 
                     data.connected_users.forEach(function(user) {
                         if (distance(userLatitude, userLongitude, user.userLatitude, user.userLongitude) <= 500) {
-                            console.log(user.id, user.username, user.profileImgPath)
                             processConnectedUsersData(user.id, user.username, user.profileImgPath);
                         }
                     });
