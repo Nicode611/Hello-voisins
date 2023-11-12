@@ -1,77 +1,91 @@
 var selfId = document.querySelector(".self-user-id").textContent;
 
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            // Récupère la localisation
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
+var latitude;
+var longitude;
 
-            function returnLatitude() {
-                return latitude;
-            }
-            function returnLongitude() {
-                return longitude;
-            }
-    
-            // Envoie la localisation a la BDD
-            $.ajax({
-                type: "POST",
-                url: "../scripts/infos-scripts/send-loc.php",
-                data: { 
-                    latitude: latitude,
-                    longitude: longitude
-                },
-                success: function(response) {
+if ("geolocation" in navigator) {
+    // Lance la surveillance de la position
+    var watchId = navigator.geolocation.watchPosition(successCallback, errorCallback, options);
+} else {
+    console.error("La géolocalisation n'est pas disponible dans ce navigateur.");
+}
+
+// Options de configuration (facultatives)
+var options = {
+    enableHighAccuracy: true, // Utiliser la meilleure précision possible
+    timeout: 5000,            // Temps maximal pour obtenir la position en millisecondes
+    maximumAge: 0             // Ne pas utiliser de position mise en cache
+};
+
+function successCallback(position) {
+    // Récupère la localisation
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    // Affiche la position dans la console
+    console.log('Latitude : ' + latitude);
+    console.log('Longitude : ' + longitude);
+
+        // Envoie la localisation a la BDD
+        $.ajax({
+            type: "POST",
+            url: "../scripts/infos-scripts/send-loc.php",
+            data: { 
+                latitude: latitude,
+                longitude: longitude
+            },
+            success: function(response) {
+                
+                // Affiche les anciens messages
+                $.ajax({
+                    type: "GET",
+                    url: "../scripts/global-chat-scripts/show-old-global-chat-messages.php",
                     
-                    // Affiche les anciens messages
-                    $.ajax({
-                        type: "GET",
-                        url: "../scripts/global-chat-scripts/show-old-global-chat-messages.php",
+                    success: function(response) {
                         
-                        success: function(response) {
-                            
-                            var messages = JSON.parse(response);
+                        var messages = JSON.parse(response);
 
-                            messages.forEach(function(message) {
+                        messages.forEach(function(message) {
 
-                                if (selfId == message.sender_id) {
-                                    ShowOldsSelfMessages(message.message, message.sender_profile_img_path);
-                                } else {
-                                    showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path);
-                                }
-                            });
+                            if (selfId == message.sender_id) {
+                                ShowOldsSelfMessages(message.message, message.sender_profile_img_path);
+                            } else {
+                                showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path);
+                            }
+                        });
 
-                            validationToConnect();
-                        }
-                    });
-                }
-            });
-        }, function(error) {
-                var mainContent = document.querySelector('.main-content');
-                switch (error.code) {
-                    case error.PERMISSION_DENIED:
-                        // L'utilisateur a refusé la demande de géolocalisation
-                        mainContent.innerText = 'L\'utilisateur a refusé la géolocalisation.';
-                        console.log("L'utilisateur a refusé la géolocalisation.");
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        // La position n'a pas pu être déterminée
-                        mainContent.innerText = 'La position n\'a pas pu être déterminée.';
-                        console.log("La position n'a pas pu être déterminée.");
-                        break;
-                    case error.TIMEOUT:
-                        // La demande de géolocalisation a expiré
-                        mainContent.innerText = 'La demande de géolocalisation a expiré.';
-                        console.log("La demande de géolocalisation a expiré.");
-                        break;
-                    case error.UNKNOWN_ERROR:
-                        // Une erreur inconnue s'est produite
-                        mainContent.innerText = 'Une erreur inconnue s\'est produite.';
-                        console.log("Une erreur inconnue s'est produite.");
-                        break;
-                }
-            });
+                        validationToConnect();
+                    }
+                });
+            }
+        });
+};
+
+// Fonction d'erreur appelée en cas de problème avec la géolocalisation
+function errorCallback(error) {
+    var mainContent = document.querySelector('.main-content');
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            // L'utilisateur a refusé la demande de géolocalisation
+            mainContent.innerText = 'L\'utilisateur a refusé la géolocalisation.';
+            console.log("L'utilisateur a refusé la géolocalisation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            // La position n'a pas pu être déterminée
+            mainContent.innerText = 'La position n\'a pas pu être déterminée.';
+            console.log("La position n'a pas pu être déterminée.");
+            break;
+        case error.TIMEOUT:
+            // La demande de géolocalisation a expiré
+            mainContent.innerText = 'La demande de géolocalisation a expiré.';
+            console.log("La demande de géolocalisation a expiré.");
+            break;
+        case error.UNKNOWN_ERROR:
+            // Une erreur inconnue s'est produite
+            mainContent.innerText = 'Une erreur inconnue s\'est produite.';
+            console.log("Une erreur inconnue s'est produite.");
+            break;
     }
+}
 
     function showOldsMessages(username, message, id, profileImgPath) {
         var messageContainer = document.createElement('div');
