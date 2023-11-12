@@ -176,6 +176,7 @@
         });
     }
 
+    // fonction pour ajouter un utilisateur de la liste coté client 
     function addUserToList(userId, username, profileImgPath) {
         var allUsersList = document.querySelector('.all-users-list');
     

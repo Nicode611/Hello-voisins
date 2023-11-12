@@ -77,12 +77,14 @@
             try {
                 var data = JSON.parse(receivedMessage);
 
+                // C'est un message de compteur d'utilisateurs
                 if (data.user_count !== undefined) {
-                    // C'est un message de compteur d'utilisateurs
-                    updateUserCount(data.user_count); // Fonction pour mettre à jour le compteur
-                } else if (data.connected_users !== undefined) {
-                    // C'est un message contenant les données des utilisateurs connectés
+                    updateUserCount(data.user_count);
+
+                // C'est un message contenant les données des utilisateurs connectés
+                } else if (data.connected_users !== undefined && (distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500)) {
                     processConnectedUsersData(data.connected_users);
+
                 } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
                     
                     if (distance(userLatitude, userLongitude, data.messageLatitude, data.messageLongitude) <= 500) {
@@ -94,12 +96,13 @@
                         console.log("La position 2 n'est pas dans un rayon de 500 mètres de la position 1.");
                     }
 
-                    
-                    if (data.message === "S'est déconnecté.") {
+                    // Si c'est message de déconnexion et qu'on est à bonne distance
+                    if (data.message === "S'est déconnecté." && (distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500)) {
                         removeUserFromList(data.id);
                     }
 
-                    if (data.message === "S'est connecté.") {
+                    // Si c'est message de connexion et qu'on est à bonne distance
+                    if (data.message === "S'est connecté." && (distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500)) {
                         addUserToList(data.id, data.username, data.profileImgPath);
                     }
                 }
