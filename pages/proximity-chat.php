@@ -38,6 +38,7 @@
 
     <script>
 
+        // Calcul de la distance
         function distance(lat1, lon1, lat2, lon2) {
             // Rayon de la Terre en mètres
             var R = 6371000;
