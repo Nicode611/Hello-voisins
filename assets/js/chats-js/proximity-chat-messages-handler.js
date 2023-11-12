@@ -146,34 +146,30 @@
     }
 
     // Fonction pour afficher les utilisateurs connectés
-    function processConnectedUsersData(usersData) {
+    function processConnectedUsersData(userId, username, profileImgPath) {
         var allUsersList = document.querySelector('.all-users-list');
 
-        allUsersList.innerHTML = '';
-
-        usersData.forEach(function(user) {
             var allUsers = document.createElement('div');
             allUsers.className = 'all-users';
             
             var userImg = document.createElement('img');
             userImg.className = 'all-users-img';
-            userImg.src = '../' + user.profileImgPath;
+            userImg.src = '../' + profileImgPath;
             userImg.alt = '';
 
             var allUsersId = document.createElement('span')
             allUsersId.className = 'other-users-id hide';
-            allUsersId.textContent = user.id;
+            allUsersId.textContent = userId;
 
             var allUsersName = document.createElement('span')
             allUsersName.className = 'all-users-name';
-            allUsersName.textContent = user.username;
+            allUsersName.textContent = username;
 
             allUsers.appendChild(userImg);
             allUsers.appendChild(allUsersId);
             allUsers.appendChild(allUsersName);
 
             allUsersList.appendChild(allUsers);
-        });
     }
 
     // fonction pour ajouter un utilisateur de la liste coté client 

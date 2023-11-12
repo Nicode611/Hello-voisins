@@ -82,8 +82,15 @@
                     updateUserCount(data.user_count);
 
                 // C'est un message contenant les données des utilisateurs connectés
-                } else if (data.connected_users !== undefined && (distance(userLatitude, userLongitude, data.userLatitude, data.userLongitude) <= 500)) {
-                    processConnectedUsersData(data.connected_users);
+                } else if (data.connected_users !== undefined) { 
+                    data.connected_users.forEach(function(user) {
+                        if (distance(userLatitude, userLongitude, user.userLatitude, user.userLongitude) <= 500) {
+                            console.log(user.id, user.username, user.profileImgPath)
+                            processConnectedUsersData(user.id, user.username, user.profileImgPath);
+                        }
+                    });
+                    
+                    
 
                 } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
                     
