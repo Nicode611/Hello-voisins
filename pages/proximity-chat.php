@@ -107,6 +107,7 @@
                             if (distance(latitude, longitude, data.messageLatitude, data.messageLongitude) <= 500 || distance(latitude, longitude, data.userLatitude, data.userLongitude) <= 500) {
                                 // console.log("La position 2 est dans un rayon de 500 mètres de la position 1.");
                                 if (data.message === "S'est déconnecté." || data.message === "S'est connecté.") {
+                                    console.log('s\'est déco ou reco');
                                     appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath);
                                 } else {
                                     appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, data.messageLatitude, data.messageLongitude);
