@@ -57,14 +57,15 @@ if ("geolocation" in navigator) {
                         
                         var messages = JSON.parse(response);
 
-                        messages.forEach(function(message) {
+                        for (var i = 0; i < messages.length; i++) {
+                            var message = messages[i];
 
                             if (selfId == message.sender_id) {
                                 ShowOldsSelfMessages(message.message, message.sender_profile_img_path);
                             } else {
                                 showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path);
                             }
-                        });
+                        };
 
                         validationToConnect(latitude, longitude);
                     }
