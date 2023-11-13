@@ -99,7 +99,7 @@
 
         var usernameText = document.createElement('span');
         usernameText.className = 'received-message-username';
-        usernameText.textContent = username + " " + distance + "m";
+        usernameText.textContent = username + " " + distance.toFixed(0) + "m";
 
         var messageText = document.createElement('p');
         messageText.className = 'received-message-content';
