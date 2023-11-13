@@ -57,6 +57,11 @@ if ("geolocation" in navigator) {
                         
                         var messages = JSON.parse(response);
 
+                        var loadingMessages = document.querySelectorAll(".loading");
+                        loadingMessages.forEach(function(loadingMessage) {
+                            loadingMessage.remove();
+                        });
+
                         for (var i = 0; i < messages.length; i++) {
                             var message = messages[i];
 

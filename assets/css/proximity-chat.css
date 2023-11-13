@@ -71,6 +71,10 @@ div.main-content {
     padding-bottom: 200px;
 }
 
+.loading {
+    text-align: center;
+}
+
 .messages-container::-webkit-scrollbar-track {
     opacity: 0;
 }

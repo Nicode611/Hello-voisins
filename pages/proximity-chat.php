@@ -19,14 +19,17 @@
 
     <div class="main-content">
 
+        
+
         <div class="all-users-container">
+            <span class="loading">Chargement</span>
             <p id="user-count"></p>
             <div class="all-users-list">
             </div>
         </div>
 
         <div class="messages-container">
-
+            <span class="loading">Chargement</span>
         </div>
 
         <div class="send-container">
