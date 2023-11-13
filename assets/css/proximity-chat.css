@@ -82,6 +82,7 @@ div.main-content {
     width: 20px;
     animation: rotate 5s linear infinite;
     z-index: 20;
+    padding: 5px 5px 5px 5px;
 }
 
 .messages-container::-webkit-scrollbar-track {
