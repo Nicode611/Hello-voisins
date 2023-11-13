@@ -159,6 +159,8 @@
                     
                     conn.send(JSON.stringify(disconnectionData));
                 };
+            
+            // Faire défiler la liste des messages vers le bas
             var messagesContainerElement = document.querySelector(".messages-container");
             messagesContainerElement.scrollTop = messagesContainerElement.scrollHeight;
         }
