@@ -73,6 +73,8 @@ div.main-content {
 
 .loading {
     display: block;
+    align-self: center;
+    text-align: center;
 }
 
 .loading-icon {
