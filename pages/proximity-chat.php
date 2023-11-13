@@ -108,9 +108,7 @@
                                 // console.log("La position 2 est dans un rayon de 500 mètres de la position 1.");
                                 if (data.message === "S'est déconnecté." || data.message === "S'est connecté.") {
                                     
-                                    data.messageLatitude = "null";
-                                    data.messageLongitude = "null";
-                                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, data.messageLatitude, data.messageLongitude);
+                                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, "null", data.messageLongitude);
                                 } else {
                                     appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, data.messageLatitude, data.messageLongitude);
                                 }
