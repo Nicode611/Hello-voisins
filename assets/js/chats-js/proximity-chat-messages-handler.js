@@ -80,7 +80,7 @@
 
      // Fonction pour ajouter un message reçu au format souhaité
     function appendReceivedMessage(username, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude) {
-        if (userLatitude !== null) {
+        if (messageLatitude !== "null") {
             const distance = calculDistance(userLatitude, userLongitude, messageLatitude, messageLongitude);
         }
         console.log(username, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude)
@@ -103,7 +103,7 @@
         var usernameText = document.createElement('span');
         usernameText.className = 'received-message-username';
 
-        if (userLatitude !== null) {
+        if (messageLatitude !== "null") {
             usernameText.textContent = username + " " + distance.toFixed(0) + "m";
         } else {
             usernameText.textContent = username ;
