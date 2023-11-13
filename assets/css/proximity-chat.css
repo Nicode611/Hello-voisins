@@ -72,13 +72,16 @@ div.main-content {
 }
 
 .loading {
-    text-align: center;
-    display: flex;
+    display: block;
+}
+
+.loading > * {
+    display: inline;
 }
 
 .loading-icon {
-    height: 10px;
-    width: 10px;
+    height: 20px;
+    width: 20px;
     animation: rotate 5s linear infinite;
 }
 
