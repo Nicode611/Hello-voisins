@@ -112,7 +112,7 @@
                                     longitude = null;
                                     data.messageLatitude = null;
                                     data.messageLongitude = null;
-                                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath);
+                                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, data.messageLatitude, data.messageLongitude);
                                 } else {
                                     appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, data.messageLatitude, data.messageLongitude);
                                 }
