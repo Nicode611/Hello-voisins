@@ -83,7 +83,7 @@
         if (userLatitude !== null) {
             const distance = calculDistance(userLatitude, userLongitude, messageLatitude, messageLongitude);
         }
-        
+        console.log(username, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude)
 
         var messageContainer = document.createElement('div');
         messageContainer.className = 'received-message-container';
