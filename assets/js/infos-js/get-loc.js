@@ -80,7 +80,7 @@ if (localStorage.getItem('geolocationPermission')) {
                             }
                         });
 
-                        validationToConnect();
+                        validationToConnect(latitude, longitude);
                     }
                 });
             }

@@ -50,7 +50,7 @@
             return distance;
         }
 
-        function validationToConnect() {
+        function validationToConnect(latitude, longitude) {
 
             // Connection websocket
             channelName = 'Global'
@@ -58,12 +58,6 @@
             myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
             profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
             channelId = "";
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                // Récupère la localisation
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-                
                 // Connection online
                 var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
                 // Connection en local
@@ -153,9 +147,7 @@
                     
                     conn.send(JSON.stringify(disconnectionData));
                 };
-            })
         }
-    }
     </script>
 
     <!-- Fenetre modale users -->
