@@ -159,7 +159,15 @@
                     
                     conn.send(JSON.stringify(disconnectionData));
                 };
+
+            const sendMessageInput = document.getElementById('sendMessage');
+
+            sendMessageInput.addEventListener('blur', () => {
+                // Faites défiler la page vers le haut
+                window.scrollTo(0, 0);
+            });
         }
+        
     </script>
 
     <!-- Fenetre modale users -->
@@ -167,7 +175,6 @@
     </div>
 
 
-    <script src="../assets/js/chats-js/chat-scroll-auto.js"></script>
     <script src="../assets/js/chats-js/show-user.js"></script>
     <script src="../assets/js/chats-js/proximity-chat-messages-handler.js"></script>
     
