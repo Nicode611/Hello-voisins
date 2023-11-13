@@ -21,9 +21,6 @@ function successCallback(position) {
     // Récupère la localisation
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
-    // Affiche la position dans la console
-    console.log('Latitude : ' + latitude);
-    console.log('Longitude : ' + longitude);
 
         // Envoie la localisation a la BDD
         $.ajax({
