@@ -38,7 +38,7 @@ function initMap() {
         });
     }
 
-    function createMap() {
+    function createMap(latitude, longitude) {
         // Vérifiez si les valeurs de latitude et longitude sont définies et valides
             // Les valeurs sont définies et valides, vous pouvez envoyer la requête AJAX
                 
