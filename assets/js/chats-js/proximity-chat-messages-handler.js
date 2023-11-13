@@ -79,7 +79,9 @@
 
 
      // Fonction pour ajouter un message reçu au format souhaité
-    function appendReceivedMessage(username, message, id, profileImgPath) {
+    function appendReceivedMessage(username, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude) {
+        calculDistance(userLatitude, userLongitude, messageLatitude, messageLongitude);
+
         var messageContainer = document.createElement('div');
         messageContainer.className = 'received-message-container';
 
@@ -97,7 +99,7 @@
 
         var usernameText = document.createElement('span');
         usernameText.className = 'received-message-username';
-        usernameText.textContent = username;
+        usernameText.textContent = username + " " + distance + "m";
 
         var messageText = document.createElement('p');
         messageText.className = 'received-message-content';
@@ -213,5 +215,29 @@
         });
     }
 
+    function calculDistance(lat1, lon1, lat2, lon2) {
+        const rayonTerre = 6371; // Rayon moyen de la Terre en kilomètres
+    
+        // Conversion des degrés en radians
+        const radLat1 = (Math.PI * lat1) / 180;
+        const radLon1 = (Math.PI * lon1) / 180;
+        const radLat2 = (Math.PI * lat2) / 180;
+        const radLon2 = (Math.PI * lon2) / 180;
+    
+        // Différence de coordonnées
+        const deltaLat = radLat2 - radLat1;
+        const deltaLon = radLon2 - radLon1;
+    
+        // Formule de la haversine
+        const a =
+            Math.sin(deltaLat / 2) ** 2 +
+            Math.cos(radLat1) * Math.cos(radLat2) * Math.sin(deltaLon / 2) ** 2;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    
+        // Distance en mètres
+        const distance = rayonTerre * c * 1000;
+    
+        return distance;
+    }
 
 
