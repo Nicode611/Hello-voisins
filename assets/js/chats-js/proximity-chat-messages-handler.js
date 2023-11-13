@@ -113,6 +113,9 @@
         messageText.className = 'received-message-content';
         messageText.textContent = message;
 
+        console.log(usernameText.textContent, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude)
+
+
         messagesContainer.appendChild(messageContainer);
         messageContainer.appendChild(userImg);
         messageContainer.appendChild(idText);
