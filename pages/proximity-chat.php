@@ -22,7 +22,6 @@
         
 
         <div class="all-users-container">
-            <span class="loading">Chargement</span>
             <p id="user-count"></p>
             <div class="all-users-list">
             </div>
