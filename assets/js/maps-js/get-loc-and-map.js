@@ -2,27 +2,58 @@ selfImgElement = document.querySelector(".user-img-container");
 selfImgPath = selfImgElement.src; 
 
 function initMap() {
-
-    // Options de configuration (facultatives)
-    var options = {
-        enableHighAccuracy: true, // Utiliser la meilleure précision possible
-        timeout: 5000,            // Temps maximal pour obtenir la position en millisecondes
-        maximumAge: 0             // Ne pas utiliser de position mise en cache
-    };
-
-    if ("geolocation" in navigator) {
-        // Lance la surveillance de la position
-        var watchId = navigator.geolocation.watchPosition(successCallback, errorCallback, options);
-    } else {
-        console.error("La géolocalisation n'est pas disponible dans ce navigateur.");
-    }
-
-        function successCallback(position) {
+    if (localStorage.getItem('geolocationPermission')) {
+        
             // Récupère la localisation
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
 
-            // Vérifiez si les valeurs de latitude et longitude sont définies et valides
+            // Enregistre l'autorisation dans le stockage local
+            localStorage.setItem('geolocationPermission', 'granted');
+
+            createMap(latitude, longitude);
+
+    } else {
+        navigator.geolocation.getCurrentPosition(function(position) {
+
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            // Enregistre l'autorisation dans le stockage local
+            localStorage.setItem('geolocationPermission', 'granted');
+
+            createMap(latitude, longitude);
+
+
+        }, function(error) {
+            var map = document.getElementById('map');
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    // L'utilisateur a refusé la demande de géolocalisation
+                    map.innerText = 'L\'utilisateur a refusé la géolocalisation.';
+                    console.log("L'utilisateur a refusé la géolocalisation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    // La position n'a pas pu être déterminée
+                    map.innerText = 'La position n\'a pas pu être déterminée.';
+                    console.log("La position n'a pas pu être déterminée.");
+                    break;
+                case error.TIMEOUT:
+                    // La demande de géolocalisation a expiré
+                    map.innerText = 'La demande de géolocalisation a expiré.';
+                    console.log("La demande de géolocalisation a expiré.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    // Une erreur inconnue s'est produite
+                    map.innerText = 'Une erreur inconnue s\'est produite.';
+                    console.log("Une erreur inconnue s'est produite.");
+                    break;
+            }
+        });
+    }
+
+    function createMap() {
+        // Vérifiez si les valeurs de latitude et longitude sont définies et valides
             // Les valeurs sont définies et valides, vous pouvez envoyer la requête AJAX
                 
             $.ajax({
@@ -87,34 +118,6 @@ function initMap() {
                     title: firstName + ' ' + lastName,
                     icon: otherCustomIcons
                 });
-                
-            }
-        }
-
-        // Fonction d'erreur appelée en cas de problème avec la géolocalisation
-        function errorCallback(error) {
-            var mainContent = document.querySelector('.main-content');
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    // L'utilisateur a refusé la demande de géolocalisation
-                    mainContent.innerText = 'L\'utilisateur a refusé la géolocalisation.';
-                    console.log("L'utilisateur a refusé la géolocalisation.");
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    // La position n'a pas pu être déterminée
-                    mainContent.innerText = 'La position n\'a pas pu être déterminée.';
-                    console.log("La position n'a pas pu être déterminée.");
-                    break;
-                case error.TIMEOUT:
-                    // La demande de géolocalisation a expiré
-                    mainContent.innerText = 'La demande de géolocalisation a expiré.';
-                    console.log("La demande de géolocalisation a expiré.");
-                    break;
-                case error.UNKNOWN_ERROR:
-                    // Une erreur inconnue s'est produite
-                    mainContent.innerText = 'Une erreur inconnue s\'est produite.';
-                    console.log("Une erreur inconnue s'est produite.");
-                    break;
             }
         }
     }

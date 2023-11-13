@@ -1,45 +1,29 @@
 var selfId = document.querySelector(".self-user-id").textContent;
 
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+if (localStorage.getItem('geolocationPermission')) {
+        
             // Récupère la localisation
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
+
+            // Enregistre l'autorisation dans le stockage local
+            localStorage.setItem('geolocationPermission', 'granted');
+
+            sendLocation(latitude, longitude);
     
-            // Envoie la localisation a la BDD
-            $.ajax({
-                type: "POST",
-                url: "../scripts/infos-scripts/send-loc.php",
-                data: { 
-                    latitude: latitude,
-                    longitude: longitude
-                },
-                success: function(response) {
-                    
-                    // Affiche les anciens messages
-                    $.ajax({
-                        type: "GET",
-                        url: "../scripts/global-chat-scripts/show-old-global-chat-messages.php",
-                        
-                        success: function(response) {
-                            
-                            var messages = JSON.parse(response);
+            
+        } else {
+            // Si non, demande l'autorisation
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // Récupère la localisation
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
 
-                            messages.forEach(function(message) {
+                // Enregistre l'autorisation dans le stockage local
+                localStorage.setItem('geolocationPermission', 'granted');
 
-                                if (selfId == message.sender_id) {
-                                    ShowOldsSelfMessages(message.message, message.sender_profile_img_path);
-                                } else {
-                                    showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path);
-                                }
-                            });
-
-                            validationToConnect();
-                        }
-                    });
-                }
-            });
-        }, function(error) {
+                sendLocation(latitude, longitude);
+            }, function(error) {
                 var mainContent = document.querySelector('.main-content');
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
@@ -63,8 +47,46 @@ var selfId = document.querySelector(".self-user-id").textContent;
                         console.log("Une erreur inconnue s'est produite.");
                         break;
                 }
-            });
+            })
+        }
+        
+
+    function sendLocation(latitude, longitude) {
+        // Envoie la localisation a la BDD
+        $.ajax({
+            type: "POST",
+            url: "../scripts/infos-scripts/send-loc.php",
+            data: { 
+                latitude: latitude,
+                longitude: longitude
+            },
+            success: function(response) {
+                
+                // Affiche les anciens messages
+                $.ajax({
+                    type: "GET",
+                    url: "../scripts/global-chat-scripts/show-old-global-chat-messages.php",
+                    
+                    success: function(response) {
+                        
+                        var messages = JSON.parse(response);
+
+                        messages.forEach(function(message) {
+
+                            if (selfId == message.sender_id) {
+                                ShowOldsSelfMessages(message.message, message.sender_profile_img_path);
+                            } else {
+                                showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path);
+                            }
+                        });
+
+                        validationToConnect();
+                    }
+                });
+            }
+        });
     }
+    
 
     function showOldsMessages(username, message, id, profileImgPath) {
         var messageContainer = document.createElement('div');
