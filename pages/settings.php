@@ -23,28 +23,28 @@
                     
                     
                     <?php
-                    $includeFile = "../config/db/db.php";
-                    if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
-                    $connexion = new mysqli($db_host, $db_user, $db_pass, $db_name);
+                    // $includeFile = "../config/db/db.php";
+                    // if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+                    // $connexion = new mysqli($db_host, $db_user, $db_pass, $db_name);
                 
-                    if ($connexion->connect_error) {
-                        die("La connexion à la base de données a échoué : " . $connexion->connect_error);
-                    }
+                    // if ($connexion->connect_error) {
+                    //     die("La connexion à la base de données a échoué : " . $connexion->connect_error);
+                    // }
 
-                    $userId = $_SESSION["user_id"];
+                    // $userId = $_SESSION["user_id"];
 
-                    $sql = "SELECT adress FROM users WHERE id = $userId";
+                    // $sql = "SELECT adress FROM users WHERE id = $userId";
 
-                    $result = $connexion->query($sql);
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            if ($row["adress"] == "yes") {
-                                ?> <input class="hide-on-map" type="checkbox" checked > <?php
-                            } else {
-                                ?> <input class="hide-on-map" type="checkbox" > <?php
-                            }
-                        }
-                    }
+                    // $result = $connexion->query($sql);
+                    // if ($result->num_rows > 0) {
+                    //     while ($row = $result->fetch_assoc()) {
+                    //         if ($row["adress"] == "yes") {
+                    //             ?> <input class="hide-on-map" type="checkbox" checked > <?php
+                    //         } else {
+                    //             ?> <input class="hide-on-map" type="checkbox" > <?php
+                    //         }
+                    //     }
+                    // }
                     ?>
                     <span></span> 
                 </label>
