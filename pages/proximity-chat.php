@@ -28,7 +28,11 @@
         </div>
 
         <div class="messages-container">
-            <span class="loading">Chargement</span>
+            <div class="loading">
+                <img class="loading-icon" src="../favicon.ico" alt="">
+                <span class="loading-message">Chargement</span>
+            </div>
+            
         </div>
 
         <div class="send-container">

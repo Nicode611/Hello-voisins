@@ -76,6 +76,12 @@ div.main-content {
     display: block;
 }
 
+.loading-icon {
+    height: 10px;
+    width: 10px;
+    animation: rotate 5s linear infinite;
+}
+
 .messages-container::-webkit-scrollbar-track {
     opacity: 0;
 }
@@ -255,5 +261,14 @@ div.main-content {
     .white-space {
         height: 500px;
 
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }
