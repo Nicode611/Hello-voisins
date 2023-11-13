@@ -103,7 +103,7 @@
         var usernameText = document.createElement('span');
         usernameText.className = 'received-message-username';
 
-        if (distance) {
+        if (userLatitude !== null) {
             usernameText.textContent = username + " " + distance.toFixed(0) + "m";
         } else {
             usernameText.textContent = username ;
