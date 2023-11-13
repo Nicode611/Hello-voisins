@@ -2,30 +2,16 @@ selfImgElement = document.querySelector(".user-img-container");
 selfImgPath = selfImgElement.src; 
 
 function initMap() {
-    if (localStorage.getItem('geolocationPermission')) {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
         
             // Récupère la localisation
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
 
-            // Enregistre l'autorisation dans le stockage local
-            localStorage.setItem('geolocationPermission', 'granted');
-
             createMap(latitude, longitude);
 
-    } else {
-        navigator.geolocation.getCurrentPosition(function(position) {
-
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-
-            // Enregistre l'autorisation dans le stockage local
-            localStorage.setItem('geolocationPermission', 'granted');
-
-            createMap(latitude, longitude);
-
-
-        }, function(error) {
+    }, function(error) {
             var map = document.getElementById('map');
             switch (error.code) {
                 case error.PERMISSION_DENIED:

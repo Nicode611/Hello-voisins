@@ -1,29 +1,15 @@
 var selfId = document.querySelector(".self-user-id").textContent;
 
-if (localStorage.getItem('geolocationPermission')) {
-        
+if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function(position) {
             // Récupère la localisation
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
 
-            // Enregistre l'autorisation dans le stockage local
-            localStorage.setItem('geolocationPermission', 'granted');
-
             sendLocation(latitude, longitude);
     
             
-        } else {
-            // Si non, demande l'autorisation
-            navigator.geolocation.getCurrentPosition(function(position) {
-                // Récupère la localisation
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-
-                // Enregistre l'autorisation dans le stockage local
-                localStorage.setItem('geolocationPermission', 'granted');
-
-                sendLocation(latitude, longitude);
-            }, function(error) {
+        }, function(error) {
                 var mainContent = document.querySelector('.main-content');
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
