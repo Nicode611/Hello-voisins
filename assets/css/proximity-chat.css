@@ -72,23 +72,6 @@ div.main-content {
     position: relative;
 }
 
-.loading {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.loading-icon {
-    height: 20px;
-    width: 20px;
-    animation: rotate 5s linear infinite;
-    z-index: 999;
-    padding: 5px 5px 5px 5px;
-}
-
 .messages-container::-webkit-scrollbar-track {
     opacity: 0;
 }
