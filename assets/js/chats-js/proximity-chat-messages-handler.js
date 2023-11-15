@@ -119,6 +119,9 @@
         var receivedMessage = document.createElement('div');
         receivedMessage.className = 'received-message';
 
+        var receivedMessageFirstSection = document.createElement('div');
+        receivedMessageFirstSection.className = 'received-message-first-section';
+
         var usernameText = document.createElement('span');
         usernameText.className = 'received-message-username';
 
@@ -128,19 +131,13 @@
             usernameText.textContent = username ;
         }
 
-        var receivedMessageContentContainer = document.createElement('div');
-            receivedMessageContentContainer.className = 'received-message-content-container';
+        var dateText = document.createElement('span');
+        dateText.className = 'received-message-date';
+        dateText.textContent = date;
         
         var messageText = document.createElement('p');
         messageText.className = 'received-message-content';
         messageText.textContent = message;
-
-        var receivedMessageTimeContainer = document.createElement('div');
-        receivedMessageTimeContainer.className = 'received-message-time-container';
-        
-        var dateText = document.createElement('span');
-        dateText.className = 'received-message-date';
-        dateText.textContent = date;
 
         var hourText = document.createElement('span');
         hourText.className = 'received-message-hour';
@@ -152,12 +149,11 @@
         messageContainer.appendChild(userImg);
         messageContainer.appendChild(idText);
         messageContainer.appendChild(receivedMessage);
-        receivedMessage.appendChild(usernameText);
-        receivedMessage.appendChild(receivedMessageContentContainer);
-        receivedMessageContentContainer.appendChild(messageText);
-        receivedMessageContentContainer.appendChild(receivedMessageTimeContainer);
-        receivedMessageTimeContainer.appendChild(dateText);
-        receivedMessageTimeContainer.appendChild(hourText);
+        receivedMessage.appendChild(receivedMessageFirstSection);
+        receivedMessageFirstSection.appendChild(usernameText);
+        receivedMessageFirstSection.appendChild(dateText);
+        receivedMessage.appendChild(messageText);
+        receivedMessage.appendChild(hourText);
 
         scrollToBottom();
     }
