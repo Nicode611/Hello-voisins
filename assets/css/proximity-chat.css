@@ -114,13 +114,8 @@ div.main-content {
     max-width: 400px;
     min-width: none;
     background-color: #D9D9D9;
-    padding: 10px 2px 2px 10px;
+    padding: 10px 5px 2px 10px;
     border-radius: 10px 10px 10px 0px;
-}
-
-.received-message-first-section {
-    display: flex;
-    justify-content: space-between;
 }
 
 .received-message-username {
@@ -128,21 +123,23 @@ div.main-content {
     color: gray;
 }
 
-.received-message-date {
-    font-size: 0.7rem;
-    color: gray;
-    text-align: end;
-}
-
 .received-message-content {
-    margin: 0px;
+    margin: 0px 8px 5px 0px;
     flex-wrap: wrap;
 }
 
-.received-message-hour {
-    font-size: 0.7rem;
+.received-message-first-section {
+    width: 100%;
+    display: flex;
+}
+
+.received-message-date, .received-message-hour {
+    font-size: 0.6rem;
     color: gray;
-    text-align: end;
+}
+
+.received-message-hour {
+    margin-left: 5px;
 }
 
 

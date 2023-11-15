@@ -119,9 +119,6 @@
         var receivedMessage = document.createElement('div');
         receivedMessage.className = 'received-message';
 
-        var receivedMessageFirstSection = document.createElement('div');
-        receivedMessageFirstSection.className = 'received-message-first-section';
-
         var usernameText = document.createElement('span');
         usernameText.className = 'received-message-username';
 
@@ -130,14 +127,17 @@
         } else {
             usernameText.textContent = username ;
         }
-
-        var dateText = document.createElement('span');
-        dateText.className = 'received-message-date';
-        dateText.textContent = date;
         
         var messageText = document.createElement('p');
         messageText.className = 'received-message-content';
         messageText.textContent = message;
+
+        var receivedMessageFirstSection = document.createElement('div');
+        receivedMessageFirstSection.className = 'received-message-first-section';
+
+        var dateText = document.createElement('span');
+        dateText.className = 'received-message-date';
+        dateText.textContent = date;
 
         var hourText = document.createElement('span');
         hourText.className = 'received-message-hour';
@@ -149,11 +149,11 @@
         messageContainer.appendChild(userImg);
         messageContainer.appendChild(idText);
         messageContainer.appendChild(receivedMessage);
-        receivedMessage.appendChild(receivedMessageFirstSection);
-        receivedMessageFirstSection.appendChild(usernameText);
-        receivedMessageFirstSection.appendChild(dateText);
+        receivedMessage.appendChild(usernameText);
         receivedMessage.appendChild(messageText);
-        receivedMessage.appendChild(hourText);
+        receivedMessage.appendChild(receivedMessageFirstSection);
+        receivedMessageFirstSection.appendChild(dateText);
+        receivedMessageFirstSection.appendChild(hourText);
 
         scrollToBottom();
     }
