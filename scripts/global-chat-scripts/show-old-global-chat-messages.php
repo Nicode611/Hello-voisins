@@ -22,6 +22,8 @@
 
             $senderId = $row["sender_id"];
             $message = $row["message"];
+            $date = $row["date"];
+            $hour = $row["hour"];
 
             $query2 = "SELECT first_name, profile_img_path FROM users WHERE id = $senderId";
             $result2 = $conn->query($query2);
@@ -39,6 +41,8 @@
                 'message' => $message,
                 'sender_first_name' => $senderFirstName,
                 'sender_profile_img_path' => $senderProfileImgPath,
+                'date' => $date,
+                'hour' => $hour
             );
         
             $messages[] = $messageData;

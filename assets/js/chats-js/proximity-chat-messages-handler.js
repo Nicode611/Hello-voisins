@@ -143,8 +143,6 @@
         hourText.className = 'received-message-hour';
         hourText.textContent = hour;
 
-        console.log(usernameText.textContent, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude)
-
         messagesContainer.appendChild(messageContainer);
         messageContainer.appendChild(userImg);
         messageContainer.appendChild(idText);

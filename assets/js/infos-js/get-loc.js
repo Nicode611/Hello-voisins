@@ -68,7 +68,7 @@ if ("geolocation" in navigator) {
                             if (selfId == message.sender_id) {
                                 ShowOldsSelfMessages(message.message, message.sender_profile_img_path);
                             } else {
-                                showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path);
+                                showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path, message.date, message.hour);
                             }
                         };
 
@@ -80,7 +80,7 @@ if ("geolocation" in navigator) {
     }
     
 
-    function showOldsMessages(username, message, id, profileImgPath) {
+    function showOldsMessages(username, message, id, profileImgPath, date, hour) {
         var messageContainer = document.createElement('div');
         messageContainer.className = 'received-message-container';
 
@@ -104,12 +104,26 @@ if ("geolocation" in navigator) {
         messageText.className = 'received-message-content';
         messageText.textContent = message;
 
+        var receivedMessageFirstSection = document.createElement('div');
+        receivedMessageFirstSection.className = 'received-message-first-section';
+
+        var dateText = document.createElement('span');
+        dateText.className = 'received-message-date';
+        dateText.textContent = date;
+
+        var hourText = document.createElement('span');
+        hourText.className = 'received-message-hour';
+        hourText.textContent = hour;
+
         messagesContainer.appendChild(messageContainer);
         messageContainer.appendChild(userImg);
         messageContainer.appendChild(idText);
         messageContainer.appendChild(receivedMessage);
         receivedMessage.appendChild(usernameText);
         receivedMessage.appendChild(messageText);
+        receivedMessage.appendChild(receivedMessageFirstSection);
+        receivedMessageFirstSection.appendChild(dateText);
+        receivedMessageFirstSection.appendChild(hourText);
     }
 
     function ShowOldsSelfMessages(message, profileImgPath) {
