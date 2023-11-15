@@ -31,7 +31,10 @@
     <div class="main-content">
 
         <div id="map">
-            <img class="map-loading-icon" src="../favicon.ico" alt="">
+            <div class="loading-map">
+                <span>Chargement de la carte</span>
+                <img class="map-loading-icon" src="../favicon.ico" alt="">
+            </div>
         </div>
 
     </div>

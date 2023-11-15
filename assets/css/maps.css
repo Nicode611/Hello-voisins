@@ -22,9 +22,15 @@
     border: solid 1px #69E13F;
 }
 
+.loading-map {
+    display: flex;
+    flex-direction: column;
+}
+
 .map-loading-icon {
     height: 70px;
     width: 70px;
+    margin-top: 20px;
     animation: rotate 5s linear infinite;
     z-index: 999;
 }

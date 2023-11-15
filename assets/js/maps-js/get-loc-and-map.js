@@ -1,5 +1,5 @@
 selfImgElement = document.querySelector(".user-img-container");
-mapLoadingIcon = document.querySelector(".map-loading-icon");
+mapLoadingIcon = document.querySelector(".loading-map");
 selfImgPath = selfImgElement.src; 
 
 function initMap() {
