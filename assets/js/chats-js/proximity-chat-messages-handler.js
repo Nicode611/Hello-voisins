@@ -16,40 +16,58 @@
         });
 
         
-        // Fonction pour afficher le message de connexion
-        function appendConnectionMessage(username, message, profileImgPath) {
-            var messageContainer = document.createElement('div');
-            messageContainer.className = 'received-message-container';
+        // // Fonction pour afficher le message de connexion
+        // function appendConnectionMessage(username, message, profileImgPath, date, hour) {
+        //     var messageContainer = document.createElement('div');
+        //     messageContainer.className = 'received-message-container';
             
-            var userImg = document.createElement('img');
-            userImg.className = 'other-users-img';
-            userImg.src = '../' + profileImgPath;
-            userImg.alt = '';
+        //     var userImg = document.createElement('img');
+        //     userImg.className = 'other-users-img';
+        //     userImg.src = '../' + profileImgPath;
+        //     userImg.alt = '';
 
-            var idText = document.createElement('p');
-            idText.className = 'other-users-id hide';
-            idText.textContent = id;
+        //     var idText = document.createElement('p');
+        //     idText.className = 'other-users-id hide';
+        //     idText.textContent = id;
 
-            var receivedMessage = document.createElement('div');
-            receivedMessage.className = 'received-message';
+        //     var receivedMessage = document.createElement('div');
+        //     receivedMessage.className = 'received-message';
 
-            var usernameText = document.createElement('span');
-            usernameText.className = 'received-message-username';
-            usernameText.textContent = username;
+        //     var usernameText = document.createElement('span');
+        //     usernameText.className = 'received-message-username';
+        //     usernameText.textContent = username;
 
-            var messageText = document.createElement('p');
-            messageText.className = 'received-message-content';
-            messageText.textContent = message;
+        //     var receivedMessageContentContainer = document.createElement('div');
+        //     receivedMessageContentContainer.className = 'received-message-content-container';
+            
+        //     var messageText = document.createElement('p');
+        //     messageText.className = 'received-message-content';
+        //     messageText.textContent = message;
+            
+        //     var receivedMessageTimeContainer = document.createElement('div');
+        //     receivedMessageTimeContainer.className = 'received-message-time-container';
+            
+        //     var dateText = document.createElement('span');
+        //     dateText.className = 'received-message-date';
+        //     dateText.textContent = date;
 
-            messagesContainer.appendChild(messageContainer);
-            messageContainer.appendChild(userImg);
-            messageContainer.appendChild(idText);
-            messageContainer.appendChild(receivedMessage);
-            receivedMessage.appendChild(usernameText);
-            receivedMessage.appendChild(messageText);
+        //     var hourText = document.createElement('span');
+        //     hourText.className = 'received-message-hour';
+        //     hourText.textContent = hour;
 
-            scrollToBottom();
-        }
+        //     messagesContainer.appendChild(messageContainer);
+        //     messageContainer.appendChild(userImg);
+        //     messageContainer.appendChild(idText);
+        //     messageContainer.appendChild(receivedMessage);
+        //     receivedMessage.appendChild(usernameText);
+        //     receivedMessage.appendChild(receivedMessageContentContainer);
+        //     receivedMessageContentContainer.appendChild(messageText);
+        //     receivedMessageContentContainer.appendChild(receivedMessageTimeContainer);
+        //     receivedMessageTimeContainer.appendChild(dateText);
+        //     receivedMessageTimeContainer.appendChild(hourText);
+
+        //     scrollToBottom();
+        // }
 
 
         // Fonction pour ajouter le message qu'on viens d'envoyer
@@ -79,13 +97,12 @@
 
 
      // Fonction pour ajouter un message reçu au format souhaité
-    function appendReceivedMessage(username, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude) {
+    function appendReceivedMessage(username, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude, date, hour) {
         var distance = null;
         
         if (messageLatitude !== "null") {
             distance = calculDistance(userLatitude, userLongitude, messageLatitude, messageLongitude);
         }
-        console.log(username, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude)
 
         var messageContainer = document.createElement('div');
         messageContainer.className = 'received-message-container';
@@ -110,20 +127,37 @@
         } else {
             usernameText.textContent = username ;
         }
+
+        var receivedMessageContentContainer = document.createElement('div');
+            receivedMessageContentContainer.className = 'received-message-content-container';
         
         var messageText = document.createElement('p');
         messageText.className = 'received-message-content';
         messageText.textContent = message;
 
-        console.log(usernameText.textContent, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude)
+        var receivedMessageTimeContainer = document.createElement('div');
+        receivedMessageTimeContainer.className = 'received-message-time-container';
+        
+        var dateText = document.createElement('span');
+        dateText.className = 'received-message-date';
+        dateText.textContent = date;
 
+        var hourText = document.createElement('span');
+        hourText.className = 'received-message-hour';
+        hourText.textContent = hour;
+
+        console.log(usernameText.textContent, message, id, profileImgPath, userLatitude, userLongitude, messageLatitude, messageLongitude)
 
         messagesContainer.appendChild(messageContainer);
         messageContainer.appendChild(userImg);
         messageContainer.appendChild(idText);
         messageContainer.appendChild(receivedMessage);
         receivedMessage.appendChild(usernameText);
-        receivedMessage.appendChild(messageText);
+        receivedMessage.appendChild(receivedMessageContentContainer);
+        receivedMessageContentContainer.appendChild(messageText);
+        receivedMessageContentContainer.appendChild(receivedMessageTimeContainer);
+        receivedMessageTimeContainer.appendChild(dateText);
+        receivedMessageTimeContainer.appendChild(hourText);
 
         scrollToBottom();
     }
@@ -227,6 +261,7 @@
             }
         });
     }
+
 
     function calculDistance(lat1, lon1, lat2, lon2) {
         const rayonTerre = 6371; // Rayon moyen de la Terre en kilomètres

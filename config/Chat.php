@@ -25,6 +25,8 @@ class Chat implements MessageComponentInterface {
         $id = $queryParameters['id'] ?? null;
         $channelName = $queryParameters['channelName'] ?? null;
         $profileImgPath = $queryParameters['profileImgPath'] ?? null;
+        $messageDate = $queryParameters['messageDate'] ?? null;
+        $messageHour = $queryParameters['messageHour'] ?? null;
         $channelId = $queryParameters['channelId'] ?? null;
 
         if ($username && $id) {
@@ -55,6 +57,8 @@ class Chat implements MessageComponentInterface {
                 "channelId" => $channelId,
                 "userLatitude" => $userLatitude,
                 "userLongitude" => $userLongitude,
+                "messageDate"=> $messageDate,
+                "messageHour"=> $messageHour,
             ];
 
             $this->usernames[$conn->resourceId] = $userData;
@@ -73,7 +77,7 @@ class Chat implements MessageComponentInterface {
             }
 
             // Envoyer un message de connexion au canal
-            $this->sendConnectionMessageToChannel($username, $id, $channelName, $profileImgPath, $userLatitude, $userLongitude);
+            $this->sendConnectionMessageToChannel($username, $id, $channelName, $profileImgPath, $userLatitude, $userLongitude, $messageDate, $messageHour);
 
             // Compter tous les utilisateurs connectés
             $countAllUsers = count($this->channels[$channelName]);
@@ -81,7 +85,7 @@ class Chat implements MessageComponentInterface {
             // On envoie le compteur au channel grace a la fonction
             $this->sendUserCountToChannel($channelName, $countAllUsers);
 
-            echo "Nouvelle connexion ! ({$conn->resourceId}) - Username: $username, ID: $id, Channel: $channelName\n";
+            echo "Le :$messageDate, A :$messageHour, Nouvelle connexion ! ({$conn->resourceId}) - Username: $username, ID: $id, Channel: $channelName\n";
         }
     }
 
@@ -96,6 +100,8 @@ class Chat implements MessageComponentInterface {
             $channelId = $fromUserData['channelId'];
             $fromUserLatitude = $fromUserData['userLatitude'];
             $fromUserLongitude = $fromUserData['userLongitude'];
+            $fromMessageDate = $fromUserData['messageDate'];
+            $fromMessageHour = $fromUserData['messageHour'];
 
             $messageData = [
                 "username" => $fromUsername,
@@ -103,6 +109,8 @@ class Chat implements MessageComponentInterface {
                 "profileImgPath" => $fromProfileImgPath,
                 "messageLatitude" => $fromUserLatitude,
                 "messageLongitude" => $fromUserLongitude,
+                "messageDate"=> $fromMessageDate,
+                "messageHour"=> $fromMessageHour,
                 "message" => $msg
             ];
 
@@ -126,12 +134,12 @@ class Chat implements MessageComponentInterface {
                 // Si c'est le chat global
                 if ($channelName == "Global") { 
 
-                    $query = "INSERT INTO global_chat_messages (message, sender_id, message_latitude, message_longitude ) VALUES (?, ?, ?, ?)";
+                    $query = "INSERT INTO global_chat_messages (message, sender_id, message_latitude, message_longitude, date, hour) VALUES (?, ?, ?, ?, ?, ?)";
                     $stmt = $connexion->prepare($query);
                     if ($stmt === false) {
                         echo ("Erreur de préparation de la requête : " . $connexion->error);
                     }
-                    $stmt->bind_param('ssss', $chatMessage, $chatSenderId, $fromUserLatitude, $fromUserLongitude);
+                    $stmt->bind_param('ssssss', $chatMessage, $chatSenderId, $fromUserLatitude, $fromUserLongitude, $fromMessageDate, $fromMessageHour);
 
                     // On execute la requette
                     $stmt->execute();
@@ -141,12 +149,12 @@ class Chat implements MessageComponentInterface {
                     // Si c'est un channel de groupe
                 } else if (strpos($channelName, "group") !== false) {
 
-                    $query = "INSERT INTO groups_chat_messages (group_id, message, sender_id) VALUES (?, ?, ?)";
+                    $query = "INSERT INTO groups_chat_messages (group_id, message, sender_id, date, hour) VALUES (?, ?, ?, ?, ?)";
                     $stmt = $connexion->prepare($query);
                     if ($stmt === false) {
                         echo ("Erreur de préparation de la requête : " . $connexion->error);
                     }
-                    $stmt->bind_param('sss', $channelId, $chatMessage, $chatSenderId);
+                    $stmt->bind_param('sssss', $channelId, $chatMessage, $chatSenderId, $fromMessageDate, $fromMessageHour);
 
                     // On execute la requette
                     $stmt->execute();
@@ -156,12 +164,12 @@ class Chat implements MessageComponentInterface {
                     // Si c'est un channel de contact
                 } else if (strpos($channelName, "contact") !== false) {
 
-                    $query = "INSERT INTO contacts_chat_messages (contact_id, message, sender_id) VALUES (?, ?, ?)";
+                    $query = "INSERT INTO contacts_chat_messages (contact_id, message, sender_id, date, hour) VALUES (?, ?, ?, ?, ?)";
                     $stmt = $connexion->prepare($query);
                     if ($stmt === false) {
                         echo ("Erreur de préparation de la requête : " . $connexion->error);
                     }
-                    $stmt->bind_param('sss', $channelId, $chatMessage, $chatSenderId);
+                    $stmt->bind_param('sssss', $channelId, $chatMessage, $chatSenderId, $fromMessageDate, $fromMessageHour);
 
                     // On execute la requette
                     $stmt->execute();
@@ -185,10 +193,12 @@ class Chat implements MessageComponentInterface {
             $profileImgPath = $userData['profileImgPath'];
             $userLatitude = $userData['userLatitude'];
             $userLongitude = $userData['userLongitude'];
+            $messageDate = $userData['messageDate'];
+            $messageHour = $userData['messageHour'];
 
 
             // Envoyer un message de déconnexion au canal
-            $this->sendDisconnectionMessageToChannel($username, $id, $channelName, $profileImgPath, $userLatitude, $userLongitude);
+            $this->sendDisconnectionMessageToChannel($username, $id, $channelName, $profileImgPath, $userLatitude, $userLongitude, $messageDate, $messageHour);
 
 
             // Envoyer la liste des utilisateurs connectés dans le canal au nouvel utilisateur
@@ -241,7 +251,7 @@ class Chat implements MessageComponentInterface {
     }
 
     // Fonction pour envoyer un message de connexion au canal
-    private function sendConnectionMessageToChannel($username, $id, $channelName, $profileImgPath, $userLatitude, $userLongitude) {
+    private function sendConnectionMessageToChannel($username, $id, $channelName, $profileImgPath, $userLatitude, $userLongitude, $messageDate, $messageHour) {
         $connectionMessage = [
             "username" => $username,
             "id" => $id,
@@ -249,13 +259,15 @@ class Chat implements MessageComponentInterface {
             "profileImgPath" => $profileImgPath,
             "userLatitude" => $userLatitude,
             "userLongitude" => $userLongitude,
+            "messageDate"=> $messageDate,
+            "messageHour"=> $messageHour,
             "message" => "S'est connecté."
         ];
         $this->sendToChannel($channelName, $connectionMessage);
     }
 
     // Fonction pour envoyer un message de déconnexion au canal
-    private function sendDisconnectionMessageToChannel($username, $id, $channelName, $profileImgPath, $userLatitude, $userLongitude) { 
+    private function sendDisconnectionMessageToChannel($username, $id, $channelName, $profileImgPath, $userLatitude, $userLongitude, $messageDate, $messageHour) { 
         $disconnectionMessage = [
             "username" => $username,
             "id" => $id,
@@ -263,6 +275,8 @@ class Chat implements MessageComponentInterface {
             "profileImgPath" => $profileImgPath,
             "userLatitude" => $userLatitude,
             "userLongitude" => $userLongitude,
+            "messageDate"=> $messageDate,
+            "messageHour"=> $messageHour,
             "message" => "S'est déconnecté."
         ];
         $this->sendToChannel($channelName, $disconnectionMessage);

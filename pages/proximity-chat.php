@@ -56,6 +56,22 @@
             return distance;
         }
 
+        // Fonction pour récupérer l'heure
+        function getActualDate() {
+
+            var newDate = new Date();
+            var day = newDate.getDate();
+            var month = newDate.getMonth() + 1;
+            var year = newDate.getFullYear();
+            var actualDate = day + '/' + month + '/' + year;
+
+            var hours = newDate.getHours();
+            var minutes = newDate.getMinutes();
+            var actualHour = hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+
+            return [actualDate, actualHour];
+        }
+
         function validationToConnect(latitude, longitude) {
 
             // Connection websocket
@@ -64,10 +80,14 @@
             myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
             profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
             channelId = "";
+            actualDateResult = getActualDate();
+            messageDate = actualDateResult[0];
+            messageHour = actualDateResult[1];
+            
                 // Connection online
-                var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+                // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId + '&messageDate=' + messageDate + '&messageHour=' + messageHour);
                 // Connection en local
-                // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+                var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId + '&messageDate=' + messageDate + '&messageHour=' + messageHour);
 
                 // Action lors de l'envoi d'un message
                 sendButton.addEventListener('click', function() {
@@ -108,9 +128,9 @@
                                 // console.log("La position 2 est dans un rayon de 500 mètres de la position 1.");
                                 if (data.message === "S'est déconnecté." || data.message === "S'est connecté.") {
                                     
-                                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, "null", data.messageLongitude);
+                                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, "null", data.messageLongitude, data.messageDate, data.messageHour);
                                 } else {
-                                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, data.messageLatitude, data.messageLongitude);
+                                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, data.messageLatitude, data.messageLongitude, data.messageDate, data.messageHour);
                                 }
                                 
                             } else {
