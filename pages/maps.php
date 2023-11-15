@@ -31,7 +31,7 @@
     <div class="main-content">
 
         <div id="map">
-
+            <img class="map-loading-icon" src="../favicon.ico" alt="">
         </div>
 
     </div>

@@ -1,4 +1,5 @@
 selfImgElement = document.querySelector(".user-img-container");
+mapLoadingIcon = document.querySelector(".map-loading-icon");
 selfImgPath = selfImgElement.src; 
 
 function initMap() {
@@ -9,6 +10,7 @@ function initMap() {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
 
+            mapLoadingIcon.remove();
             createMap(latitude, longitude);
 
     }, function(error) {
