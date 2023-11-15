@@ -13,7 +13,11 @@
     $selfLongitude = $_SESSION["user_longitude"];
 
     // Cherche les messages dans un rayon de 500m autour de moi
-    $query = "SELECT * FROM global_chat_messages WHERE ST_Distance_Sphere(POINT($selfLongitude, $selfLatitude), POINT(message_longitude, message_latitude)) <= 500";
+    $query = "SELECT * FROM global_chat_messages 
+          WHERE ST_Distance_Sphere(POINT($selfLongitude, $selfLatitude), POINT(message_longitude, message_latitude)) <= 500
+          ORDER BY date DESC, hour DESC
+          LIMIT 20";
+
 
     $result = $conn->query($query);
 
