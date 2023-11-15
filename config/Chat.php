@@ -285,7 +285,6 @@ class Chat implements MessageComponentInterface {
                 $connectedUsers[] = $userData;
             }
         }
-        // echo" Les connected Users : ". $connectedUsers ." ";
         return $connectedUsers;
     }
 }
