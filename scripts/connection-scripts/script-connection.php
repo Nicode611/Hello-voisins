@@ -10,8 +10,8 @@
         }
 
         // Récupérer les données de localisation envoyées via la requête Ajax
-        $email = $_POST['logInEmail'];
-        $password = $_POST['logInPassword'];
+        $email = htmlspecialchars($_POST['logInEmail'], ENT_QUOTES, 'UTF-8');
+        $password = htmlspecialchars($_POST['logInPassword'], ENT_QUOTES, 'UTF-8');
 
         $email = mysqli_real_escape_string($conn, $email);
 
