@@ -14,12 +14,12 @@ if (isset($_POST["submit_create"])) {
         die("La connexion à la base de données a échoué : " . $conn->connect_error);
     }
 
-    $firstName = $_POST["signInFirstName"];
-    $lastName = $_POST["signInLastName"];
-    $phone = $_POST["signInPhone"];
-    $email = $_POST["signInEmail"];
-    $password = $_POST["signInPassword"];
-    $confirmPassword = $_POST["signInConfirmPassword"];
+    $firstName = htmlspecialchars($_POST["signInFirstName"], ENT_QUOTES, 'UTF-8');
+    $lastName = htmlspecialchars($_POST["signInLastName"], ENT_QUOTES, 'UTF-8');
+    $phone = htmlspecialchars($_POST["signInPhone"], ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($_POST["signInEmail"], ENT_QUOTES, 'UTF-8');
+    $password = htmlspecialchars($_POST["signInPassword"], ENT_QUOTES, 'UTF-8');
+    $confirmPassword = htmlspecialchars($_POST["signInConfirmPassword"], ENT_QUOTES, 'UTF-8');
     $defaultProfileImg = "assets/images/default-profile-img/user-default.png";
 
     if (strlen($password) >= 8 && preg_match("/[0-9]/", $password) && preg_match("/[!@#$%^&*]/", $password)) { 

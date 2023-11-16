@@ -11,12 +11,12 @@ if (isset($_POST["submit_modify_self_infos"])) {
         die("La connexion à la base de données a échoué : " . $conn->connect_error);
     }
 
-    $firstName = $_POST["selfFirstname"];
-    $lastName = $_POST["selfLastname"];
-    $phone = $_POST["selfPhone"];
-    $email = $_POST["selfEmail"];
-    $password = $_POST["selfPassword"];
-    $confirmPassword = $_POST["selfConfirmPassword"];
+    $firstName = htmlspecialchars($_POST["selfFirstname"], ENT_QUOTES, 'UTF-8');
+    $lastName = htmlspecialchars($_POST["selfLastname"], ENT_QUOTES, 'UTF-8');
+    $phone = htmlspecialchars($_POST["selfPhone"], ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($_POST["selfEmail"], ENT_QUOTES, 'UTF-8');
+    $password = htmlspecialchars($_POST["selfPassword"], ENT_QUOTES, 'UTF-8');
+    $confirmPassword = htmlspecialchars($_POST["selfConfirmPassword"], ENT_QUOTES, 'UTF-8');
     $previousProfileImg = "../../" . $_SESSION["user_profile_img_path"];
     $id = $_SESSION['user_id'];
 
