@@ -72,8 +72,7 @@
 
         // Fonction pour ajouter le message qu'on viens d'envoyer
         function appendSentMessage(message, profileImgPath) {
-            var message = sendBar.value;
-
+        
             var messageContainer = document.createElement('div');
             messageContainer.className = 'sent-message-container';
 

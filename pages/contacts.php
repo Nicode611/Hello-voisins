@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/contacts.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Contacts</title>
 </head>
 <body>

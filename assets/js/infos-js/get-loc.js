@@ -8,7 +8,6 @@ if ("geolocation" in navigator) {
 
             sendLocation(latitude, longitude);
     
-            
         }, function(error) {
                 var mainContent = document.querySelector('.main-content');
                 switch (error.code) {
@@ -36,9 +35,8 @@ if ("geolocation" in navigator) {
             })
         }
         
-
+    // Envoie la localisation a la BDD
     function sendLocation(latitude, longitude) {
-        // Envoie la localisation a la BDD
         $.ajax({
             type: "POST",
             url: "../scripts/infos-scripts/send-loc.php",
@@ -72,6 +70,7 @@ if ("geolocation" in navigator) {
                             }
                         };
 
+                        // Appelle la fonction qui permet de continuer le script
                         validationToConnect(latitude, longitude);
                     }
                 });
