@@ -46,14 +46,14 @@
                 session_start();
                 $_SESSION["error"] = "<p class='error'>Mot de passe incorect</p>";
                 $conn->close();
-                header("Location: proximity-chat.php");
+                header("Location: connection.php");
                 exit();
             }
         } else {
             session_start();
-            $_SESSION["error"] = "<p class='error'>Mot de passe incorect</p>";
+            $_SESSION["error"] = "<p class='error'>L'adresse email n'a pas pu etre trouvée...</p>";
             $conn->close();
-            header("Location: proximity-chat.php");
+            header("Location: connection.php");
             exit();
         }
 
