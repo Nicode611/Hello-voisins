@@ -35,34 +35,27 @@ deleteBtns.forEach(deleteBtn => {
         confirmMessage.textContent = "Refusé";
         const choice = 'refuses';
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', '../scripts/notifs-scripts/script-choice-notifs.php', true);
-
-        // Envoie les données du btn au script PHP
-        var choiceData = new FormData();
-        choiceData.append('choice_notifs', choice);
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-
+        $.ajax({
+            type: 'POST',
+            url: '../scripts/notifs-scripts/script-choice-notifs.php',
+            data: {
+                choice_notifs: choice
+            },
+            success: function(responseData) {
                 // Contient les données JSON retournées par le script PHP
-                const responseData = JSON.parse(xhr.responseText);
+                responseData = JSON.parse(responseData);
 
                 if (responseData == 'deleted') {
-                    
                     notifContainer.replaceWith(confirmMessage);
 
                     var delai = 3000;
 
                     setTimeout(function() {
-
                         confirmMessage.remove();
-
                     }, delai);
                 }
             }
-        }
-        xhr.send(choiceData);
+        });
     });
 });
 

@@ -55,6 +55,7 @@ if ($resultNotifsContacts->num_rows > 0) {
     $conn->close();
 } else {
     echo "Pas de notifications";
+    $conn->close();
 };
 
 
