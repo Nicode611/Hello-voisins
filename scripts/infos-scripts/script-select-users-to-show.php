@@ -38,7 +38,6 @@ if (isset($_GET['id'])) {
     if ($resultContact->num_rows > 0) {
         $row = $resultContact->fetch_assoc();
         
-        // Créez un tableau associatif pour les données que vous souhaitez convertir en JSON
         $contactStatut = $row["statut"];
 
         $response['contact_statut'] = $contactStatut;
