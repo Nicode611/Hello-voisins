@@ -233,4 +233,8 @@
         return distance;
     }
 
+    function sayHello() {
+        console.log('hello');
+    }
+
 
