@@ -58,15 +58,15 @@ if ("geolocation" in navigator) {
                             loadingMessage.remove();
                         });
 
-                        if (response === "Pas de Messages") {
+                        var messages = JSON.parse(response);
+
+                        if (messages === "Pas de Messages") {
                             console.log('pas de messages');
 
                             // Appelle la fonction qui permet de continuer le script
                             validationToConnect(latitude, longitude);
                         } else {
 
-                            var messages = JSON.parse(response);
-    
                             for (var i = 0; i < messages.length; i++) {
                                 var message = messages[i];
     
