@@ -82,7 +82,7 @@ if ("geolocation" in navigator) {
         });
     }
     
-
+    // Fonction pour afficher les anciens messages de la BDD à proximité
     function showOldsMessages(username, message, id, profileImgPath, selfLatitude, selfLongitude, messageLatitude, messageLongitude, date, hour) {
         
         var distance = null;
