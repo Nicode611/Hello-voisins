@@ -9,9 +9,9 @@
         die("La connexion à la base de données a échoué : " . $conn->connect_error);
     }
 
-    $groupId = $_GET['groupId'];
+    $contactId = $_GET['contactId'];
 
-    $query = "SELECT * FROM groups_chat_messages WHERE group_id = $groupId";
+    $query = "SELECT * FROM contacts_chat_messages WHERE contact_id = $contactId";
 
     $result = $conn->query($query);
 

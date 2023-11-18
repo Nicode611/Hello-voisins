@@ -19,23 +19,64 @@
     <?php
         // Si on a le nom du channel ...
         $channelName = $_GET['channelName'] ?? null;
-        $groupName = $_GET['groupName'] ?? null;
-        $groupId = $_GET['groupId'] ?? null;
+        $contactName = $_GET['contactName'] ?? null;
+        $contactId = $_GET['contactId'] ?? null;
 
-        if ($channelName) { ?>
+        if ($channelName) { 
+    ?>
+    
+    <div class="chat-name-container-mobile">
+                <span class="chat-name"><?php echo $contactName ?></span>
+            </div>
+            <div class="main-content">
+                <div class="chat-name-container">
+                    <span class="chat-name"><?php echo $contactName ?></span>
+                </div>
+                <div class="all-users-container">
+                    <div class="loading">
+                        <img class="loading-icon" src="../favicon.ico" alt="">
+                        <span class="loading-message">Chargement</span>
+                    </div>
+
+                    <p id="user-count"></p>
+                    <div class="all-users-list">
+                    </div>
+                </div>
+
+                <div class="messages-container">
+
+                </div>
+
+                <div class="send-container">
+                    <div class="send-message-container"><input type="text" name="sendMessage" id="sendMessage" placeholder="Ecrivez votre message ici"></div>
+                    <button class="send-button">Envoyer</button>
+                </div>
+
+            </div>
+
+            
+            <script src="../assets/js/chats-js/chats-messages-handler.js"></script>
+            <script src="../assets/js/infos-js/get-actual-date.js"></script>
             
             <script>
-                // On crée la connexion websocket
+
+                // On défini toutes les variables utiles
                 channelName = '<?php echo $channelName ?>';
-                groupName = '<?php echo $groupName ?>';
-                channelId = '<?php echo $groupId ?>';
+                contactName = '<?php echo $contactName ?>';
+                channelId = '<?php echo $contactId ?>';
                 username = '<?php echo $_SESSION['user_firstName']; ?>';
-                myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
+                myId = '<?php echo $id = $_SESSION['user_id']; ?>';
                 profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
+
+                actualDateResult = getActualDate();
+                messageDate = actualDateResult[0];
+                messageHour = actualDateResult[1];
+
+
                 // Connection online
-                var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+                // var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId + '&messageDate=' + messageDate + '&messageHour=' + messageHour);
                 // Connection en local
-                // var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId);
+                var conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId + '&messageDate=' + messageDate + '&messageHour=' + messageHour);
 
                 // Action lors de l'envoi d'un message
                 sendButton.addEventListener('click', function() {
@@ -45,52 +86,49 @@
                     sendBar.value = '';
                 });
 
+
                 conn.onopen = function(e) {
-                    console.log('Connexion établie');
+                    console.log("Connection etablie!");
                 };
 
                 conn.onmessage = function(e) {
-            var receivedMessage = e.data;
+                    
+                    var receivedMessage = e.data;
 
-            try {
-                var data = JSON.parse(receivedMessage);
+                    try {
+                        var data = JSON.parse(receivedMessage);
 
-                if (data.user_count !== undefined) {
-                    // C'est un message de compteur d'utilisateurs
-                    updateUserCount(data.user_count); // Fonction pour mettre à jour le compteur
-                } else if (data.connected_users !== undefined) { 
+                        // C'est un message de compteur d'utilisateurs
+                        if (data.user_count !== undefined) {
+                            updateUserCount(data.user_count);
+
+                        // C'est un message contenantla liste des données des utilisateurs connectés
+                        } else if (data.connected_users !== undefined) { 
                             data.connected_users.forEach(function(user) {
                                 processConnectedUsersData(user.id, user.username, user.profileImgPath);
                             });
-                } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
-                    // C'est un message texte
-                    // Vous pouvez maintenant utiliser data.username pour le nom de l'utilisateur
-                    // et data.message pour le message.
-                    // Par exemple, vous pouvez appeler une fonction pour ajouter le message au chat.
-                    appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath);
-                    if (data.message === "S'est déconnecté.") {
-                        removeUserFromList(data.id);
+                            
+
+                        } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
+                            
+                            appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, "null", "null", "null", "null", data.messageDate, data.messageHour);
+                                
+                            // Si c'est message de déconnexion
+                            if (data.message === "S'est déconnecté." || (data.id == myId)) {
+                                removeUserFromList(data.id);
+                            }
+
+                            // Si c'est message de connexion
+                            if (data.message === "S'est connecté."|| (data.id == myId)) {
+                                addUserToList(data.id, data.username, data.profileImgPath);
+                            }
+                        }
+                    } catch (error) {
+                        // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
+                        // Pour modifier le message de connexion au channel
+                        // appendReceivedServerMessage(receivedMessage);
                     }
-
-                    if (data.message === "S'est connecté.") {
-                        addUserToList(data.id, data.username, data.profileImgPath);
-                    }
-                }
-            } catch (error) {
-                // Si une erreur se produit lors de l'analyse du JSON, cela signifie que c'est un message texte simple.
-                // Pour modifier le message de connexion au channel
-                appendReceivedServerMessage(receivedMessage);
-            }
-
-            // Vérifiez si c'est un message de déconnexion et supprimez l'utilisateur de la liste
-            if (data.message === "S'est déconnecté.") {
-                removeUserFromList(data.id);
-            }
-
-            if (data.message === "S'est connecté.") {
-                addUserToList(data.id, data.username);
-            }
-        };
+                };
 
 
                 conn.onerror = function (event) {
@@ -100,6 +138,7 @@
                     console.log("Event target:", event.target);
                     // ... et ainsi de suite
                 };
+
 
                 conn.onclose = function(event) {
                     if (event.wasClean) {
@@ -115,46 +154,24 @@
                     };
                     
                     conn.send(JSON.stringify(disconnectionData));
-
-                    conn.close();
                 };
+            
+            // Faire défiler la liste des messages vers le bas
+            var messagesContainerElement = document.querySelector(".messages-container");
+            messagesContainerElement.scrollTop = messagesContainerElement.scrollHeight;
 
             </script>
+
+            <!-- Fenetre modale users -->
+            <div class="popup-user">
+            </div>
+
+            <script src="../assets/js/chats-js/chat-scroll-auto.js"></script>
+            <script src="../assets/js/chats-js/show-user.js"></script>
+            <script src="../assets/js/chats-js/get-olds-contacts-chat-messages.js"></script>
+            
     <?php
         }
     ?>
-
-    <div class="chat-name-container-mobile">
-        <span class="chat-name"><?php echo $groupName ?></span>
-    </div>
-    <div class="main-content">
-        <div class="chat-name-container">
-            <span class="chat-name"><?php echo $groupName ?></span>
-        </div>
-        <div class="all-users-container">
-            <p id="user-count"></p>
-            <div class="all-users-list">
-            </div>
-        </div>
-
-        <div class="messages-container">
-            
-        </div>
-
-        <div class="send-container">
-            <div class="send-message-container"><input type="text" name="sendMessage" id="sendMessage" placeholder="Ecrivez votre message ici"></div>
-            <button class="send-button">Envoyer</button>
-        </div>
-
-    </div>
-
-    <!-- Fenetre modale users -->
-    <div class="popup-user">
-    </div>
-
-
-    <script src="../assets/js/chats-js/chat-scroll-auto.js"></script>
-    <script src="../assets/js/chats-js/show-user.js"></script>
-    <script src="../assets/js/chats-js/chats-messages-handler.js"></script>
 </body>
 </html>
