@@ -287,6 +287,30 @@ input[type="search"] {
     pointer-events: auto;
 }
 
+.loading-groups {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: centers;
+}
+
+.groups-loading-icon {
+    height: 70px;
+    width: 70px;
+    margin-top: 20px;
+    animation: rotate 5s linear infinite;
+    z-index: 999;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 
 
 @media screen and (max-width: 1000px) {

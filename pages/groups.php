@@ -58,36 +58,41 @@
         </div>
 
         <div class="groups-container">
-            <?php
-                $includeFile = "../scripts/groups-scripts/show-my-groups.php";
-                if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
-            ?>
+            <div class="loading-groups">
+                <span>Chargement de la carte</span>
+                <img class="groups-loading-icon" src="../favicon.ico" alt="">
+            </div>
+
 
             <script>
-                // Script pour lancer le chat (récupération du nom, envoie a la page groups-chat.php)
-                const startGroupChatBtns = document.querySelectorAll('#startGroupDiscussion');
+                function startGroupDiscussion() {
 
-                startGroupChatBtns.forEach(function(startGroupChatBtn) {
-                    startGroupChatBtn.addEventListener('click', function() {
-                        
-                        var groupName = startGroupChatBtn.classList.value;
-                        var groupIdElement = startGroupChatBtn.nextElementSibling;
-                        if (groupIdElement.classList.contains("group-id")) {
-                            var groupId = groupIdElement.textContent;
-                        }
-                        var channelName = "group" + groupId;
-                        if (channelName, groupName, groupId) {
-                            // Redirigez l'utilisateur vers la page groups-chat.php avec le nom du canal en tant que paramètre d'URL
-                            window.location.href = "groups-chat.php?channelName=" + channelName + "&groupName=" + groupName + "&groupId=" + groupId;
-                        } else {
-                            console.log("Missing arguments : " + channelName + groupName + groupId)
-                        }
+                    // Script pour lancer le chat (récupération du nom, envoie a la page groups-chat.php)
+                    const startGroupChatBtns = document.querySelectorAll('#startGroupDiscussion');
+
+                    startGroupChatBtns.forEach(function(startGroupChatBtn) {
+                        startGroupChatBtn.addEventListener('click', function() {
+                            
+                            var groupName = startGroupChatBtn.classList.value;
+                            var groupIdElement = startGroupChatBtn.nextElementSibling;
+                            if (groupIdElement.classList.contains("group-id")) {
+                                var groupId = groupIdElement.textContent;
+                            }
+                            var channelName = "group" + groupId;
+                            if (channelName, groupName, groupId) {
+                                // Redirigez l'utilisateur vers la page groups-chat.php avec le nom du canal en tant que paramètre d'URL
+                                window.location.href = "groups-chat.php?channelName=" + channelName + "&groupName=" + groupName + "&groupId=" + groupId;
+                            } else {
+                                console.log("Missing arguments : " + channelName + groupName + groupId)
+                            }
+                        });
                     });
-                });
+                }
             </script>
 
         </div>
     </div>
     <script src="../assets/js/groups-js/groups-options.js"></script>
+    <script src="../assets/js/groups-js/get-my-groups.js"></script>
 </body>
 </html>

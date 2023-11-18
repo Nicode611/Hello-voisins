@@ -15,7 +15,7 @@
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     ?>
 
-    <script src="../assets/js/infos-js/get-loc.js"></script>
+    <script src="../assets/js/chats-js/get-olds-global-chat-messages.js"></script>
 
     <div class="main-content">
 
