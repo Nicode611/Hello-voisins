@@ -1,5 +1,3 @@
-groupId =
-
 $.ajax({
     type: "GET",
     url: "../scripts/groups-scripts/show-old-groups-chat-messages.php",
