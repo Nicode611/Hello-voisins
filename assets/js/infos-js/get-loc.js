@@ -68,7 +68,7 @@ if ("geolocation" in navigator) {
                                 if (selfId == message.sender_id) {
                                     ShowOldsSelfMessages(message.message, message.sender_profile_img_path);
                                 } else {
-                                    showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path, message.date, message.hour);
+                                    showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path, latitude, longitude, message.message_latitude, message.message_longitude, message.date, message.hour);
                                 }
                             };
     
@@ -83,7 +83,14 @@ if ("geolocation" in navigator) {
     }
     
 
-    function showOldsMessages(username, message, id, profileImgPath, date, hour) {
+    function showOldsMessages(username, message, id, profileImgPath, selfLatitude, selfLongitude, messageLatitude, messageLongitude, date, hour) {
+        
+        var distance = null;
+        
+        if (messageLatitude !== "null") {
+            distance = calculDistance(selfLatitude, selfLongitude, messageLatitude, messageLongitude);
+        }
+        
         var messageContainer = document.createElement('div');
         messageContainer.className = 'received-message-container';
 
@@ -101,7 +108,12 @@ if ("geolocation" in navigator) {
 
         var usernameText = document.createElement('span');
         usernameText.className = 'received-message-username';
-        usernameText.textContent = username;
+
+        if (messageLatitude !== "null") {
+            usernameText.textContent = username + " " + distance.toFixed(0) + "m";
+        } else {
+            usernameText.textContent = username ;
+        }
 
         var messageText = document.createElement('p');
         messageText.className = 'received-message-content';

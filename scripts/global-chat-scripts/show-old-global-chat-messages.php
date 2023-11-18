@@ -31,6 +31,8 @@
 
             $senderId = $row["sender_id"];
             $message = $row["message"];
+            $messageLatitude = $row["message_latitude"];
+            $messageLongitude = $row["message_longitude"];
             $date = $row["date"];
             $hour = $row["hour"];
 
@@ -50,6 +52,8 @@
                 'message' => $message,
                 'sender_first_name' => $senderFirstName,
                 'sender_profile_img_path' => $senderProfileImgPath,
+                'message_latitude' => $messageLatitude,
+                'message_longitude' => $messageLongitude,
                 'date' => $date,
                 'hour' => $hour
             );

@@ -207,7 +207,7 @@
         });
     }
 
-
+    // calcul de distance pour afficher la distance entre les utilisateurs
     function calculDistance(lat1, lon1, lat2, lon2) {
         const rayonTerre = 6371; // Rayon moyen de la Terre en kilomètres
     

@@ -155,6 +155,6 @@
 
     <script src="../assets/js/chats-js/chat-scroll-auto.js"></script>
     <script src="../assets/js/chats-js/show-user.js"></script>
-    <script src="../assets/js/chats-js/proximity-chat-messages-handler.js"></script>
+    <script src="../assets/js/chats-js/chats-messages-handler.js"></script>
 </body>
 </html>
