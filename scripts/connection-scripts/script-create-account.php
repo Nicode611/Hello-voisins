@@ -30,7 +30,7 @@ if (isset($_POST["submit_create"])) {
         $hash_password = password_hash($validPassword, PASSWORD_DEFAULT);
         $adress = 'yes';
 
-        $sql = "SELECT email FROM users WHERE email = $email";
+        $sql = "SELECT * FROM users WHERE email = '$email'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
