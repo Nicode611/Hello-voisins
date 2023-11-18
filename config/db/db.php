@@ -1,4 +1,10 @@
 <?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
     
     // $db_host = "mysql-garage-v-parrot.alwaysdata.net";
     // $db_user = "331032";
