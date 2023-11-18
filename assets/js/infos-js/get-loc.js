@@ -59,6 +59,7 @@ if ("geolocation" in navigator) {
                         });
 
                         if (response === "Pas de Messages") {
+                            console.log('pas de messages');
 
                             // Appelle la fonction qui permet de continuer le script
                             validationToConnect(latitude, longitude);
