@@ -258,7 +258,7 @@ class Chat implements MessageComponentInterface {
             "userLongitude" => $userLongitude,
             "messageDate"=> $messageDate,
             "messageHour"=> $messageHour,
-            "message" => "S'est connecté."
+            "message" => "A rejoint la conversation."
         ];
         $this->sendToChannel($channelName, $connectionMessage);
     }
@@ -274,7 +274,7 @@ class Chat implements MessageComponentInterface {
             "userLongitude" => $userLongitude,
             "messageDate"=> $messageDate,
             "messageHour"=> $messageHour,
-            "message" => "S'est déconnecté."
+            "message" => "A quitté la conversation."
         ];
         $this->sendToChannel($channelName, $disconnectionMessage);
     }

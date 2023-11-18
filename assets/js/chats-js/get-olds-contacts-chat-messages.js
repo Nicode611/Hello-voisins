@@ -1,6 +1,6 @@
 $.ajax({
     type: "GET",
-    url: "../scripts/groups-scripts/show-old-contacts-chat-messages.php",
+    url: "../scripts/contacts-scripts/show-old-contacts-chat-messages.php",
     data: {
         contactId: channelId
     },

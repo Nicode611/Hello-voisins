@@ -127,7 +127,7 @@
                             
                             if (distance(latitude, longitude, data.messageLatitude, data.messageLongitude) <= 500 || distance(latitude, longitude, data.userLatitude, data.userLongitude) <= 500) {
                                 // console.log("La position 2 est dans un rayon de 500 mètres de la position 1.");
-                                if (data.message === "S'est déconnecté." || data.message === "S'est connecté.") {
+                                if (data.message === "A quitté la conversation." || data.message === "A rejoint la conversation.") {
                                     
                                     appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, latitude, longitude, "null", data.messageLongitude, data.messageDate, data.messageHour);
                                 } else {
@@ -139,12 +139,12 @@
                             }
 
                             // Si c'est message de déconnexion et qu'on est à bonne distance
-                            if (data.message === "S'est déconnecté." && (distance(latitude, longitude, data.userLatitude, data.userLongitude) <= 500) || (data.id == myId)) {
+                            if (data.message === "A quitté la conversation." && (distance(latitude, longitude, data.userLatitude, data.userLongitude) <= 500) || (data.id == myId)) {
                                 removeUserFromList(data.id);
                             }
 
                             // Si c'est message de connexion et qu'on est à bonne distance
-                            if (data.message === "S'est connecté." && (distance(latitude, longitude, data.userLatitude, data.userLongitude) <= 500) || (data.id == myId)) {
+                            if (data.message === "A rejoint la conversation." && (distance(latitude, longitude, data.userLatitude, data.userLongitude) <= 500) || (data.id == myId)) {
                                 addUserToList(data.id, data.username, data.profileImgPath);
                             }
                         }
@@ -175,7 +175,7 @@
                     const disconnectionData = {
                         username: username,
                         id: myId,
-                        message: "S'est déconnecté."
+                        message: "A quitté la conversation."
                     };
                     
                     conn.send(JSON.stringify(disconnectionData));

@@ -114,12 +114,12 @@
                             appendReceivedMessage(data.username, data.message, data.id, data.profileImgPath, "null", "null", "null", "null", data.messageDate, data.messageHour);
                                 
                             // Si c'est message de déconnexion
-                            if (data.message === "S'est déconnecté." || (data.id == myId)) {
+                            if (data.message === "A quitté la conversation." || (data.id == myId)) {
                                 removeUserFromList(data.id);
                             }
 
                             // Si c'est message de connexion
-                            if (data.message === "S'est connecté."|| (data.id == myId)) {
+                            if (data.message === "A rejoint la conversation."|| (data.id == myId)) {
                                 addUserToList(data.id, data.username, data.profileImgPath);
                             }
                         }
@@ -150,7 +150,7 @@
                     const disconnectionData = {
                         username: username,
                         id: myId,
-                        message: "S'est déconnecté."
+                        message: "A quitté la conversation."
                     };
                     
                     conn.send(JSON.stringify(disconnectionData));
