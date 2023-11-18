@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
         // Ajoute l'id de l'admin a cette chaine
         $idsString = $idsString . ',' . $adminId;
         
-
+        // On crée une variable $html et on y concatene des bouts de html afin de créer le message final
         $html = '
         <div class="group">
             <div class="group-infos-container">

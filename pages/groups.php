@@ -59,7 +59,7 @@
 
         <div class="groups-container">
             <div class="loading-groups">
-                <span>Chargement de la carte</span>
+                <span>Chargement des groupes</span>
                 <img class="groups-loading-icon" src="../favicon.ico" alt="">
             </div>
 
