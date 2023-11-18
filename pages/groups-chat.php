@@ -11,8 +11,6 @@
 </head>
 <body>
 
-    
-
     <?php
         $includeFile = "../includes/navigation.php";
         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
@@ -24,7 +22,8 @@
         $groupName = $_GET['groupName'] ?? null;
         $groupId = $_GET['groupId'] ?? null;
 
-        if ($channelName) { ?>
+        if ($channelName) { 
+    ?>
 
             <div class="chat-name-container-mobile">
                 <span class="chat-name"><?php echo $groupName ?></span>
@@ -56,27 +55,10 @@
             </div>
 
             
-
-
             <script src="../assets/js/chats-js/chats-messages-handler.js"></script>
+            <script src="../assets/js/infos-js/get-actual-date.js"></script>
             
             <script>
-
-                // Fonction pour récupérer l'heure
-                function getActualDate() {
-
-                    var newDate = new Date();
-                    var day = newDate.getDate();
-                    var month = newDate.getMonth() + 1;
-                    var year = newDate.getFullYear();
-                    var actualDate = day + '/' + month + '/' + year;
-
-                    var hours = newDate.getHours();
-                    var minutes = newDate.getMinutes();
-                    var actualHour = hours + ':' + (minutes < 10 ? '0' : '') + minutes;
-
-                    return [actualDate, actualHour];
-                }
 
                 // On défini toutes les variables utiles
                 channelName = '<?php echo $channelName ?>';
@@ -125,7 +107,6 @@
                             data.connected_users.forEach(function(user) {
                                 processConnectedUsersData(user.id, user.username, user.profileImgPath);
                             });
-                            
                             
 
                         } else if (data.username !== undefined && data.message !== undefined && data.profileImgPath !== undefined && data.id !== myId) {
@@ -192,8 +173,5 @@
     <?php
         }
     ?>
-
-    
-    
 </body>
 </html>
