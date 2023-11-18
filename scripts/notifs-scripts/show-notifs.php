@@ -19,6 +19,7 @@ $resultNotifsContacts = $conn->query($sqlNotifsContacts);
 if ($resultNotifsContacts->num_rows > 0) {
     while ($rowNotifsContacts = $resultNotifsContacts->fetch_assoc()) {
 
+        $notifsContactId = $rowNotifsContacts["id"];
         $notifsAddedByUserId = $rowNotifsContacts["added_by_user_id"];
         $notifsContactStatut = $rowNotifsContacts["statut"];
         $notifsContactMessage = 'Souhaite vous ajouter à ses contacts';
@@ -37,6 +38,7 @@ if ($resultNotifsContacts->num_rows > 0) {
 
         };
             $notifData = array (
+                "contactId" => $notifsContactId,
                 "contactMessage" => $notifsContactMessage,
                 "userFirstName" => $notifsUserFirstName,
                 "userLastName" => $notifsUserLastName,
@@ -45,9 +47,9 @@ if ($resultNotifsContacts->num_rows > 0) {
 
             $response[] = $notifData;
 
-            echo json_encode($response);
-    }
-
+        }
+        echo json_encode($response);
+        
     $conn->close();
 } else {
     $noNotif = "Pas de notifications";

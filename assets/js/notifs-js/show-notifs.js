@@ -4,7 +4,7 @@ $(document).ready(function() {
     $.ajax({
       url: '../scripts/notifs-scripts/show-notifs.php',
       type: 'GET',
-      dataType: 'json', // ou 'html', 'text', etc., selon le type de données que vous attendez
+      dataType: 'json',
       success: function(response) {
 
         if (response === "Pas de notifications") {
@@ -14,14 +14,13 @@ $(document).ready(function() {
             notifsContainer.appendChild(noNotifs);
 
         } else {
-            var notifs = response;
-
+            var notifs = response ;
             showPatch();
 
             for (var i = 0; i < notifs.length; i++) {
                 var notif = notifs[i];
 
-                createContactNotif(notif.contactMessage, notif.userFirstName, notif.userLastName, notif.userProfileImgPath);
+                createContactNotif(notif.contactId, notif.contactMessage, notif.userFirstName, notif.userLastName, notif.userProfileImgPath);
                 chooseNotifs()
             }
         }   
@@ -36,7 +35,7 @@ $(document).ready(function() {
 
 
 
-  function createContactNotif(contactMessage, userFirstName, userLastName, userProfileImgPath) {
+  function createContactNotif(contactId, contactMessage, userFirstName, userLastName, userProfileImgPath) {
 
     notifsContainer = document.querySelector('.notifications-container');
 
@@ -52,6 +51,11 @@ $(document).ready(function() {
     var notification = document.createElement('div');
     notification.classList.add('notification');
     notification.setAttribute('name', 'notif');
+
+    var contactIdElement = document.createElement('span');
+    contactIdElement.classList.add('hide');
+    contactIdElement.classList.add('notif-contact-id');
+    contactIdElement.textContent = contactId;
 
     var userDiv = document.createElement('div');
     var userImage = document.createElement('img');
@@ -96,6 +100,7 @@ $(document).ready(function() {
     notification.appendChild(userDiv);
     notification.appendChild(iconDiv);
 
+    notificationContainer.appendChild(contactIdElement);
     notificationContainer.appendChild(notifLabel);
     notificationContainer.appendChild(notification);
 

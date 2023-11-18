@@ -13,6 +13,7 @@ if (isset($_POST['choice_notifs'])) {
 
     $selfId = $_SESSION['user_id'];
     $choice = $_POST['choice_notifs'];
+    $contactId = $_POST['contactId'];
 
 
 
@@ -20,7 +21,7 @@ if (isset($_POST['choice_notifs'])) {
 
         $choice = 'added';
 
-        $sql = "UPDATE contacts SET statut='$choice' WHERE added_user_id='$selfId'";
+        $sql = "UPDATE contacts SET statut='$choice' WHERE id='$contactId'";
 
         if ($conn->query($sql) === TRUE) {
 
@@ -32,7 +33,7 @@ if (isset($_POST['choice_notifs'])) {
 
     } else if ($choice == 'refuses') { 
 
-        $sql = "DELETE FROM contacts WHERE added_user_id='$selfId'";
+        $sql = "DELETE FROM contacts WHERE id='$contactId'";
 
         if ($conn->query($sql) === TRUE) {
 

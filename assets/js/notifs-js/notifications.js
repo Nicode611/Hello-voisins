@@ -33,6 +33,7 @@
             deleteBtn.addEventListener('click', function(event) {
                 var clickedBtn = event.target;
                 var notifContainer = clickedBtn.closest(".notification-container");
+                var notifContactId = notifContainer.querySelector('.notif-contact-id').textContent;
                 var confirmMessage = document.createElement("p");
                 confirmMessage.textContent = "Refusé";
                 const choice = 'refuses';
@@ -41,7 +42,8 @@
                     type: 'POST',
                     url: '../scripts/notifs-scripts/script-choice-notifs.php',
                     data: {
-                        choice_notifs: choice
+                        choice_notifs: choice,
+                        contactId: notifContactId
                     },
                     success: function(responseData) {
                         // Contient les données JSON retournées par le script PHP
@@ -66,6 +68,7 @@
                 console.log('click');
                 var clickedBtn = event.target;
                 var notifContainer = clickedBtn.closest(".notification-container");
+                var notifContactId = notifContainer.querySelector('.notif-contact-id').textContent;
                 var confirmMessage = document.createElement("p");
                 confirmMessage.textContent = "Contact ajouté";
                 const choice = 'accept';
@@ -74,7 +77,8 @@
                     type: 'POST',
                     url: '../scripts/notifs-scripts/script-choice-notifs.php',
                     data: {
-                        choice_notifs: choice
+                        choice_notifs: choice,
+                        contactId: notifContactId
                     },
                     success: function(responseData) {
                         // Contient les données JSON retournées par le script PHP
