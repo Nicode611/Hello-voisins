@@ -25,12 +25,13 @@
 
 
 
+
 <!-- Conteneur des notifications -->
 <div class="notifications-container">
     
     <?php
-        $includeFile = "../scripts/notifs-scripts/show-notifs.php";
-        if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
+        // $includeFile = "../scripts/notifs-scripts/show-notifs.php";
+        // if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     ?>
     
 </div>
@@ -143,6 +144,7 @@
             </nav>
         </div>
         <script src="../assets/js/notifs-js/notifications.js"></script>
+        <script src="../assets/js/notifs-js/show-notifs.js"></script>
         
     </div>
 
