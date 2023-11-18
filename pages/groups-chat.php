@@ -45,12 +45,6 @@
                 </div>
 
                 <div class="messages-container">
-                    
-                    <!-- Afficher les anciens messages du groupe -->
-                    <?php
-                        $includeFile = "../scripts/groups-scripts/show-old-groups-chat-messages.php";
-                        if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
-                    ?>
 
                 </div>
 
@@ -84,15 +78,13 @@
                     return [actualDate, actualHour];
                 }
 
-                // On crée la connexion websocket
+                // On défini toutes les variables utiles
                 channelName = '<?php echo $channelName ?>';
                 groupName = '<?php echo $groupName ?>';
                 channelId = '<?php echo $groupId ?>';
                 username = '<?php echo $_SESSION['user_firstName']; ?>';
-                myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
+                myId = '<?php echo $id = $_SESSION['user_id']; ?>';
                 profileImgPath = '<?php echo $_SESSION['user_profile_img_path']; ?>';
-                myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
-                myId = ' <?php echo $id = $_SESSION['user_id']; ?>';
 
                 actualDateResult = getActualDate();
                 messageDate = actualDateResult[0];
@@ -195,6 +187,7 @@
 
             <script src="../assets/js/chats-js/chat-scroll-auto.js"></script>
             <script src="../assets/js/chats-js/show-user.js"></script>
+            <script src="../assets/js/chats-js/get-olds-groups-chat-messages.js"></script>
             
     <?php
         }

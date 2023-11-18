@@ -1,12 +1,15 @@
 <?php
+    session_start();
 
-    $includeFile = "../config/db/db.php";
+    $includeFile = "../../config/db/db.php";
     if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
     $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
     if ($conn->connect_error) {
         die("La connexion à la base de données a échoué : " . $conn->connect_error);
     }
+
+    $groupId = $_GET['groupId'];
 
     $query = "SELECT * FROM groups_chat_messages WHERE group_id = $groupId";
 
@@ -17,6 +20,8 @@
 
             $senderId = $row["sender_id"];
             $message = $row["message"];
+            $date = $row["date"];
+            $hour = $row["hour"];
 
             $query2 = "SELECT first_name, profile_img_path FROM users WHERE id = $senderId";
             $result2 = $conn->query($query2);
@@ -29,30 +34,23 @@
                 }
             }
 
-            if ($senderId !== $_SESSION["user_id"]) {
-
-                ?>
-                    <div class="received-message-container">
-                        <img class="other-users-img" src="../<?php echo $senderProfileImgPath; ?>" alt="">
-                        <p class="other-users-id hide"><?php echo $senderId; ?></p>
-                        <div class="received-message">
-                            <span class="received-message-username"><?php echo $senderFirstName; ?></span>
-                            <p class="received-message-content"><?php echo $message; ?></p>
-                        </div>
-                    </div>
-                <?php
-
-            } else {
-
-                ?>
-                    <div class="sent-message-container">
-                        <img class="self-user-img" src="../<?php echo $senderProfileImgPath; ?>" alt="">
-                        <p class="sent-message"><?php echo $message; ?></p>
-                    </div>
-                <?php
-            }
+            $messageData = array(
+                'sender_id' => $senderId,
+                'message' => $message,
+                'sender_first_name' => $senderFirstName,
+                'sender_profile_img_path' => $senderProfileImgPath,
+                'date' => $date,
+                'hour' => $hour
+            );
+        
+            $messages[] = $messageData;
         }
+        echo json_encode($messages);
+    } else {
+        $noMessages = "Pas de Messages";
+        echo json_encode($noMessages);
     }
+
 
 
 
