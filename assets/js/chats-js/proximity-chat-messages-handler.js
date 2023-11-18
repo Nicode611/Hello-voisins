@@ -15,60 +15,6 @@
             }
         });
 
-        
-        // // Fonction pour afficher le message de connexion
-        // function appendConnectionMessage(username, message, profileImgPath, date, hour) {
-        //     var messageContainer = document.createElement('div');
-        //     messageContainer.className = 'received-message-container';
-            
-        //     var userImg = document.createElement('img');
-        //     userImg.className = 'other-users-img';
-        //     userImg.src = '../' + profileImgPath;
-        //     userImg.alt = '';
-
-        //     var idText = document.createElement('p');
-        //     idText.className = 'other-users-id hide';
-        //     idText.textContent = id;
-
-        //     var receivedMessage = document.createElement('div');
-        //     receivedMessage.className = 'received-message';
-
-        //     var usernameText = document.createElement('span');
-        //     usernameText.className = 'received-message-username';
-        //     usernameText.textContent = username;
-
-        //     var receivedMessageContentContainer = document.createElement('div');
-        //     receivedMessageContentContainer.className = 'received-message-content-container';
-            
-        //     var messageText = document.createElement('p');
-        //     messageText.className = 'received-message-content';
-        //     messageText.textContent = message;
-            
-        //     var receivedMessageTimeContainer = document.createElement('div');
-        //     receivedMessageTimeContainer.className = 'received-message-time-container';
-            
-        //     var dateText = document.createElement('span');
-        //     dateText.className = 'received-message-date';
-        //     dateText.textContent = date;
-
-        //     var hourText = document.createElement('span');
-        //     hourText.className = 'received-message-hour';
-        //     hourText.textContent = hour;
-
-        //     messagesContainer.appendChild(messageContainer);
-        //     messageContainer.appendChild(userImg);
-        //     messageContainer.appendChild(idText);
-        //     messageContainer.appendChild(receivedMessage);
-        //     receivedMessage.appendChild(usernameText);
-        //     receivedMessage.appendChild(receivedMessageContentContainer);
-        //     receivedMessageContentContainer.appendChild(messageText);
-        //     receivedMessageContentContainer.appendChild(receivedMessageTimeContainer);
-        //     receivedMessageTimeContainer.appendChild(dateText);
-        //     receivedMessageTimeContainer.appendChild(hourText);
-
-        //     scrollToBottom();
-        // }
-
 
         // Fonction pour ajouter le message qu'on viens d'envoyer
         function appendSentMessage(message, profileImgPath) {
@@ -206,6 +152,12 @@
         allUsers.appendChild(allUsersName);
 
         allUsersList.appendChild(allUsers);
+
+        // Enlever l'icone de chargement
+        var loadingMessages = document.querySelectorAll(".loading");
+        loadingMessages.forEach(function(loadingMessage) {
+            loadingMessage.remove();
+        });
     }
 
     // fonction pour ajouter un utilisateur de la liste coté client 

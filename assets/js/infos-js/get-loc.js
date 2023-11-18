@@ -53,11 +53,6 @@ if ("geolocation" in navigator) {
                     
                     success: function(response) {
 
-                        var loadingMessages = document.querySelectorAll(".loading");
-                        loadingMessages.forEach(function(loadingMessage) {
-                            loadingMessage.remove();
-                        });
-
                         var messages = JSON.parse(response);
 
                         if (messages === "Pas de Messages") {

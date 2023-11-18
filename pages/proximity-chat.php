@@ -22,16 +22,17 @@
         
 
         <div class="all-users-container">
+            <div class="loading">
+                <img class="loading-icon" src="../favicon.ico" alt="">
+                <span class="loading-message">Chargement</span>
+            </div>
             <p id="user-count"></p>
             <div class="all-users-list">
             </div>
         </div>
 
         <div class="messages-container">
-            <div class="loading">
-                <img class="loading-icon" src="../favicon.ico" alt="">
-                <span class="loading-message">Chargement</span>
-            </div>
+            
             
         </div>
 
