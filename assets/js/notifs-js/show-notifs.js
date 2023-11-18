@@ -16,6 +16,8 @@ $(document).ready(function() {
         } else {
             var notifs = response;
 
+            showPatch();
+
             for (var i = 0; i < notifs.length; i++) {
                 var notif = notifs[i];
 
@@ -101,3 +103,15 @@ $(document).ready(function() {
     notifsContainer.appendChild(notificationContainer);
   }
 
+
+function showPatch() {
+
+    var patch = document.createElement('div');
+    patch.classList.add('patch');
+
+    var notifIcons = document.querySelectorAll('.notifications-icon, .notifications-icon-mobile');
+    notifIcons.forEach(notifIcon => {
+        notifIcon.insertAdjacentElement('afterend', patch.cloneNode(true));
+    });
+
+}
