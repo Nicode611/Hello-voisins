@@ -30,6 +30,17 @@ if (isset($_POST["submit_create"])) {
         $hash_password = password_hash($validPassword, PASSWORD_DEFAULT);
         $adress = 'yes';
 
+        $sql = "SELECT email FROM users WHERE email = $email";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $_SESSION["error"] = "<p class='error'>Adresse email déja utilisée.</p>";
+            $conn->close();
+            header("Location: ../../pages/create-account.php");
+            exit();
+        }
+
+
         $sql = "INSERT INTO users (first_name, last_name, email, password, phone, profile_img_path, adress) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 

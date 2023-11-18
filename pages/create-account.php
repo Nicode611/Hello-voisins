@@ -13,7 +13,10 @@
     <title>Créez votre compte</title>
 </head>
 <body>
-<div class="sign-in-container">
+    <div id="validation"><?php if (isset($_SESSION["success"])) { echo $_SESSION["success"]; unset($_SESSION["success"]); } ?></div>
+    <div id="error"><?php if (isset($_SESSION["error"])) { echo $_SESSION["error"]; unset($_SESSION["error"]); } ?></div>
+
+    <div class="sign-in-container">
         <h2>Créez votre compte</h2>
         <form class="sign-in-form" action="../scripts/connection-scripts/script-create-account.php" method="POST">
             <label for="signInFirstName">Prénom</label>
