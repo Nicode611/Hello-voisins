@@ -52,26 +52,34 @@ if ("geolocation" in navigator) {
                     url: "../scripts/global-chat-scripts/show-old-global-chat-messages.php",
                     
                     success: function(response) {
-                        
-                        var messages = JSON.parse(response);
 
                         var loadingMessages = document.querySelectorAll(".loading");
                         loadingMessages.forEach(function(loadingMessage) {
                             loadingMessage.remove();
                         });
 
-                        for (var i = 0; i < messages.length; i++) {
-                            var message = messages[i];
+                        if (response === "Pas de Messages") {
 
-                            if (selfId == message.sender_id) {
-                                ShowOldsSelfMessages(message.message, message.sender_profile_img_path);
-                            } else {
-                                showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path, message.date, message.hour);
-                            }
-                        };
+                            // Appelle la fonction qui permet de continuer le script
+                            validationToConnect(latitude, longitude);
+                        } else {
 
-                        // Appelle la fonction qui permet de continuer le script
-                        validationToConnect(latitude, longitude);
+                            var messages = JSON.parse(response);
+    
+                            for (var i = 0; i < messages.length; i++) {
+                                var message = messages[i];
+    
+                                if (selfId == message.sender_id) {
+                                    ShowOldsSelfMessages(message.message, message.sender_profile_img_path);
+                                } else {
+                                    showOldsMessages(message.sender_first_name, message.message, message.sender_id, message.sender_profile_img_path, message.date, message.hour);
+                                }
+                            };
+    
+                            // Appelle la fonction qui permet de continuer le script
+                            validationToConnect(latitude, longitude);
+                        }
+                        
                     }
                 });
             }

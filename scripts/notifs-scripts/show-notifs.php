@@ -55,27 +55,5 @@ if ($resultNotifsContacts->num_rows > 0) {
     $conn->close();
 };
 
-
-
-// $notifData = array (
-//     "contactMessage" => $notifsContactMessage,
-//     "userFirstName" => $notifsUserFirstName,
-//     "userLastName" => $notifsUserLastName,
-//     "userProfileImgPath" => $notifsUserProfileImgPath
-// );
-
-// }
-// $notifBadge = "yes";
-
-// $notif = array(
-// "notifData" => $notifData,
-// "notifBadge" => $notifBadge
-// );
-
-// $response[] = $notif;
-
-// echo json_encode($response);
-// $conn->close();
-
 ?>
 

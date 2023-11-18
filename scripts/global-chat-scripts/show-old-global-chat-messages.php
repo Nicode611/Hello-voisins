@@ -58,5 +58,8 @@
         
         };
         echo json_encode($messages);
+    } else {
+        $noMessages = "Pas de Messages";
+        echo json_encode($noMessages);
     }
 ?>
