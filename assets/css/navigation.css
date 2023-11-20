@@ -281,6 +281,7 @@
     z-index: 5;
     opacity: 0;
     pointer-events: none;
+    transition: opacity 0.5s;
 }
 
 .overlay.active {

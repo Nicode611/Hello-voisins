@@ -126,6 +126,11 @@ input[type="search"] {
     font-size: 0.8rem;
 }
 
+.number-container:hover {
+    zoom: 101%;
+    cursor: pointer;
+}
+
 .number {
     margin: 0px;
     font-weight: 700;
@@ -156,7 +161,6 @@ input[type="search"] {
 }
 
 .group-actions {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -194,41 +198,42 @@ input[type="search"] {
 }
 
 
-/* Popup group options */
-.popup-group-options {
-    position: absolute;
+/* Popup group */
+.popup-group-options, .popup-group-members {
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: 0px;
-    right: 0px;
+    top: 200px;
     height: 0px;
-    width: 0px;
+    width: 300px;
+    right: 50%;
+    transform: translateX(85%);
     background-color: #ffffff;
-    transition: height 0.4s, width 0.4s;
+    transition: height 0.4s;
     overflow-y: auto;
     font-weight: 500;
     border-radius: 10px;
     z-index: 999;
 }
 
-.popup-group-options.open {
+.popup-group-options.open, .popup-group-members.open {
     height: 400px;
-    width: 300px;
     padding: 20px;
     border: solid 1px black;
     font-size: 0.8rem;
+    transition: height 0.4s;
 }
 
-.popup-group-options::-webkit-scrollbar-track {
+.popup-group-options::-webkit-scrollbar-track, .popup-group-members::-webkit-scrollbar-track {
     opacity: 0;
 }
 
-.popup-group-options::-webkit-scrollbar {
+.popup-group-options::-webkit-scrollbar, .popup-group-members::-webkit-scrollbar {
     width: 5px;
 }
 
-.popup-group-options::-webkit-scrollbar-thumb {
+.popup-group-options::-webkit-scrollbar-thumb, .popup-group-members::-webkit-scrollbar {
     background-color: #69E13F;
     border-radius: 10px;
 }
@@ -268,23 +273,6 @@ input[type="search"] {
 .add-user-group:hover {
     zoom: 101%;
     cursor: pointer;
-}
-
-.overlay-groups {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 5;
-    opacity: 0;
-    pointer-events: none;
-}
-
-.overlay-groups.active {
-    opacity: 1;
-    pointer-events: auto;
 }
 
 .loading-groups {
@@ -348,7 +336,7 @@ input[type="search"] {
         height: 100%;
     }
 
-    .popup-group-options.open {
-        right: -50px;
+    .popup-group-options, .popup-group-members {
+        transform: translateX(50%);
     }
 }
