@@ -127,7 +127,6 @@ input[type="search"] {
 }
 
 .number-container:hover {
-    zoom: 101%;
     cursor: pointer;
 }
 
@@ -213,15 +212,14 @@ input[type="search"] {
     transition: height 0.4s;
     overflow-y: auto;
     font-weight: 500;
+    font-size: 0.8rem;
     border-radius: 10px;
     z-index: 999;
 }
 
 .popup-group-options.open, .popup-group-members.open {
     height: 400px;
-    padding: 20px;
     border: solid 1px black;
-    font-size: 0.8rem;
     transition: height 0.4s;
 }
 
@@ -245,17 +243,56 @@ input[type="search"] {
     margin: 10px 0px 10px 0px;
 }
 
-.leave-group:hover {
-    zoom: 101%;
+
+.modif-group-options-container, .modif-group-options-container-active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 20px;
+    font-size: 1rem;
+    background-color: #F9F9F9;
+    border-radius: 5px;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.274);
+    padding: 5px 20px 5px 20px;
+    margin: 10px 0px 10px 0px;
+}
+
+.leave-group:hover, .modif-group-options-container:hover {
     border: solid 1px black;
     cursor: pointer;
+}
+
+.modif-group-options-container:active {
+    background-color: black;
+    color: white;
+}
+
+.modif-group-options-input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.modif-group-name-text {
+    width: 70%;
+}
+
+input[type="submit"].modif-group-name-submit {
+    width: 20%;
+    height: 18px;
+    padding: 0px;
+    font-size: 0.6rem;
+    font-weight: 600;
 }
 
 .contact-group-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 80%;
+    width: 70%;
     height: 40px;
     font-size: 1rem;
     background-color: #F9F9F9;

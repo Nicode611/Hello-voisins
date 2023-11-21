@@ -9,6 +9,5 @@ $.ajax({
 
         groupOptions();
         startGroupDiscussion();
-        groupMembers()
     }
 });
