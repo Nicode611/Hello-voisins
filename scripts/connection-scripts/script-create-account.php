@@ -1,4 +1,7 @@
 <?php
+
+use Symfony\Component\Console\Event\ConsoleEvent;
+
 session_destroy();
 session_set_cookie_params(3600);
 session_start(); 
@@ -22,7 +25,7 @@ if (isset($_POST["submit_create"])) {
     $confirmPassword = htmlspecialchars($_POST["signInConfirmPassword"], ENT_QUOTES, 'UTF-8');
     $defaultProfileImg = "assets/images/default-profile-img/user-default.png";
 
-    if (strlen($password) >= 8 && preg_match("/[0-9]/", $password) && preg_match("/[!@#$%^&*]/", $password)) { 
+    if (strlen($password) >= 8 && preg_match("/[0-9]/", $password) && preg_match("/[!?@#$%^&*]/", $password)) { 
 
     if ($password == $confirmPassword) {
         
@@ -68,22 +71,19 @@ if (isset($_POST["submit_create"])) {
                 exit();
             }
         } else {
-            $_SESSION["error"] = "<p class='error'>Code incorrect.</p>";
-            $stmt->close();
+            $_SESSION["error"] = "<p class='error'>Les mdps ne correspondent pas.</p>";
             $conn->close();
             header("Location: ../../pages/create-account.php");
             exit();
         }
     } else {
-        $_SESSION["error"] = "<p class='error'>Les mdps ne correspondent pas.</p>";
-        $stmt->close();
+        $_SESSION["error"] = "<p class='error'>Format incorrect.</p>";
         $conn->close();
         header("Location: ../../pages/create-account.php");
         exit();
     }
 } else {
     $_SESSION["error"] = "<p class='error'>Format incorrect.</p>";
-    $stmt->close();
     $conn->close();
     header("Location: ../../pages/create-account.php");
     exit();
