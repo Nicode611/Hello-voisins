@@ -12,10 +12,11 @@ if (isset($_POST['create_group'])) {
         die("La connexion à la base de données a échoué : " . $conn->connect_error);
     }
 
+    $selfId = $_SESSION['user_id'];
     $groupName = $_POST["groupName"];
     $contacts = $_POST['contacts'];
+    $contacts = array_merge($contacts, array($selfId));
     $jsonData = json_encode($contacts);
-    $selfId = $_SESSION['user_id'];
     
 
     // Requette pour ajouter le contact

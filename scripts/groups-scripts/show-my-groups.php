@@ -23,7 +23,7 @@ if ($result->num_rows > 0) {
         
         // Convertis la colonne JSON en un tableau PHP
         $groupMembers = json_decode($row["users_ids"]);
-        $groupMembersNmbr = count($groupMembers) + 1;
+        $groupMembersNmbr = count($groupMembers);
 
         // Convertis le tableau en une chaîne de IDs séparés par des virgules
         $idsString = implode(',', $groupMembers);
@@ -47,15 +47,27 @@ if ($result->num_rows > 0) {
 
                         <div class="popup-group-members">';
 
-                            $query = "SELECT first_name, last_name FROM users WHERE id IN ($idsString)";
-                            $result2 = $conn->query($query);
-
-                            while ($user = $result2->fetch_assoc()) {
-                                $html .= '<div class="contact-group-container">
-                                                <span>' . htmlspecialchars($user["first_name"] . " " . $user["last_name"]) . '</span>
-                                                <svg class="add-user-group" fill="#000000" viewBox="0 0 24 24" id="add-user-left-6" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M7,5H3M5,7V3" style="fill: none; stroke: #69E13F; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M11,3.41A5.11,5.11,0,0,1,13,3a5,5,0,1,1-4.59,7" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-2" data-name="primary" d="M12,13h2a7,7,0,0,1,7,7v0a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1v0A7,7,0,0,1,12,13Z" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>                    
-                                            </div>';
+                        $query = "SELECT first_name, last_name FROM users WHERE id IN ($idsString)";
+                        $result2 = $conn->query($query);
+                        
+                        $query2 = "SELECT * FROM contacts WHERE (added_by_user_id = $selfId OR added_user_id = $selfId) AND (added_by_user_id IN ($idsString) OR added_user_id IN ($idsString))";
+                        $result3 = $conn->query($query2);
+                        
+                        while ($user = $result2->fetch_assoc() and $row = $result3->fetch_assoc()) {
+                            $html .= '<div class="contact-group-container">
+                                            <span>' . htmlspecialchars($user["first_name"] . " " . $user["last_name"]) . '</span>';
+                        
+                            if ($row["statut"] == 'added') {
+                                $html .= '<span> Ajouté </span>';
+                            } else if ($row["statut"] == 'waiting') {
+                                $html .= '<span> En attente </span>';
+                            } else {
+                                $html .= '<svg class="add-user-group" fill="#000000" viewBox="0 0 24 24" id="add-user-left-6" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M7,5H3M5,7V3" style="fill: none; stroke: #69E13F; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M11,3.41A5.11,5.11,0,0,1,13,3a5,5,0,1,1-4.59,7" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-2" data-name="primary" d="M12,13h2a7,7,0,0,1,7,7v0a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1v0A7,7,0,0,1,12,13Z" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>';
                             }
+                        
+                            $html .= '</div>';
+                        }
+                        
 
                             $html .= '
                         </div>
