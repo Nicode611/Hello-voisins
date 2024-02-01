@@ -53,7 +53,7 @@ if ($result->num_rows > 0) {
                         $query2 = "SELECT * FROM contacts WHERE (added_by_user_id = $selfId OR added_user_id = $selfId) AND (added_by_user_id IN ($idsString) OR added_user_id IN ($idsString))";
                         $result3 = $conn->query($query2);
                         
-                        // A MODIFIER
+                        // A MODIFIER (affiche que le meme nombre de contacts)
                         while ($user = $result2->fetch_assoc() and $row = $result3->fetch_assoc()) {
                             $html .= '<div class="contact-group-container">
                                             <span>' . htmlspecialchars($user["first_name"] . " " . $user["last_name"]) . '</span>';
