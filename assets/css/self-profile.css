@@ -32,6 +32,22 @@
     object-fit: cover;
 }
 
-.modify {
-    margin-top: 30px;
+.btns-container {
+    display: flex;
+
+}
+
+.modify, .delete-account-btn {
+    margin: 30px 5px 0px 5px;
+}
+
+#delete-account-btn {
+    background-color: white;
+    border: solid 2px red;
+}
+
+#delete-account-btn:hover {
+    background-color: red;
+    color: white;
+    zoom: 100%;
 }

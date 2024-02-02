@@ -57,7 +57,12 @@
             </div>
             <input class="hide" type="submit" name="submit_modify_self_infos" id="submit_modify_self_infos" value="Valider les infos">
         </form>
-        <button class="modify">Modifier les infos</button>
+        <div class="btns-container">
+            <button class="modify">Modifier les infos</button>
+            <form class="delete-account-form" action="../scripts/infos-scripts/script-delete-account.php" method="POST" enctype="multipart/form-data">
+                <input class="delete-account-btn" type="submit" name="delete-account-btn" id="delete-account-btn" value="Supprimer le compte" onclick="confirm('Vous etes sur le point de supprimer votre compte.');">
+            </form>
+        </div>
     </div>
     
     <script src="../assets/js/infos-js/modify-infos.js"></script>
