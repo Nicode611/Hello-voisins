@@ -27,7 +27,7 @@
                         if (file_exists($includeFile)) { include($includeFile); } else { echo "Le fichier $includeFile n'a pas été trouvé."; }
                     ?>
                 </div>
-                <input type="submit" name="create_group" value="Créer un groupe">
+                <input class="create-group-btn" type="submit" name="create_group" value="Créer un groupe">
             </form>
 
             <script>

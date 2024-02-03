@@ -354,6 +354,10 @@ input[type="submit"].modif-group-name-submit {
         margin: 0px 0px 50px 0px;
     }
 
+    .create-group-btn {
+        margin-top: 15px;
+    }
+
     .group {
         width: auto;
         padding: 20px 15px 20px 40px;
