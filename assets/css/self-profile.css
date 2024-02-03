@@ -49,6 +49,7 @@
 #delete-account-btn {
     background-color: white;
     border: solid 2px red;
+    -webkit-appearance: none;
 }
 
 #delete-account-btn:hover {
