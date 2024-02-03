@@ -7,6 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #eeeeee;
 }
 
 input[type="search"] {
@@ -68,7 +69,8 @@ input[type="search"] {
 
 @media screen and (max-width: 1000px) {
     .main-content {
-        margin-top: 50px;
+        height: 100vh;
+        padding-top: 50px;
     }
     
     h1 {

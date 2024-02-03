@@ -4,6 +4,11 @@
     align-items: center;
 }
 
+.main-content {
+    background-color: #eeeeee;
+    height: 100vh;
+}
+
 .self-infos-section label {
     font-weight: 600;
 }

@@ -1,9 +1,11 @@
 .main-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     position: relative;
-    height: 70vh;
+    height: 100vh;
+    background-color: #eeeeee;
+    padding-top: 100px;
 }
 
 .settings {
