@@ -37,15 +37,17 @@
                     <input class="hide" type="text" name="selfLastname" id="selfLastname" value="<?php echo $_SESSION['user_lastName']; ?>" required>
                 </div>
             </div>
-            <div class="self-infos-section">
-                <label for="selfPhone">Téléphone</label>
-                <span class="user-infos"><?php echo $_SESSION["user_phone"]; ?></span>
-                <input class="hide" type="text" name="selfPhone" id="selfPhone" value="<?php echo $_SESSION['user_phone']; ?>" required>
-            </div>
-            <div class="self-infos-section">
-                <label for="selfEmail">Email</label>
-                <span class="user-infos"><?php echo $_SESSION["user_email"]; ?></span>
-                <input class="hide" type="text" name="selfEmail" id="selfEmail" value="<?php echo $_SESSION['user_email']; ?>" required>
+            <div class="mail-tel-section">
+                <div class="self-infos-section">
+                    <label for="selfPhone">Téléphone</label>
+                    <span class="user-infos"><?php echo $_SESSION["user_phone"]; ?></span>
+                    <input class="hide" type="text" name="selfPhone" id="selfPhone" value="<?php echo $_SESSION['user_phone']; ?>" required>
+                </div>
+                <div class="self-infos-section">
+                    <label for="selfEmail">Email</label>
+                    <span class="user-infos"><?php echo $_SESSION["user_email"]; ?></span>
+                    <input class="hide" type="text" name="selfEmail" id="selfEmail" value="<?php echo $_SESSION['user_email']; ?>" required>
+                </div>
             </div>
             <div class="hide self-passwords">
                 <div class="self-infos-section self-sections-passwords">
