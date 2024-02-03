@@ -42,14 +42,18 @@
 
 }
 
+.modify {
+    color: black;
+}
+
 .modify, .delete-account-btn {
     margin: 30px 5px 0px 5px;
 }
 
 #delete-account-btn {
     background-color: white;
+    color: black;
     border: solid 2px red;
-    -webkit-appearance: none;
 }
 
 #delete-account-btn:hover {
