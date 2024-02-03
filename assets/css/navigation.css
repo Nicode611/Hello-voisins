@@ -365,8 +365,6 @@
     }
 
     .notifications-icon-mobile {
-        /* position: relative;
-        top: -15px; */
         align-self: baseline;
         margin-left: 10px;
         width: 30px;
