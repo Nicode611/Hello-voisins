@@ -25,15 +25,17 @@
                 <img class="self-img" src="../<?php echo $_SESSION["user_profile_img_path"] ?>" alt="">
                 <input class="hide" type="file" name="selfImage" id="selfImage" accept="image/*">
             </div>
-            <div class="self-infos-section">
-                <label for="selfFirstname">Prénom</label>
-                <span class="user-infos"><?php echo $_SESSION["user_firstName"]; ?></span>
-                <input class="hide" type="text" name="selfFirstname" id="selfFirstname" value="<?php echo $_SESSION['user_firstName']; ?>" required>
-            </div>
-            <div class="self-infos-section">
-                <label for="selfLastname">Nom</label>
-                <span class="user-infos"><?php echo $_SESSION["user_lastName"]; ?></span>
-                <input class="hide" type="text" name="selfLastname" id="selfLastname" value="<?php echo $_SESSION['user_lastName']; ?>" required>
+            <div class="name-section">
+                <div class="self-infos-section">
+                    <label for="selfFirstname">Prénom</label>
+                    <span class="user-infos"><?php echo $_SESSION["user_firstName"]; ?></span>
+                    <input class="hide" type="text" name="selfFirstname" id="selfFirstname" value="<?php echo $_SESSION['user_firstName']; ?>" required>
+                </div>
+                <div class="self-infos-section">
+                    <label for="selfLastname">Nom</label>
+                    <span class="user-infos"><?php echo $_SESSION["user_lastName"]; ?></span>
+                    <input class="hide" type="text" name="selfLastname" id="selfLastname" value="<?php echo $_SESSION['user_lastName']; ?>" required>
+                </div>
             </div>
             <div class="self-infos-section">
                 <label for="selfPhone">Téléphone</label>

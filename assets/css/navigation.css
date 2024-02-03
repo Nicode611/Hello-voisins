@@ -328,6 +328,7 @@
     .session-buttons {
         padding: 5px;
         background-color: #69E13F;
+        color: black;
         border: none;
         border-radius: 5px;
         box-shadow: white;
