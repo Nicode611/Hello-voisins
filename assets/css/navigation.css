@@ -16,6 +16,10 @@
     background-color: black;
     color: white;
     z-index: 5;
+    background-image: url("../images/arriere-plan-3.jpg");
+    background-size: cover; /* Ajuster la taille de l'image pour couvrir l'ensemble du corps */
+    background-position: left; /* Centrer l'image sur le corps */
+    background-repeat: no-repeat; /* Ne pas répéter l'image */
 }
 
 
@@ -167,14 +171,15 @@
 
 .nav-menu a {
     text-decoration: none;
+    color: white;
 }
 
 .nav-menu a:hover {
-    zoom: 103%;
+    color: #69E13F;
 }
 
 .nav-menu li{
-    color: white;
+    
     list-style-type: none;
     margin: 10px 0px 10px 0px;
     font-size: 1.25rem;
@@ -300,6 +305,10 @@
         background-color: black;
         padding: 20px 0px 20px 0px;
         width: 100%;
+        background-image: url("../images/arriere-plan-3.jpg");
+        background-size: cover; /* Ajuster la taille de l'image pour couvrir l'ensemble du corps */
+        background-position: top; /* Centrer l'image sur le corps */
+        background-repeat: no-repeat; /* Ne pas répéter l'image */
     }
 
     .mobile-header {
@@ -356,9 +365,10 @@
     }
 
     .notifications-icon-mobile {
-        position: absolute;
-        top: 15px;
-        right: 15px;
+        /* position: relative;
+        top: -15px; */
+        align-self: baseline;
+        margin-left: 10px;
         width: 30px;
         height: 30px;
     }
@@ -376,6 +386,10 @@
         height: 70px;
         width: 100%;
         z-index: 10;
+        background-image: url("../images/arriere-plan-3.jpg");
+    background-size: cover; /* Ajuster la taille de l'image pour couvrir l'ensemble du corps */
+    background-position: bottom; /* Centrer l'image sur le corps */
+    background-repeat: no-repeat; /* Ne pas répéter l'image */
     }
 
     .navbar {

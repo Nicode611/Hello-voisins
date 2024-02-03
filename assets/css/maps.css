@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #eeeeee;
 }
 
 #map {
@@ -11,8 +12,11 @@
     width: 90%;
     height: 90vh;
     border: solid 2px black;
+    box-shadow: 0px 0px 10px black;
     border-radius: 10px;
     text-align: center;
+    background-color: #818181;
+    color: white;
 }
 
 .user-marker-img {
@@ -50,12 +54,18 @@
 @media screen and (max-width: 1000px) {
 
     .main-content {
-        margin: 10px 0px 100px 0px;
-        width: 95% !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        background-color: rgb(241, 241, 241);
+        height: 100vh;
     }
 
     #map {
-        width: 100vw;
+        width: 90vw;
+        height: 70vh;
+        margin-top: 45px;
+        box-shadow: none;
     }
 }
 
