@@ -34,7 +34,6 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo'hello';
         $groupName = $row["group_name"];
         $adminId = $row["admin_id"];
         $groupId = $row["id"];
