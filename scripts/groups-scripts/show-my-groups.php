@@ -37,36 +37,72 @@ if ($result->num_rows > 0) {
             <div class="group-infos-container">
                 <div class="group-infos">
                     <h4 id="channelName">' . htmlspecialchars($groupName) . '</h4>';
-        // Vérifie si l'utilisateur est admin
+
         if ($adminId == $selfId) {
             $html .= '<span>Admin</span>';
         }
+
+            class User 
+        {
+            public string $name;
+            public int $id;
+
+            public string $statut = '';
+
+            public function addDetails(string $name, int $id) {
+                $this->name = $name;
+                $this->id = $id;
+            }
+            
+            public function addStatut(string $statut) {
+                $this->statut = $statut;
+            }
+        }
+
+        $query = "SELECT id, first_name, last_name FROM users WHERE id IN ($idsString)";
+        $result2 = $conn->query($query);
+
+        $query2 = "SELECT * FROM contacts WHERE (added_by_user_id = $selfId OR added_user_id = $selfId) AND (added_by_user_id IN ($idsString) OR added_user_id IN ($idsString))";
+        $result3 = $conn->query($query2);
+
+        $users = []; // Un tableau pour stocker les objets User
+
+        while ($row = $result2->fetch_assoc()) {
+            $user = new User(); // Création d'une nouvelle instance de la classe User
+            $user->addDetails($row["first_name"] . " " . $row["last_name"], $row["id"]);
+            $users[] = $user; // Ajout de l'objet User au tableau
+            
+        }
+
+        while ($row = $result3->fetch_assoc()) {
+            foreach ($users as $user) {
+                if ($user->id == $row["added_by_user_id"] || $user->id == $row["added_user_id"]) {
+                    $user->addStatut($row["statut"]);
+                }
+            }
+        }
+
         $html .= '
                     <img class="group-img" src="../assets/images/user2.jpg" alt="">
                     <div class="number-container">
-
                         <div class="popup-group-members">';
+                        
+                        foreach ($users as $user) {
+                            if ($user->id !== $selfId) {
 
-                        $query = "SELECT first_name, last_name FROM users WHERE id IN ($idsString)";
-                        $result2 = $conn->query($query);
-                        
-                        $query2 = "SELECT * FROM contacts WHERE (added_by_user_id = $selfId OR added_user_id = $selfId) AND (added_by_user_id IN ($idsString) OR added_user_id IN ($idsString))";
-                        $result3 = $conn->query($query2);
-                        
-                        // A MODIFIER (affiche que le meme nombre de contacts)
-                        while ($user = $result2->fetch_assoc() and $row = $result3->fetch_assoc()) {
-                            $html .= '<div class="contact-group-container">
-                                            <span>' . htmlspecialchars($user["first_name"] . " " . $user["last_name"]) . '</span>';
-                        
-                            if ($row["statut"] == 'added') {
-                                $html .= '<span> Ajouté </span>';
-                            } else if ($row["statut"] == 'waiting') {
-                                $html .= '<span> En attente </span>';
-                            } else {
-                                $html .= '<svg class="add-user-group" fill="#000000" viewBox="0 0 24 24" id="add-user-left-6" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M7,5H3M5,7V3" style="fill: none; stroke: #69E13F; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M11,3.41A5.11,5.11,0,0,1,13,3a5,5,0,1,1-4.59,7" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-2" data-name="primary" d="M12,13h2a7,7,0,0,1,7,7v0a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1v0A7,7,0,0,1,12,13Z" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>';
-                            }
-                        
-                            $html .= '</div>';
+                                $html .= '<div class="contact-group-container">
+                                <span>' . $user->name . '</span>';
+                                
+                                if ($user->statut == 'added' && $user->id !== $selfId) {
+                                    $html .= '<span> Ajouté </span>';
+                                } else if ($user->statut == 'waiting' && $user->id !== $selfId) {
+                                    $html .= '<span> En attente </span>';
+                                } else {
+                                    $html .= '<svg class="add-user-group" fill="#000000" viewBox="0 0 24 24" id="add-user-left-6" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M7,5H3M5,7V3" style="fill: none; stroke: #69E13F; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M11,3.41A5.11,5.11,0,0,1,13,3a5,5,0,1,1-4.59,7" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-2" data-name="primary" d="M12,13h2a7,7,0,0,1,7,7v0a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1v0A7,7,0,0,1,12,13Z" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>';
+                                }
+                                
+                                $html .= '</div>';
+                            }   
                         }
                         
 
@@ -83,12 +119,9 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="members-names-container">';
 
-                    $query = "SELECT first_name FROM users WHERE id IN ($idsString)";
-                    $result2 = $conn->query($query);
-
-                    while ($user = $result2->fetch_assoc()) {
-                        $html .= '<span>' . htmlspecialchars($user["first_name"]) . '</span>';
-                    }
+                foreach ($users as $user) {
+                    $html .= '<span>' . $user->name . '</span>';
+                }
 
                     $html .= '
                 </div>
