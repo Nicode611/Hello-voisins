@@ -9,6 +9,23 @@ if ($conn->connect_error) {
     die("La connexion à la base de données a échoué : " . $conn->connect_error);
 }
 
+class User 
+{
+    public string $name;
+    public int $id;
+
+    public string $statut = '';
+
+    public function addDetails(string $name, int $id) {
+        $this->name = $name;
+        $this->id = $id;
+    }
+    
+    public function addStatut(string $statut) {
+        $this->statut = $statut;
+    }
+}
+
 $selfId = $_SESSION['user_id'];
 
 $sql = "SELECT * FROM groups WHERE JSON_CONTAINS(users_ids, JSON_QUOTE('$selfId')) OR admin_id = $selfId";
@@ -17,6 +34,7 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        echo'hello';
         $groupName = $row["group_name"];
         $adminId = $row["admin_id"];
         $groupId = $row["id"];
@@ -42,22 +60,7 @@ if ($result->num_rows > 0) {
             $html .= '<span>Admin</span>';
         }
 
-            class User 
-        {
-            public string $name;
-            public int $id;
-
-            public string $statut = '';
-
-            public function addDetails(string $name, int $id) {
-                $this->name = $name;
-                $this->id = $id;
-            }
-            
-            public function addStatut(string $statut) {
-                $this->statut = $statut;
-            }
-        }
+        
 
         $query = "SELECT id, first_name, last_name FROM users WHERE id IN ($idsString)";
         $result2 = $conn->query($query);
@@ -158,4 +161,3 @@ if ($result->num_rows > 0) {
 };
 
     $conn->close();
-?>
