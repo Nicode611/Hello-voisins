@@ -371,6 +371,12 @@
         width: 30px;
         height: 30px;
     }
+
+    .patch {
+        position: relative;
+        top: -25px;
+        right: 8px;
+    }
     
     .notifications-icon-mobile:hover {
         zoom: 103%;
