@@ -15,7 +15,6 @@
 <body>
     
     <h1>Hello voisins</h1>
-    <button class="testbtn">Test</button>
     <p class="liste"></p>
     <a href="pages/connection.php"><button class="connect-btns">Se connecter</button></a>
     <a href="pages/create-account.php"><button class="connect-btns">Create account</button></a>
