@@ -86,9 +86,9 @@
             messageHour = actualDateResult[1];
             
                 // Connection online
-                var conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId + '&messageDate=' + messageDate + '&messageHour=' + messageHour);
+                // let conn = new WebSocket('wss://hello-voisins.com/websocket?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId + '&messageDate=' + messageDate + '&messageHour=' + messageHour);
                 // Connection en local
-                // conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId + '&messageDate=' + messageDate + '&messageHour=' + messageHour);
+                let conn = new WebSocket('ws://localhost:8888?username=' + username + '&id=' + myId + '&profileImgPath=' + profileImgPath + '&channelName=' + channelName + '&channelId=' + channelId + '&messageDate=' + messageDate + '&messageHour=' + messageHour);
 
                 // Action lors de l'envoi d'un message
                 sendButton.addEventListener('click', function() {
